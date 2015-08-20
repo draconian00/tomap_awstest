@@ -1,0 +1,21 @@
+
+<div style="text-align:center">
+  <p style="font-family:sans-serif; font-size:20px">비밀번호를 잊어버리셨습니까?</p>
+</div>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "form-signin" }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "비밀번호를 찾기위한 이메일 전송", class: "btn btn-lg btn-primary btn-block" %>
+  </div>
+  <div>
+    <%= render "devise/shared/links" %>
+  </div>
+<% end %>
+
+
