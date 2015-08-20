@@ -8,12 +8,6 @@
   // 기본 중앙값 입력
   var myCenter = new google.maps.LatLng(37.557531, 127.044287);
   
-  // 마커표시할 좌표입력
-  /*var locations = [{lat:37.557531, lng:127.044287},
-                   {lat:37.558751, lng:127.044298},
-                   {lat:37.556606, lng:127.048426},
-                   {lat:37.558095, lng:127.048233}];*/
-  
   //토플 시험장 좌표들
   var locations = [{lat:37.544297, lng:126.946791},
                    {lat:37.611222, lng:126.994773},
@@ -39,7 +33,7 @@
     // 지도 특성 : 중앙 좌표, 줌 정도, 위성사진 인지 일반지도 인지...
     var mapProp = { 
       center: myCenter,
-      zoom:14,
+      zoom:12,
       mapTypeId:google.maps.MapTypeId.ROADMAP
     };
     // map변수에 지도 넣기
@@ -71,6 +65,8 @@
       // Browser doesn't support Geolocation - HTML5 이하에선 Geolocation을 지원하지 않는다.
       handleLocationError(false, infoWindow, map.getCenter());
     }
+    
+    //drop 함수 실행
     drop();
     
     // single marker - 단일 마커
@@ -85,7 +81,7 @@
   function drop() {
     clearMarkers();
     for (var i = 0; i < locations.length; i++) {
-      addMarkerWithTimeout(locations[i], i * 200);
+      addMarkerWithTimeout(locations[i], i * 100);
     }
   }
   
@@ -109,8 +105,6 @@
   }
   
   // 창이 열렸을 때 이벤트 실행, initMap 함수 실행.
+  // 새 창이 열렸을 때??? 실행.... = 새로고침 했을 때만 실행.
   google.maps.event.addDomListener(window, 'load', initMap);
 </script>
-
-<!-- script 내에서 drop함수는 실행한 적이 없는데 어떻게 돌아가는지 모르겠다. -->
-

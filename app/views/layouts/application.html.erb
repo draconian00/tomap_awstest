@@ -10,12 +10,17 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <!-- google map api script -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxbMZWBxFjGnTiZOMAeSIm6TFR4BvhFUM"></script>
+  <!-- google geolcation api script -->
+  <script src="https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDxbMZWBxFjGnTiZOMAeSIm6TFR4BvhFUM"></script>
   
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= render :partial => 'home/map' %>
   <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -32,10 +37,10 @@
               <a href="/">시험장지도</a>
             </li>
             <li style="padding-right:80px">
-              <a href="/">시험장후기</a>
+              <a href="/home/labreview">시험장후기</a>
             </li>
             <li>
-              <a href="/">시험후기</a>
+              <a href="/home/testreview">시험후기</a>
             </li>
           </ul>
                
