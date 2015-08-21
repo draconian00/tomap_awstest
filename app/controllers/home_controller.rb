@@ -8,5 +8,13 @@ class HomeController < ApplicationController
   
   def labreview
   end
-    
+  
+  def directiontest
+    @origin = params[:origin].gsub(/\s/, '+')
+    @destination = params[:destination].gsub(/\s/, '+')
+  end
+  
+  def directionform
+  end
+  
 end

@@ -34,7 +34,7 @@ var mapProp = {
 map = new google.maps.Map(document.getElementById("map"),mapProp);
 
 // 알림창... 뭐였는지 기억 안남..
-var infoWindow = new google.maps.InfoWindow({map: map});
+//var infoWindow = new google.maps.InfoWindow({map: map});
 
 // Try HTML5 Geolocation - 사용자 현재위치 파악
 if (navigator.geolocation) {
@@ -46,10 +46,22 @@ if (navigator.geolocation) {
     };
     
     // 현재 사용자 위치에 표시된 알림창.
-    infoWindow.setPosition(pos);
-    infoWindow.setContent('내 위치');
+    //infoWindow.setPosition(pos);
+    //infoWindow.setContent('내 위치');
     // 현재 사용자 위치를 지도의 중앙에 오도록 설정.
     map.setCenter(pos);
+    
+    var text = '내 위치';
+    var cur_img = ['b01','b02','b03','b04','b05','b06','b07','b08','b09','b10',
+                   'g01','g02','g03','g04','g05','g06','g07','g08','g09','g10'];
+    var img = 'current/' + cur_img[Math.floor(Math.random() * cur_img.length)] + '.png';
+    var marker = new google.maps.Marker({
+      position: pos,
+      animation: google.maps.Animation.BOUNCE,
+      map: map,
+      icon: img
+    });
+    myLocation(marker, text);
     
   }, function() {
     handleLocationError(true, infoWindow, map.getCenter());
@@ -60,42 +72,81 @@ if (navigator.geolocation) {
   handleLocationError(false, infoWindow, map.getCenter());
 }
 
-//drop 함수 실행
-drop();
+  //drop 함수 실행
+  drop();
 
-// single marker - 단일 마커
-/*var marker = new google.maps.Marker({
-  position: locations[2],
-  animation: google.maps.Animation.DROP
-});
-marker.setMap(map);*/
+  looplabmarkers();
+  // single marker - 단일 마커
+  /*var marker = new google.maps.Marker({
+    position: locations[2],
+    animation: google.maps.Animation.DROP
+  });
+  marker.setMap(map);*/
 }
 
 //multiple markers - 여러 마커를 한번에!
 function drop() {
-clearMarkers();
-for (var i = 0; i < locations.length; i++) {
-  addMarkerWithTimeout(locations[i], i * 100);
-}
+  clearMarkers();
+  for (var i = 0; i < locations.length; i++) {
+    addMarkerWithTimeout(locations[i], i * 200);
+  }
 }
 
 // 마커들을 markers배열에 집어 넣고 지도에 찍어주는 함수
 function addMarkerWithTimeout(position, timeout) {
-window.setTimeout(function() {
-  markers.push(new google.maps.Marker({
-    position: position,
-    map: map,
-    animation: google.maps.Animation.DROP
-  }));
-}, timeout);
+  window.setTimeout(function() {
+    markers.push(new google.maps.Marker({
+      position: position,
+      map: map,
+      icon: 'map_marker32.png',
+      animation: google.maps.Animation.DROP
+    }));
+  }, timeout);
+  
 }
 
 // 마커 초기화 함수
 function clearMarkers() {
-for (var i = 0; i < markers.length; i++) {
-  markers[i].setMap(null);
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers = [];
 }
-markers = [];
+
+function myLocation(marker, text) {
+  var info = new google.maps.InfoWindow({
+    content: text
+  });
+  
+  marker.addListener('mouseover', function() {
+    info.open(marker.get('map'), marker);
+  });
+  
+  marker.addListener('mouseout', function() {
+    info.close(marker.get('map'), marker);
+  });
+}
+
+
+function looplabmarkers() {
+  var testtext = 'test';
+  for (var i = 0; i < markers.length; i++) {
+    labmarkers(markers[i], testtext);
+  }
+}
+
+function labmarkers(marker, text) {
+  var labinfo = new google.maps.InfoWindow({
+    content: text
+  });
+  
+  marker.addListener('mouseover', function() {
+    labinfo.open(marker.get('map'), marker);
+  });
+  
+  marker.addListener('mouseout', function() {
+    labinfo.close(marker.get(null), marker);
+  });
 }
 
 // 창이 열렸을 때 이벤트 실행, initMap 함수 실행.
