@@ -1,3 +1,133 @@
-<div class="container">
-  TOEFL test Review
+<script>
+  $(function() {
+    $( "#accordion" ).accordion();
+  });
+  
+  // 마우스 위치하면 하이라이트 이벤트
+  $(document).ready(function() {
+    $('li').mouseenter(function(){
+     $(this).animate({
+    backgroundColor: "#faf0e6"
+  });
+  });
+  $('li').mouseleave(function(){
+     $(this).animate({
+    backgroundColor: "#ffffff"
+  });
+});
+});
+  
+  </script>
+
+ 
+</body>
+<div class="row">
+  <div class="col-md-2 col-md-offset-2" style="border:1px solid black">
+    <ul class="nav nav-pills nav-stacked">
+      <li role="presentation"><a href="#">토플</a></li>
+      <li role="presentation"><a href="#">토익</a></li>
+      <li role="presentation"><a href="#">토플스피킹</a></li>
+      
+    </ul>    
+  </div>
+  <div class="col-md-6">
+    <!--modal 한단위-->
+    <ul class="list-group">
+      <li class="list-group-item"data-toggle="modal" data-target="#a">
+        <span class="badge">14</span>
+        <a style="color:black">토플 후기</a>
+      </li>
+      <div class="modal fade" id="a" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">한양대학교 후기</h4><a>평점,조회수,추천수,작성시간 등등 </a>
+            </div>
+            <div class="modal-body">
+              내용+각 부문별 별점(감독관, 시설, 위치 등등)
+              <form action="" method="POST" class="form-inline">
+                <input type="text" class="form-control" style="width:90%" placeholder="댓글달기">
+              <input type="submit" value="댓글달기">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--modal 한단위 끝-->
+      <!--modal 한단위-->
+    <ul class="list-group">
+      <li class="list-group-item" data-toggle="modal" data-target="#b">
+        <span class="badge">14</span>
+        <a style="color:black">여기 눌러봐</a>
+      </li>
+      <div class="modal fade" id="b" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">제목</h4>
+            </div>
+            <div class="modal-body">
+              내용
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--modal 한단위 끝-->
+      <!--modal 한단위-->
+    <ul class="list-group">
+      <li class="list-group-item" data-toggle="modal" data-target="#c">
+        <span class="badge">14</span>
+        <a style="color:black">여기 눌러봐</a>
+      </li>
+      <div class="modal fade" id="c" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">제목</h4>
+            </div>
+            <div class="modal-body">
+              내용
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--modal 한단위 끝-->
+      <!--modal 한단위-->
+    <ul class="list-group">
+      <li class="list-group-item" data-toggle="modal" data-target="#d">
+        <span class="badge">14</span>
+        <a style="color:black">여기 눌러봐</a>
+      </li>
+      <div class="modal fade" id="d" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">제목</h4>
+            </div>
+            <div class="modal-body">
+              내용
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--modal 한단위 끝-->
+    </ul>
+  </div>
+  
 </div>

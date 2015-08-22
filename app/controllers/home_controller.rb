@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   end
   
   def labreview
+      
   end
   
   def directiontest
