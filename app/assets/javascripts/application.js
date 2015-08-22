@@ -74,7 +74,6 @@ if (navigator.geolocation) {
 
   //drop 함수 실행
   drop();
-
   looplabmarkers();
   // single marker - 단일 마커
   /*var marker = new google.maps.Marker({
@@ -135,6 +134,11 @@ function looplabmarkers() {
   }
 }
 
+//이중 함수에요
+//labmarkers에서 infowindow 넣고
+//looplabmarkers에서 for문 돌리는 건데
+//안됨
+
 function labmarkers(marker, text) {
   var labinfo = new google.maps.InfoWindow({
     content: text
@@ -152,3 +156,5 @@ function labmarkers(marker, text) {
 // 창이 열렸을 때 이벤트 실행, initMap 함수 실행.
 // 새 창이 열렸을 때??? 실행.... = 새로고침 했을 때만 실행.
 google.maps.event.addDomListener(window, 'load', initMap);
+
+
