@@ -67,10 +67,10 @@ if (navigator.geolocation) {
     handleLocationError(true, infoWindow, map.getCenter());
   });
 
-} else {
+} /*else {
   // Browser doesn't support Geolocation - HTML5 이하에선 Geolocation을 지원하지 않는다.
   handleLocationError(false, infoWindow, map.getCenter());
-}
+}*/
 
   //drop 함수 실행
   drop();
