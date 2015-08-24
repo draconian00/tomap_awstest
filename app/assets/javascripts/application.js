@@ -1,160 +1,99 @@
-//<!-- 지도 설정 -->
-// 기본 중앙값 입력
-var myCenter = new google.maps.LatLng(37.557531, 127.044287);
-
-//토플 시험장 좌표들
-var locations = [{lat:37.544297, lng:126.946791},
-                 {lat:37.611222, lng:126.994773},
-                 {lat:37.497522, lng:126.957459},
-                 {lat:37.644383, lng:127.105497},
-                 {lat:37.588440, lng:127.030878},
-                 {lat:37.564683, lng:126.937601},
-                 {lat:37.511846, lng:127.058710},
-                 {lat:37.560650, lng:126.973820},
-                 {lat:37.507709, lng:127.110019},
-                 {lat:37.583776, lng:127.061154},
-                 {lat:37.562499, lng:126.945648}];
-
-
-// 표시된 마커들 들어갈 빈 배열
-var markers = [];
-
-// 지도 데이터가 들어갈 빈 변수
-var map;
-
-// 페이지 로딩 후 지도 초기화 해서 불러오기
-function initMap() {
-// 지도 특성 : 중앙 좌표, 줌 정도, 위성사진 인지 일반지도 인지...
-var mapProp = { 
-  center: myCenter,
-  zoom:12,
-  mapTypeId:google.maps.MapTypeId.ROADMAP
-};
-// map변수에 지도 넣기
-map = new google.maps.Map(document.getElementById("map"),mapProp);
-
-// 알림창... 뭐였는지 기억 안남..
-//var infoWindow = new google.maps.InfoWindow({map: map});
-
-// Try HTML5 Geolocation - 사용자 현재위치 파악
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(position) {
-    // 현재 사용자의 위치를 pos 변수에 넣는다. object형식
-    var pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-    
-    // 현재 사용자 위치에 표시된 알림창.
-    //infoWindow.setPosition(pos);
-    //infoWindow.setContent('내 위치');
-    // 현재 사용자 위치를 지도의 중앙에 오도록 설정.
-    map.setCenter(pos);
-    
-    var text = '내 위치';
-    var cur_img = ['b01','b02','b03','b04','b05','b06','b07','b08','b09','b10',
-                   'g01','g02','g03','g04','g05','g06','g07','g08','g09','g10'];
-    var img = 'current/' + cur_img[Math.floor(Math.random() * cur_img.length)] + '.png';
-    var marker = new google.maps.Marker({
-      position: pos,
-      animation: google.maps.Animation.BOUNCE,
-      map: map,
-      icon: img
+/*function initMap() {
+  var mapProp = {
+    center: defaultCenter,
+    zoom: 13,
+    disableDefaultUI: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById('map'), mapProp);
+  
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(pos);
+      
+      var cur_img = ['b01','b02','b03','b04','b05','b06','b07','b08','b09','b10',
+                     'g01','g02','g03','g04','g05','g06','g07','g08','g09','g10'];
+      var img = 'current/' + cur_img[Math.floor(Math.random() * cur_img.length)] + '.png';
+      var current_marker = new google.maps.Marker({
+        map: map,
+        position: pos,
+        title: '현재 위치',
+        icon: img,
+        animation: google.maps.Animation.BOUNCE
+      });
+      addinfoclick(current_marker, '현재 위치');
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
     });
-    myLocation(marker, text);
-    
-  }, function() {
-    handleLocationError(true, infoWindow, map.getCenter());
-  });
-
-} /*else {
-  // Browser doesn't support Geolocation - HTML5 이하에선 Geolocation을 지원하지 않는다.
-  handleLocationError(false, infoWindow, map.getCenter());
-}*/
-
-  //drop 함수 실행
-  drop();
-  looplabmarkers();
-  // single marker - 단일 마커
-  /*var marker = new google.maps.Marker({
-    position: locations[2],
-    animation: google.maps.Animation.DROP
-  });
-  marker.setMap(map);*/
-}
-
-//multiple markers - 여러 마커를 한번에!
-function drop() {
-  clearMarkers();
-  for (var i = 0; i < locations.length; i++) {
-    addMarkerWithTimeout(locations[i], i * 200);
   }
-}
+  pinlabmarkers();
+  
+  
+  for (i=0; i<lab_data.length; i++) {
+    var avg = Number((lab_data[i][4].toFixed(0));
+    addinfoclick(labmarkers[i], 
+                 '<p style="font-size:25px;"><b>'+lab_data[i][0]+'</b></p>'
+                 +'<p>'+lab_data[i][1]+'</p>'
+                 +'<span class="star-rating small">'
+                 for (i=1; i<6; i++) {
+                   if (i === avg) {
+                     +'<i class="on"></i>'
+                   } else {
+                     +'<i></i>'
+                   };
+                 +'</span>'
+                 +'&nbsp;&nbsp;<a href="/home/labreview/'+lab_data[i][3]+'">자세히 보기<a>');
+  };
+} //initMap */
 
-// 마커들을 markers배열에 집어 넣고 지도에 찍어주는 함수
-function addMarkerWithTimeout(position, timeout) {
-  window.setTimeout(function() {
-    markers.push(new google.maps.Marker({
-      position: position,
+/*function pinlabmarkers() {
+  for (var i = 0; i < lab_data.length; i++) {
+    labmarkers.push(new google.maps.Marker({
       map: map,
+      position: lab_data[i][2],
+      title: lab_data[i][0],
+      icon: 'map_marker32.png',
+      animation: google.maps.Animation.DROP
+    }));
+  }
+} //pinlabmarkers*/
+  
+function addlabmarkers(position, title, timeout) {
+  window.setTimeout(function() {
+    labmarkers.push(new google.maps.Marker({
+      map: map,
+      title: title,
+      position: position,
       icon: 'map_marker32.png',
       animation: google.maps.Animation.DROP
     }));
   }, timeout);
-  
-}
+} //addlabmarkers
 
-// 마커 초기화 함수
-function clearMarkers() {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
-  }
-  markers = [];
-}
-
-function myLocation(marker, text) {
+function addinfoclick(marker, text) {
   var info = new google.maps.InfoWindow({
     content: text
   });
-  
+  marker.addListener('click', function() {
+    info.open(marker.get('map'), marker);
+  });
+  marker.addListener('dblclick', function() {
+    info.close();
+  });
+} //addinfoclick
+
+function addinfoinout(marker, text) {
+  var info = new google.maps.InfoWindow({
+    content: text
+  });
   marker.addListener('mouseover', function() {
     info.open(marker.get('map'), marker);
   });
-  
   marker.addListener('mouseout', function() {
-    info.close(marker.get('map'), marker);
+    info.close();
   });
 }
-
-
-function looplabmarkers() {
-  var testtext = 'test';
-  for (var i = 0; i < markers.length; i++) {
-    labmarkers(markers[i], testtext);
-  }
-}
-
-//이중 함수에요
-//labmarkers에서 infowindow 넣고
-//looplabmarkers에서 for문 돌리는 건데
-//안됨
-
-function labmarkers(marker, text) {
-  var labinfo = new google.maps.InfoWindow({
-    content: text
-  });
-  
-  marker.addListener('mouseover', function() {
-    labinfo.open(marker.get('map'), marker);
-  });
-  
-  marker.addListener('mouseout', function() {
-    labinfo.close(marker.get(null), marker);
-  });
-}
-
-// 창이 열렸을 때 이벤트 실행, initMap 함수 실행.
-// 새 창이 열렸을 때??? 실행.... = 새로고침 했을 때만 실행.
-google.maps.event.addDomListener(window, 'load', initMap);
-
-

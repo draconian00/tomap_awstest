@@ -1,5 +1,85 @@
 <script>
-</script>
+  var defaultCenter = new google.maps.LatLng(37.557531, 127.044287);
+  var map;
+  var labmarkers = [];
+  
+  var x;
+  var lab_data = [];
+    <% @lab_db.each do |x| %>
+      lab_data.push(['<%= x.name %>','<%= x.address %>',{lat:<%= x.position_lat %>, lng:<%= x.position_lng %>}, <%= x.id %>]);
+    <% end %>
+  
+  function initMap() {
+    var mapProp = {
+      center: defaultCenter,
+      zoom: 13,
+      disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map'), mapProp);
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        map.setCenter(pos);
+        
+        var cur_img = ['b01','b02','b03','b04','b05','b06','b07','b08','b09','b10',
+                       'g01','g02','g03','g04','g05','g06','g07','g08','g09','g10'];
+        var img = 'current/' + cur_img[Math.floor(Math.random() * cur_img.length)] + '.png';
+        var current_marker = new google.maps.Marker({
+          map: map,
+          position: pos,
+          title: '현재 위치',
+          icon: img,
+          animation: google.maps.Animation.BOUNCE
+        });
+        addinfoclick(current_marker, '현재 위치');
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    }
+    pinlabmarkers();
+    
+    var star = [];
+    var point_array = <%= @point_array %>;
+    for (i=0; i<lab_data.length; i++) {
+      for (j=1; j<6; j++) {
+        if (j == point_array[i]) {
+          star[i] += '<i class="on"></i>';
+        } else {
+          star[i] += '<i></i>';
+        }
+      }
+    }
+    
+    for (i=0; i<lab_data.length; i++) {
+      addinfoclick(labmarkers[i], 
+                   '<p style="font-size:25px;"><b>'+lab_data[i][0]+'</b></p>'
+                    +'<p>'+lab_data[i][1]+'</p>'
+                    +'<span class="star-rating small">'
+                    +star[i]
+                    +'</span>'
+                    +'&nbsp;&nbsp;<a href="/home/labreview/'+lab_data[i][3]+'">자세히 보기<a>');
+    };
+  } //initMap
+  
+  function pinlabmarkers() {
+    for (var i = 0; i < lab_data.length; i++) {
+      labmarkers.push(new google.maps.Marker({
+        map: map,
+        position: lab_data[i][2],
+        title: lab_data[i][0],
+        icon: 'map_marker32.png',
+        animation: google.maps.Animation.DROP
+      }));
+    }
+  } //pinlabmarkers
 
+  google.maps.event.addDomListener(window, 'load', initMap);
+</script>
 <!-- 지도 div 입니다 id 말고 다 건드려도 됨-->
-<div id="map" style="width:100%; height:550px;;"></div>
+<div style="width:50px; height:50px; background-color:red; margin-bottom:-50px;"></div>
+<div id="map" style="width:100%; height:600px;"></div>

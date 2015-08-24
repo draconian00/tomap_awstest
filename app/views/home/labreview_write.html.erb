@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-2 col-md-offset-2">
+    <ul class="nav nav-pills nav-stacked">
+    <li role="presentation"><a href="/home/labreviewmain">전체보기</a></li>
+      <%@testcenter.each do |x|%>
+      <li role="presentation"><a href="/home/labreview/<%=x.id%>"><%=x.name%></a></li>
+      <%end%>
+      
+    </ul>    
+  </div>
+  
+  <div class="col-md-6">
+    <form action="/home/do_write">
+      <div class="form-group">
+          <label for="inputEmail3" class="col-sm-1 control-label">제목</label>
+          <div class="col-sm-11">
+            <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="제목">
+          </div>
+      </div> 
+      <label class="col-sm-1 control-label">고사장</label>
+      <div class="col-sm-11">
+        <p class="form-control-static"><%=@testcenter.find(params[:id]).name%></p>
+      </div>      
+      <textarea class="form-control" name="content" rows="10"></textarea>
+      <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>">
+      <button type="submit" class="btn btn-primary">작성완료</button>
+    </form>
+  </div>
+  
+</div>
