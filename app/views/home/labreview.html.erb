@@ -51,23 +51,37 @@
             </tr>
           </thead>
           <tbody>
+            <% @testcenter.find(params[:id]).articles.reverse.each do |x|%>
+            <tr data-toggle="modal" data-target="#<%=x.id%>">
+                <td style="text-align:center"><%=x.id%></td>
+                <td style="text-align:center"><%=x.testcenter%></td>
+                <td style="text-align:center"><%=x.title%></td>
+                <td style="text-align:center">김새봄</td>
+                <td style="text-align:center">100</td>
+                <td style="text-align:center">12</td>
+            </tr>
+            <div class="modal fade" id="<%=x.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><%=x.title%></h4><a>평점,조회수,추천수,작성시간 등등 </a>
+                  </div>
+                  <div class="modal-body">
+                    <%=x.content%>
+                    <form action="" method="POST" class="form-inline">
+                      <input type="text" class="form-control" style="width:90%" placeholder="댓글달기">
+                    <input type="submit" value="댓글달기">
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <%end%>
             
-            <tr data-toggle="modal" data-target="#a">
-                <td style="text-align:center">2</td>
-                <td style="text-align:center">국민대(3.7점)</td>
-                <td style="text-align:center">위치 최고!</td>
-                <td style="text-align:center">송영현</td>
-                <td style="text-align:center">43</td>
-                <td style="text-align:center">3</td>
-            </tr>
-            <tr data-toggle="modal" data-target="#a">
-                <td style="text-align:center">1</td>
-                <td style="text-align:center">숭실대(3.1점)</td>
-                <td style="text-align:center">좀 구린듯</td>
-                <td style="text-align:center">강병욱</td>
-                <td style="text-align:center">53</td>
-                <td style="text-align:center">5</td>
-            </tr>
           </tbody>
         </table>
       </div>
