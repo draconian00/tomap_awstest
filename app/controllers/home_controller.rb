@@ -45,4 +45,11 @@ class HomeController < ApplicationController
     end    
   end
   
+  def mypage
+  end
+  
+  def embedplace
+    render :layout => false
+  end
+  
 end

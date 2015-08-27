@@ -28,7 +28,39 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav id="drawer" style="width:300px; height:100%; position:absolute; background-color:white; z-index:100000;">
+    <div class="container" style="padding-left:30px; padding-top:30px;">
+      <div class="row">
+        <li role="presentation" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            시험장 지도<span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/">서울/경기</a></li>
+          </ul>
+        </li>      
+      </div>
+    </div>
+  </nav>
   <div class="navbar navbar-default navbar-fixed-top">
+    <div id="menu_show" style="position: absolute; top: 15px; left: 15px; cursor: pointer;">show</div>
+    <div id="menu_hide" style="position: absolute; top: 15px; left: 15px; cursor: pointer;">hide</div>
+    <script>
+      $(function() {
+        $('#drawer').hide();
+        $('#menu_hide').hide();
+        $('#menu_show').click(function() {
+          $('#drawer').toggle('slide','right', 300);
+          $('#menu_show').hide();
+          $('#menu_hide').show();
+        });
+        $('#menu_hide').click(function() {
+          $('#drawer').toggle('slide', 300);
+          $('#menu_hide').hide();
+          $('#menu_show').show();
+        });
+      });
+    </script>
       <div class="container">
         <div class="navbar-header">
           <a href="/" class="navbar-brand"><span style="color:red"><b>TOmap</b></span></a>
@@ -40,33 +72,43 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <li style="padding-left: 150px; padding-right:80px">
+            <li style="padding-left: 150px; padding-right:50px">
               <a href="/">시험장지도</a>
             </li>
-            <li style="padding-right:80px">
+            <li style="padding-right:50px">
               <a href="/home/labreviewmain/0">시험장후기</a>
             </li>
-            <li style="padding-right:80px">
+            <li style="padding-right:50px">
               <a href="/home/testreview">시험후기</a>
             </li>
-            <li style="padding-right:80px">
+            <li style="padding-right:50px">
               <a href="/home/directiontest">길찾기</a>
             </li>
-            <li>
-              <a href="#">시험일정</a>
-            </li>
+
           </ul>
                
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/users/sign_in">로그인</a></li>
+            
+            <% if user_signed_in? %>
+              <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.email %><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/home/mypage">마이페이지</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="/users/sign_out">로그아웃</a></li>
+                </ul>
+              </li>
+
+
+            <% else %>
+              <li><a href="/users/sign_in">로그인</a></li>
+            <% end %>
           </ul>
 
         </div>
       </div>
     </div>
 
-    <div style="padding-top: 12px; padding-bottom:0px;">
-      <%= yield %>
-    </div>
+  <%= yield %>
 </body>
 </html>

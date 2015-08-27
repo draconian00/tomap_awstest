@@ -1,4 +1,7 @@
-
+html, body {
+    height: 100%;
+    width: 100%;
+}
 // 별점 디자인 가져오기
 // 참고 블로그 : http://rog.ie/blog/css-star-rater
 // 가져온 주소 : http://codepen.io/rogie/pen/GIfqc
@@ -75,3 +78,4 @@
 .on {
 	opacity: 1 !important;
 }
+
