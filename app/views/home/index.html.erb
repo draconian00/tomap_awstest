@@ -1,35 +1,75 @@
-<script>
+<script>//지도에 쓰는 변수 만들기
   var defaultCenter = new google.maps.LatLng(37.557531, 127.044287);
+  var mapProp;
   var map;
   var labmarkers = [];
-  
+  var current_marker;
+  var pos;
+  var ori;
+  var des;
+</script>
+
+<script>//현재위치 아이콘 변수 만들기
+  var cur_img = ['b01','b02','b03','b04','b05','b06','b07','b08','b09','b10',
+                 'g01','g02','g03','g04','g05','g06','g07','g08','g09','g10'];
+  var img = 'current/' + cur_img[Math.floor(Math.random() * cur_img.length)] + '.png';
+</script>
+
+
+<script>//시험장 db 데이터 불러와서 배열 저장
   var x;
   var lab_data = [];
-    <% @lab_db.each do |x| %>
-      lab_data.push(['<%= x.name %>','<%= x.address %>',{lat:<%= x.position_lat %>, lng:<%= x.position_lng %>}, <%= x.id %>]);
-    <% end %>
-  
+  <% @lab_db.each do |x| %>
+    lab_data.push(['<%= x.name %>','<%= x.address %>',{lat:<%= x.position_lat %>, lng:<%= x.position_lng %>}, <%= x.id %>, <%= x.review_point %>]);
+  <% end %>
+</script>
+<script>
+</script>
+
+<script>//별점 데이터 변수 만들기
+  var point_array = <%= @point_array %>;
+  var star = [];
+  for (i=0; i<lab_data.length; i++) {
+      for (j=1; j<6; j++) {
+        if (j == point_array[i]) {
+          star[i] += '<i class="on"></i>';
+        } else {
+          star[i] += '<i></i>';
+        }
+      }
+  }
+</script>
+
+<script>//초기 지도 부르기
   function initMap() {
-    var mapProp = {
+    mapProp = {
       center: defaultCenter,
-      zoom: 13,
+      zoom: 14,
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map'), mapProp);
     
-    if (navigator.geolocation) {
+   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
+        pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        map.setCenter(pos);
         
-        var cur_img = ['b01','b02','b03','b04','b05','b06','b07','b08','b09','b10',
-                       'g01','g02','g03','g04','g05','g06','g07','g08','g09','g10'];
-        var img = 'current/' + cur_img[Math.floor(Math.random() * cur_img.length)] + '.png';
-        var current_marker = new google.maps.Marker({
+        $(function() {
+          var i = pos.lat;
+          var j = pos.lng;
+          console.log(i);
+          console.log(j);
+          $('#pos_lat').val(i);
+          $('#pos_lng').val(j);
+        });
+        
+        map.setCenter(pos);
+        map.setZoom(14);
+        
+        current_marker = new google.maps.Marker({
           map: map,
           position: pos,
           title: '현재 위치',
@@ -41,19 +81,9 @@
         handleLocationError(true, infoWindow, map.getCenter());
       });
     }
-    pinlabmarkers();
     
-    var star = [];
-    var point_array = <%= @point_array %>;
-    for (i=0; i<lab_data.length; i++) {
-      for (j=1; j<6; j++) {
-        if (j == point_array[i]) {
-          star[i] += '<i class="on"></i>';
-        } else {
-          star[i] += '<i></i>';
-        }
-      }
-    }
+    pinlabmarkers();
+        
     
     for (i=0; i<lab_data.length; i++) {
       addinfoclick(labmarkers[i], 
@@ -62,10 +92,22 @@
                     +'<span class="star-rating small">'
                     +star[i]
                     +'</span>'
-                    +'&nbsp;&nbsp;<a href="/home/labreview/'+lab_data[i][3]+'">자세히 보기<a>');
+                    +'&nbsp;&nbsp;<a href="/home/labreview/'+lab_data[i][3]+'">자세히 보기</a><br>'
+                    +'<a style="padding-top:5px;">'
+                    +'</a>');
     };
+    
   } //initMap
-  
+</script>
+
+<script>//지도 중심좌표 및 줌 변경
+  function secondCall(center, zoom) {
+    map.setCenter(center);
+    map.setZoom(zoom);
+  }
+</script>
+
+<script>
   function pinlabmarkers() {
     for (var i = 0; i < lab_data.length; i++) {
       labmarkers.push(new google.maps.Marker({
@@ -77,9 +119,192 @@
       }));
     }
   } //pinlabmarkers
-
-  google.maps.event.addDomListener(window, 'load', initMap);
 </script>
 
+<script>
+  function addinfoclick(marker, text) {
+    var info = new google.maps.InfoWindow({
+      content: text
+    });
+    marker.addListener('click', function() {
+      var ex = marker.position;
+      ori = String(ex.G)+','+String(ex.K);
+      console.log(ori);
+      info.open(marker.get('map'), marker);
+    });
+    marker.addListener('rightclick', function() {
+      var ex = marker.position;
+      des = String(ex.G)+','+String(ex.K);
+      console.log(des);
+      info.close();
+    });
+  } //addinfoclick
+</script>
+
+
+<script>
+  function addinfoinout(marker, text) {
+    var info = new google.maps.InfoWindow({
+      content: text
+    });
+    marker.addListener('mouseover', function() {
+      info.open(marker.get('map'), marker);
+    });
+    marker.addListener('mouseout', function() {
+      info.close();
+    });
+  }
+</script>
+
+<script>
+  function convertable() {
+    document.getElementById('convertable').innerHTML='<div id="map_button" style="cursor:pointer; margin-bottom:30px;"><p style="font-size:20px;">시험장 지도</p></div>';
+  } // portable
+</script>
+
+<script>
+  $(function() {
+    $('#drawer').show();
+    $('#map_under').show();
+    $('#menu_open').hide();
+    $('#menu_close').show();
+    $('#map_button').click(function() {
+      $('#map_under').toggle('blind', 300);
+    });
+  });
+</script>
+
+<script>
+  google.maps.event.addDomListener(window, 'load', initMap);
+  convertable();
+  console.log('direction mode index'+':'+mode_index);
+</script>
+
+<script>//lat1, lon1, lat2, lon2
+  function getDistance(lat1, lng1 ,lat2, lng2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(Number(lat2)-Number(lat1));  // deg2rad below
+    var dLon = deg2rad(Number(lng2)-Number(lng1)); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(Number(lat1))) * Math.cos(deg2rad(Number(lat2))) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+  }
+  
+  function deg2rad(deg) {
+    return deg * (Math.PI/180)
+  }
+</script>
+
+<script>
+  var pos_lat;
+  var pos_lng;
+  var distances = [];
+  var sorted_lab = [];
+</script>
+
+<script>
+  $(function() {
+    $('#near_by').click(function() {
+      $('#r_drawer').slideToggle(300);
+      pos_lat = Number($('#pos_lat').val());
+      pos_lng = Number($('#pos_lng').val());
+      console.log(pos_lat);
+      console.log(pos_lng);
+      var d;
+      for (i=0; i<lab_data.length; i++) {
+        d = getDistance(pos_lat, pos_lng, lab_data[i][2].lat, lab_data[i][2].lng).toFixed(2);
+        distances.push({distance:d, index:i});
+      };
+      distances.sort(function(a,b) {
+        return a.distance - b.distance;
+      });
+      
+      var ind;
+      for (i=0; i<5; i++) {
+        ind = distances[i].index;
+        sorted_lab.push('<h4>'
+                        +lab_data[ind][0]
+                        +' <span style="font-size:15px;">'+distances[i].distance
+                        +'km</span></h4>'
+                        +'<p style="font-size:13px; margin-top:-5px;">'
+                        +lab_data[ind][1]+'</p>'
+                        +'<p style="margin-top:-5px; padding-bottom:15px;">평점 : '+lab_data[ind][4]+'점</p>'
+                        +'<input id="loca_lat'+i+'" type=\"hidden\" value="'+lab_data[ind][2].lat+'">'
+                        +'<input id="loca_lng'+i+'" type=\"hidden\" value="'+lab_data[ind][2].lng+'">');
+      };
+      console.log(sorted_lab);
+      for (i=0; i<5; i++) {
+        document.getElementById('sorted_'+i).innerHTML = sorted_lab[i];
+      };
+    });
+  });
+</script>
+
+<script>
+  $(function() {
+    var center;
+    $('#sorted_0').click(function() {
+      center = new google.maps.LatLng($('#loca_lat0').val(), $('#loca_lng0').val());
+      console.log(center);
+      secondCall(center, 14);
+    });
+    $('#sorted_1').click(function() {
+      center = new google.maps.LatLng($('#loca_lat1').val(), $('#loca_lng1').val());
+      console.log(center);
+      secondCall(center, 14);
+    });
+    $('#sorted_2').click(function() {
+      center = new google.maps.LatLng($('#loca_lat2').val(), $('#loca_lng2').val());
+      console.log(center);
+      secondCall(center, 14);
+    });
+    $('#sorted_3').click(function() {
+      center = new google.maps.LatLng($('#loca_lat3').val(), $('#loca_lng3').val());
+      console.log(center);
+      secondCall(center, 14);
+    });
+    $('#sorted_4').click(function() {
+      center = new google.maps.LatLng($('#loca_lat4').val(), $('#loca_lng4').val());
+      console.log(center);
+      secondCall(center, 14);
+    });
+  });
+</script>
+
+<script>
+  $(function() {
+    $('#r_drawer_close').click(function() {
+      $('#r_drawer').slideToggle(300);
+    });
+  });
+</script>
+
+<nav id="r_drawer" style="right:0px; width:200px; height:100%; margin-top:6px; position:absolute; background-color:white; z-index:100000;">
+  <div id="r_drawer_close" style="width:24px; height:24px;
+                               position: absolute;
+                               cursor: pointer;
+                               background-image: url(/icon_menu_close24.png);">
+  </div>
+  <div style="width:200px; padding-top:24px;">
+    <div id="sorted_0" style="cursor:pointer; padding-top:10px; padding-left:10px;">
+    </div>
+    <div id="sorted_1" style="cursor:pointer; padding-top:10px; padding-left:10px;">
+    </div>
+    <div id="sorted_2" style="cursor:pointer; padding-top:10px; padding-left:10px;">
+    </div>
+    <div id="sorted_3" style="cursor:pointer; padding-top:10px; padding-left:10px;">
+    </div>
+    <div id="sorted_4" style="cursor:pointer; padding-top:10px; padding-left:10px;">
+    </div>
+  </div>
+</nav>
+
+<input type="hidden" id="pos_lat">
+<input type="hidden" id="pos_lng">
 <!-- 지도 div 입니다 id 말고 다 건드려도 됨-->
-<div id="map" style="width:100%; height:100%;"></div>
+<div id="map" style="margin-top:6px; width:100%; height:100%;"></div>

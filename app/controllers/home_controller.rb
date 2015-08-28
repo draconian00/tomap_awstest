@@ -11,7 +11,6 @@ class HomeController < ApplicationController
   def testreview
   end
   
-  
   def labreview
      @testcenter=TestCenter.all
     # @sort=@testcenter.sort{|x| x["name"]}
@@ -47,9 +46,5 @@ class HomeController < ApplicationController
   
   def mypage
   end
-  
-  def embedplace
-    render :layout => false
-  end
-  
+
 end
