@@ -13,12 +13,11 @@ class HomeController < ApplicationController
   
   def labreview
      @testcenter=TestCenter.all
+     @allarticle=Article.all
     # @sort=@testcenter.sort{|x| x["name"]}
   end
   
-  def labreviewmain
-     @testcenter=TestCenter.all
-  end
+  
   
   def labreview_write
      @testcenter=TestCenter.all

@@ -1,34 +1,47 @@
-<div style="width: 60%; height: 200px; margin-top: 200px; margin-left:auto; margin-right:auto">
-    <h4>시험목록</h4>
-    <!-- Table -->
-    <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>시험일</th>
-        <th>시험장</th>
-        <th>점수</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-    </table>
-</div>
+
+<div class="mypage">
+  <div>
+    <form>
+      <fieldset disabled>
+        <div class="form-group" style="width: 60%; margin-top: 80px">
+          <label for="disabledTextInput">Email address</label>
+          <input type="text" id="disabledTextInput" class="form-control" value="<%= current_user.email %>">
+        </div>
+      </fieldset> 
+    </form>
+    <div style="width: 60%; height: 200px; margin-top: 200px;">
+        <label>시험목록</label>
+        <!-- Table -->
+        <table class="table" style="border:1px solid #D5D5D5; border-radius: 25px;">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>시험일</th>
+            <th>시험장</th>
+            <th>점수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+  </div>  
+</div>  

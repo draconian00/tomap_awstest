@@ -5,7 +5,10 @@ class CreateArticles < ActiveRecord::Migration
       t.string :title
       t.string :testcenter
       t.string :content
-
+      
+      #조회수
+      
+      
       t.timestamps null: false
     end
   end

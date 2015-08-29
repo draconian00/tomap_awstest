@@ -86,12 +86,14 @@
         
     
     for (i=0; i<lab_data.length; i++) {
-      addinfoclick(labmarkers[i], 
+      addinfoclick(labmarkers[i]);
+      addinfoinout(labmarkers[i], 
                    '<p style="font-size:25px;"><b>'+lab_data[i][0]+'</b></p>'
                     +'<p>'+lab_data[i][1]+'</p>'
                     +'<span class="star-rating small">'
                     +star[i]
-                    +'</span>'
+                    +'</span>&nbsp;'
+                    +'<span stype="font-size:13px;">&nbsp;'+lab_data[i][4]+' 점</span>'
                     +'&nbsp;&nbsp;<a href="/home/labreview/'+lab_data[i][3]+'">자세히 보기</a><br>'
                     +'<a style="padding-top:5px;">'
                     +'</a>');
@@ -122,21 +124,16 @@
 </script>
 
 <script>
-  function addinfoclick(marker, text) {
-    var info = new google.maps.InfoWindow({
-      content: text
-    });
+  function addinfoclick(marker) {
     marker.addListener('click', function() {
       var ex = marker.position;
       ori = String(ex.G)+','+String(ex.K);
       console.log(ori);
-      info.open(marker.get('map'), marker);
     });
     marker.addListener('rightclick', function() {
       var ex = marker.position;
       des = String(ex.G)+','+String(ex.K);
       console.log(des);
-      info.close();
     });
   } //addinfoclick
 </script>
@@ -151,7 +148,9 @@
       info.open(marker.get('map'), marker);
     });
     marker.addListener('mouseout', function() {
-      info.close();
+        setTimeout(function() {
+          info.close();
+        }, 1700);
     });
   }
 </script>
@@ -284,7 +283,8 @@
   });
 </script>
 
-<nav id="r_drawer" style="right:0px; width:200px; height:100%; margin-top:6px; position:absolute; background-color:white; z-index:100000;">
+<nav id="r_drawer" style="right:0px; width:200px; height:100%; margin-top:6px; 
+                          position:absolute; background-color:white; z-index:100000;">
   <div id="r_drawer_close" style="width:24px; height:24px;
                                position: absolute;
                                cursor: pointer;
@@ -302,6 +302,9 @@
     <div id="sorted_4" style="cursor:pointer; padding-top:10px; padding-left:10px;">
     </div>
   </div>
+</nav>
+
+<nav id="direction_alert" style="right:0px; bottom:0px; width:300px; height:170px; position:absolute; background-color:white; z-index:10000000;">
 </nav>
 
 <input type="hidden" id="pos_lat">

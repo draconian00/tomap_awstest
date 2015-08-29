@@ -31,7 +31,17 @@
 </head>
 <body>
   <nav id="drawer" style="width:200px; height:100%; position:absolute; margin-top:6px; background-color:white; z-index:100000;">
-    <div class="container" style="width:200px; padding-left:30px; padding-top:24px;">
+    <div class="container" style="width:200px; padding-left:30px; padding-top:24px;"> 
+      <div>  
+        <% if user_signed_in? %>
+          <img src="<%=current_user.image.url%>" style="margin-bottom:30px">
+          <%= current_user.email %><br>
+          <a href="/home/mypage">마이페이지</a> | <a href="/users/sign_out">로그아웃</a>   
+        <% else %>
+          <a href="/users/sign_in">로그인</a>
+        <% end %>
+      </div>
+      <br>
       <div id="convertable">
         <a href='/' style="text-decoration:none; color:black;">
           <div id="map_button" style="cursor:pointer; margin-bottom:30px;">
@@ -48,7 +58,7 @@
           <p id="direction0" style="font-size:17px; color:red; cursor:pointer;">길찾기 모드</p>
           <p id="direction1" style="font-size:17px; color:red; cursor:pointer;">길찾기 모드 --- 실행중...</p>
         </div>
-      <a href="/home/labreviewmain/0" style="text-decoration:none; color:black;">
+      <a href="/home/labreview" style="text-decoration:none; color:black;">
         <div id="labreview" style="cursor:pointer; margin-bottom:30px;">
           <p style="font-size:20px;">시험장 후기</p>
         </div>
@@ -70,6 +80,7 @@
       $('#r_drawer').hide();
       $('#exit_diretion_mode').hide();
       $('#direction1').hide();
+      $('#direction_alert').hide();
     });
   </script>
     
@@ -99,6 +110,7 @@
         mode_index = 1;
         $('#direction0').hide();
         $('#direction1').show();
+        $('#direction_alert').toggle('slide',{direction:'right'},300);
         console.log('direction mode index'+':'+mode_index);
         $('#exit_diretion_mode').show();
         $('#drawer').toggle('slide', 0);
@@ -109,6 +121,7 @@
         mode_index = 0;
         $('#direction1').hide();
         $('#direction0').show();
+        $('#direction_alert').toggle('slide',{direction:'right'},300);
         console.log('direction mode index'+':'+mode_index);
         $('#exit_diretion_mode').hide();
       });
@@ -116,6 +129,7 @@
         mode_index = 0;
         $('#direction1').hide();
         $('#direction0').show();
+        $('#direction_alert').toggle('slide',{direction:'right'},300);
         console.log('direction mode index'+':'+mode_index);
         $('#exit_diretion_mode').hide();
         $('#drawer').toggle('slide', 300);
@@ -125,7 +139,7 @@
     });
   </script>
   
-  <div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar navbar-default navbar-fixed-top" style="height:10px">
     <div id="menu_open" style="width:32px; height:32px; 
                                position: absolute; top: 8px; left: 15px;
                                cursor: pointer;
@@ -154,47 +168,6 @@
       <div class="container">
         <div class="navbar-header">
           <a href="/" class="navbar-brand"><span style="color:red;"><b>TOmap</b></span></a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-            <li style="padding-left: 150px; padding-right:50px">
-              <a href="/">시험장지도</a>
-            </li>
-            <li style="padding-right:50px">
-              <a href="/home/labreviewmain/0">시험장후기</a>
-            </li>
-            <li style="padding-right:50px">
-              <a href="/home/testreview">시험후기</a>
-            </li>
-            <li style="padding-right:50px">
-              <a href="#">길찾기</a>
-            </li>
-
-          </ul>
-               
-          <ul class="nav navbar-nav navbar-right">
-            
-            <% if user_signed_in? %>
-              <li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.email %><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/home/mypage">마이페이지</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="/users/sign_out">로그아웃</a></li>
-                </ul>
-              </li>
-
-
-            <% else %>
-              <li><a href="/users/sign_in">로그인</a></li>
-            <% end %>
-          </ul>
-
         </div>
       </div>
     </div>
