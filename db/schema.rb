@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150824063522) do
     t.string   "position_lat"
     t.string   "position_lng"
     t.float    "review_point"
+    t.string   "region_code"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end

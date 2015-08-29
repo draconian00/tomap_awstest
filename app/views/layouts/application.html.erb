@@ -30,18 +30,76 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <nav id="drawer" style="width:200px; height:100%; position:absolute; margin-top:6px; background-color:white; z-index:100000;">
-    <div class="container" style="width:200px; padding-left:30px; padding-top:24px;"> 
-      <div>  
-        <% if user_signed_in? %>
-          <img src="<%=current_user.image.url%>" style="margin-bottom:30px">
-          <%= current_user.email %><br>
-          <a href="/home/mypage">마이페이지</a> | <a href="/users/sign_out">로그아웃</a>   
-        <% else %>
-          <a href="/users/sign_in">로그인</a>
-        <% end %>
+  <nav id="main_nav" style="top:0px; left:0px; 
+                            width:60px; height:100%; 
+                            position:absolute;
+                            background-color:white;
+                            border-right: 1px solid black;
+                            border-left: 1px solid black;
+                            z-index:1000000000;">
+    <center>
+      <a href="/">
+        <div class="nav_icon" id="home_menu" style="background-image:url(/icons/logo5060.png);">
+        </div>
+      </a>      
+      <div class="nav_icon" id="user_menu" style="background-image:url(/icons/user_icon2_5060.png);
+                                                  cursor:pointer;">
       </div>
-      <br>
+      <div class="nav_icon" id="map_menu" style="background-image:url(/icons/map_icon.png);
+                                                 cursor:pointer;">
+      </div>
+      <a href="/home/labreview">
+        <div class="nav_icon" id="review_menu" style="background-image:url(/icons/review_icon.png);">
+        </div>
+      </a>
+    </center>
+  </nav>
+
+  <nav id="user_drawer" style="left:60px;width:200px; height:100%; position:absolute;
+                          background-color:#232323; opacity:0.9; z-index:100000;">  
+    <div style="padding-top:45px;">
+      <center>
+        <% if user_signed_in? %>
+          <%if current_user.image.url.nil? %>
+            <img src="user_image.png" style="margin-bottom:30px">
+          <%else%>
+            <img src="<%=current_user.image.thumb.url%>" style="margin-bottom:30px" class="img-circle">
+          <%end%>
+          <p style="color:white;"><%= current_user.email %></p>
+          <a href="/home/mypage" style="color:white;">마이페이지</a> | <a href="/users/sign_out" style="color:white;">로그아웃</a>   
+        <% else %>
+          <img src="user_image.png" style="margin-bottom:30px"><br>
+          <a href="/users/sign_in" style="color:white;">로그인</a> | <a href="/users/sign_up" style="color:white;">회원가입</a>
+        <% end %>
+      </center>
+    </div>
+  </nav>
+  
+  <script>
+    $(function() {
+      $('#user_drawer').hide();
+      $('#user_menu').click(function() {
+        $('#user_drawer').toggle('slide',300);
+      });
+    });
+  </script>
+  
+  <nav id="map_drawer" style="left:60px;width:200px; height:100%; position:absolute;
+                          background-color:#232323; opacity:0.9; z-index:100000;">
+  </nav>
+  
+  <script>
+    $(function() {
+      $('#map_drawer').hide();
+      $('#map_menu').click(function() {
+        $('#map_drawer').toggle('slide',300);
+      });
+    });
+  </script>
+  
+  <nav id="drawer">
+    <br>
+    <div style="width:200px; padding-left:30px; padding-top:20px; color:white;">
       <div id="convertable">
         <a href='/' style="text-decoration:none; color:black;">
           <div id="map_button" style="cursor:pointer; margin-bottom:30px;">
@@ -49,23 +107,26 @@
           </div>
         </a>
       </div>
-        <div id="map_under" style="width:157px; padding-left:30px; margin-top:-20px; padding-bottom:8px; position:relative;">
-          <p id="region_1" style="cursor:pointer;"> - 서울</p>
-          <p id="current" style="cursor:pointer;"> - 현재 위치</p>
-          <p id="near_by" style="cursor:pointer;"> - 가까운 시험장</p>
-            <input id="region_1_lat" type="hidden" value=37.549565>
-            <input id="region_1_lng" type="hidden" value=126.989131>
-          <p id="direction0" style="font-size:17px; color:red; cursor:pointer;">길찾기 모드</p>
-          <p id="direction1" style="font-size:17px; color:red; cursor:pointer;">길찾기 모드 --- 실행중...</p>
-        </div>
+        
+      <div id="map_under" style="width:157px; padding-left:30px; margin-top:-20px; padding-bottom:8px; position:relative;">
+        <p id="region_1" style="cursor:pointer;"> - 서울</p>
+        <p id="current" style="cursor:pointer;"> - 현재 위치</p>
+        <p id="near_by" style="cursor:pointer;"> - 가까운 시험장</p>
+          <input id="region_1_lat" type="hidden" value=37.549565>
+          <input id="region_1_lng" type="hidden" value=126.989131>
+        <p id="direction0" style="font-size:17px; cursor:pointer;">길찾기 모드</p>
+        <p id="direction1" style="font-size:17px; cursor:pointer;">길찾기 모드 --- 실행중...</p>
+      </div>
+      
       <a href="/home/labreview" style="text-decoration:none; color:black;">
         <div id="labreview" style="cursor:pointer; margin-bottom:30px;">
-          <p style="font-size:20px;">시험장 후기</p>
+          <p style="font-size:20px; color:white;">시험장 후기</p>
         </div>
       </a>
+      
       <a href="/home/testreview" style="text-decoration:none; color:black;">
         <div id="testreview" style="cursor:pointer; margin-bottom:30px;">
-          <p style="font-size:20px;">시험 후기</p>
+          <p style="font-size:20px; color:white;">시험 후기</p>
         </div>
       </a>
     </div>
@@ -76,6 +137,7 @@
   </div>
   <script>
     $(function() {
+      $('#menu_open').hide();
       $('#map_under').hide();
       $('#r_drawer').hide();
       $('#exit_diretion_mode').hide();
@@ -139,7 +201,7 @@
     });
   </script>
   
-  <div class="navbar navbar-default navbar-fixed-top" style="height:10px">
+ 
     <div id="menu_open" style="width:32px; height:32px; 
                                position: absolute; top: 8px; left: 15px;
                                cursor: pointer;
@@ -165,12 +227,8 @@
       });
     </script>
     
-      <div class="container">
-        <div class="navbar-header">
-          <a href="/" class="navbar-brand"><span style="color:red;"><b>TOmap</b></span></a>
-        </div>
-      </div>
-    </div>
+    
+ 
 
   <%= yield %>
 </body>

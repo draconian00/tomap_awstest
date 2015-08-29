@@ -6,6 +6,7 @@ class CreateTestCenters < ActiveRecord::Migration
       t.string :position_lat
       t.string :position_lng
       t.float :review_point
+      t.string :region_code
       
       t.timestamps null: false
     end

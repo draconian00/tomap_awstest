@@ -1,6 +1,14 @@
 # encoding: utf-8
 
 class ProfileimageUploader < CarrierWave::Uploader::Base
+  
+  include CarrierWave::MiniMagick
+
+  process resize_to_fit: [256,256]
+
+  version :thumb do
+    process resize_to_fill: [128,128]
+  end
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick

@@ -68,6 +68,7 @@ a.address="서울 송파구 송파동 20-9 천마빌딩"
 a.position_lat="37.507709"
 a.position_lng="127.110019"
 a.review_point=2.2
+a.region_code="01"
 a.save
 
 a=TestCenter.new
@@ -76,6 +77,7 @@ a.address="서울 동대문구 전농동 90"
 a.position_lat="37.583776"
 a.position_lng="127.061154"
 a.review_point=3.4
+a.region_code="01"
 a.save
 
 a=TestCenter.new
@@ -84,6 +86,7 @@ a.address="서울 서대문구 대현동 산11-1"
 a.position_lat="37.562499"
 a.position_lng="126.945648"
 a.review_point=4
+a.region_code="01"
 a.save
 
 a=TestCenter.new
@@ -92,6 +95,7 @@ a.address="서울 용산구 청파동 3가 131번지"
 a.position_lat="37.542369"
 a.position_lng="126.966669"
 a.review_point=1.3
+a.region_code="01"
 a.save
 
 a=TestCenter.new
@@ -100,6 +104,7 @@ a.address="서울 금천구 시흥2동 산 100-4번지"
 a.position_lat="37.451487"
 a.position_lng="126.917405"
 a.review_point=2.5
+a.region_code="01"
 a.save
 
 a=TestCenter.new
@@ -108,6 +113,7 @@ a.address="서울 강서구 등촌동 131번지"
 a.position_lat="37.558181"
 a.position_lng="126.852593"
 a.review_point=3.3
+a.region_code="01"
 a.save
 
 a=TestCenter.new
@@ -116,6 +122,7 @@ a.address="서울 성동구 행당동 17"
 a.position_lat="37.558325"
 a.position_lng="127.043503"
 a.review_point=3.7
+a.region_code="01"
 a.save
 
 a=TestCenter.new
@@ -124,6 +131,7 @@ a.address="서울 종로구 홍지동 7"
 a.position_lat="37.601551"
 a.position_lng="126.954388"
 a.review_point=2.5
+a.region_code="01"
 a.save
 
 a=TestCenter.new
@@ -132,4 +140,5 @@ a.address="서울 종로구 청운동 자하문길 136"
 a.position_lat="37.588828"
 a.position_lng="126.969616"
 a.review_point=1.2
+a.region_code="01"
 a.save
