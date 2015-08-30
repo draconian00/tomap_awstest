@@ -81,7 +81,7 @@
           icon: img,
           animation: google.maps.Animation.BOUNCE
         });
-        addinfoclick(current_marker, '현재 위치');
+        addinfocurrent(current_marker, '현재 위치');
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
       });
@@ -161,26 +161,24 @@
 </script>
 
 <script>
-  function convertable() {
-    document.getElementById('convertable').innerHTML='<div class="nav_icon" id="user_menu" style="background-image:url(/icons/user_icon2_5060.png);"></div>';
-  } // portable
-</script>
-
-<script>
-  $(function() {
-    $('#drawer').hide();
-    $('#map_under').show();
-    $('#menu_open').hide();
-    $('#menu_close').hide();
-    $('#map_button').click(function() {
-      $('#map_under').toggle('blind', 300);
+  function addinfocurrent(marker, text) {
+    var curinfo = new google.maps.InfoWindow({
+      content: text
     });
-  });
+    marker.addListener('click', function() {
+      curinfo.open(marker.get('map'), marker);
+    });
+    marker.addListener('rightclick', function() {
+      curinfo.close();
+    });
+    marker.addListener('dblclick', function() {
+      curinfo.close();
+    });
+  };
 </script>
 
 <script>
   google.maps.event.addDomListener(window, 'load', initMap);
-  convertable();
   console.log('direction mode index'+':'+mode_index);
 </script>
 
@@ -288,7 +286,7 @@
   });
 </script>
 
-<nav id="r_drawer" style="right:0px; width:200px; height:100%; margin-top:6px; 
+<nav id="r_drawer" style="right:0px; width:200px; height:100%; padding-top:40px; 
                           position:absolute; background-color:white; z-index:100000;">
   <div id="r_drawer_close" style="width:24px; height:24px;
                                position: absolute;
@@ -309,10 +307,7 @@
   </div>
 </nav>
 
-<nav id="direction_alert" style="right:0px; bottom:0px; width:300px; height:170px; position:absolute; background-color:white; z-index:10000000;">
-</nav>
-
 <input type="hidden" id="pos_lat">
 <input type="hidden" id="pos_lng">
 <!-- 지도 div 입니다 id 말고 다 건드려도 됨-->
-<div id="map" style="width:100%; height:100%;"></div>
+  <div id="map" style="width:100%; height:100%; z-index:10; position:relative;"></div>

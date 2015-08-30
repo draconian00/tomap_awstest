@@ -7,7 +7,7 @@ class ProfileimageUploader < CarrierWave::Uploader::Base
   process resize_to_fit: [256,256]
 
   version :thumb do
-    process resize_to_fill: [128,128]
+    process resize_to_fill: [20,20]
   end
 
   # Include RMagick or MiniMagick support:

@@ -1,162 +1,220 @@
+<script>
+$(".alert").addClass("in").fadeOut(4500);
 
-
-<!--메인페이지인 경우-->
-<%if params[:id].nil?%>
-<div class="row" style="margin-top: 80px">
-  <div class="col-lg-2"></div>
-  <div class="col-lg-2">
-    <div class="thumbnail">
-      <img src="..." alt="...">
-      <div class="caption">
-        <h4>1위</h4>
-        <p>...</p>
-        <p><a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-2">
-    <div class="thumbnail">
-      <img src="..." alt="...">
-      <div class="caption">
-        <h4>2위</h4>
-        <p>...</p>
-        <p><a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-2">
-    <div class="thumbnail">
-      <img src="..." alt="...">
-      <div class="caption">
-        <h4>3위</h4>
-        <p>...</p>
-        <p><a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-2">
-    <div class="thumbnail">
-      <img src="..." alt="...">
-      <div class="caption">
-        <h4>4위</h4>
-        <p>...</p>
-        <p><a href="#" class="btn btn-default" role="button">Button</a></p>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-2"></div>
-</div>  
-
-<div class="row"> 
-  <div class="col-lg-3"></div>
-  <div class="col-lg-6">
-    <div class="input-group">
-      <div class="input-group-btn">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역 <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#">Separated link</a></li>
-        </ul>
-      </div><!-- /btn-group -->
-      <input type="text" class="form-control" aria-label="...">
-    </div>
-  </div>
-  <div class="col-lg-3"></div>
-</div>
-
-
+/* swap open/close side menu icons */
+$('[data-toggle=collapse]').click(function(){
+  	// toggle icon
+  	$(this).find("i").toggleClass("glyphicon-chevron-down");
+});
+</script>
+<br><br>
 <div class="row">
   <div class="col-md-2 col-md-offset-2">
-    <ul class="nav nav-pills nav-stacked">
-    <li role="presentation"><a href="/home/labreview">전체보기</a></li>
-      <%@testcenter.each do |x|%>
-      <li role="presentation"><a href="/home/labreview/<%=x.id%>"><%=x.name%></a></li>
-      <%end%>
-      
-    </ul>    
+    <a href="#"><strong><i class="glyphicon glyphicon-home"></i>&nbsp;후기</strong></a><br>
+      <ul class="nav nav-stacked">
+          <li role="nav-header"><a href="/home/labreview">전체보기</a></li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">서울/경기 <i class="glyphicon glyphicon-chevron-right"></i></a>
+              <!--in은 페이지가 열렸을때 펼쳐졌는지 여부-->
+              <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"01").include? @testcenter.find(params[:id])) %>in<%end%>" id="userMenu">
+                <%@testcenter.where(:region_code=>"01").each do |x|%>
+                  <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
+                <%end%>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2">인천<i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"02").include? @testcenter.find(params[:id])) %>in<%end%>" id="menu2">
+                <%@testcenter.where(:region_code=>"02").each do |x|%>
+                  <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
+                <%end%>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu3">충청도<i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"03").include? @testcenter.find(params[:id])) %>in<%end%>" id="menu3">
+                <%@testcenter.where(:region_code=>"03").each do |x|%>
+                  <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
+                <%end%>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu4">경상도 <i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse" id="menu4">
+                  <li><a href="#">Information &amp; Stats</a>
+                  </li>
+                  <li><a href="#">Views</a>
+                  </li>
+                  <li><a href="#">Requests</a>
+                  </li>
+                  <li><a href="#">Timetable</a>
+                  </li>
+                  <li><a href="#">Alerts</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu5">전라도 <i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse" id="menu5">
+                  <li><a href="#">Information &amp; Stats</a>
+                  </li>
+                  <li><a href="#">Views</a>
+                  </li>
+                  <li><a href="#">Requests</a>
+                  </li>
+                  <li><a href="#">Timetable</a>
+                  </li>
+                  <li><a href="#">Alerts</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu6">강원도<i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse" id="menu6">
+                  <li><a href="#">Information &amp; Stats</a>
+                  </li>
+                  <li><a href="#">Views</a>
+                  </li>
+                  <li><a href="#">Requests</a>
+                  </li>
+                  <li><a href="#">Timetable</a>
+                  </li>
+                  <li><a href="#">Alerts</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu7">제주도<i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse" id="menu7">
+                  <li><a href="#">Information &amp; Stats</a>
+                  </li>
+                  <li><a href="#">Views</a>
+                  </li>
+                  <li><a href="#">Requests</a>
+                  </li>
+                  <li><a href="#">Timetable</a>
+                  </li>
+                  <li><a href="#">Alerts</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+      <hr>   
   </div>
-  
-  <div class="col-md-6">
-    <p>전체보기</p>
-    
-    <div class="panel panel-default">
-        <!-- Table -->
-        <table class="table table-striped table-condensed">
-            <col style="width:10%">
-            <col style="width:20%">
-            <col style="width:40%">
-            <col style="width:10%">
-            <col style="width:10%">
-            <col style="width:10%">
-          <thead>
-            <tr>
-              <th style="text-align:center">번호</th>
-              <th style="text-align:center">고사장</th>
-              <th style="text-align:center">제목</th>
-              <th style="text-align:center">작성자</th>
-              <th style="text-align:center">조회수</th>
-              <th style="text-align:center">추천수</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @allarticle.reverse.each do |x|%>
-            <tr data-toggle="modal" data-target="#<%=x.id%>">
-                <td style="text-align:center"><%=x.id%></td>
-                <td style="text-align:center"><%=x.testcenter%></td>
-                <td style="text-align:center"><%=x.title%></td>
-                <td style="text-align:center">김새봄</td>
-                <td style="text-align:center">100</td>
-                <td style="text-align:center">12</td>
-            </tr>
-            <div class="modal fade" id="<%=x.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"><%=x.title%></h4><a>평점,조회수,추천수,작성시간 등등 </a>
-                  </div>
-                  <div class="modal-body">
-                    <%=x.content%>
-                    <form action="" method="POST" class="form-inline">
-                      <input type="text" class="form-control" style="width:90%" placeholder="댓글달기">
-                    <input type="submit" value="댓글달기">
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <!--메인페이지인 경우-->
+  <%if params[:id].nil?%>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="thumbnail">
+            <img src="..." alt="...">
+            <div class="caption">
+              <h4>1위</h4>
+              <p>...</p>
+              <p><a href="#" class="btn btn-default" role="button">Button</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="thumbnail">
+            <img src="..." alt="...">
+            <div class="caption">
+              <h4>2위</h4>
+              <p>...</p>
+              <p><a href="#" class="btn btn-default" role="button">Button</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="thumbnail">
+            <img src="..." alt="...">
+            <div class="caption">
+              <h4>3위</h4>
+              <p>...</p>
+              <p><a href="#" class="btn btn-default" role="button">Button</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2"></div>
+      </div>  
+      
+      <div class="row"> 
+        <div class="col-md-12">
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역 <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div><!-- /btn-group -->
+            <input type="text" class="form-control" aria-label="...">
+          </div>
+        </div>
+        
+      </div>      
+      <p>전체보기</p>
+      
+      <div class="panel panel-default">
+          <!-- Table -->
+          <table class="table table-striped table-condensed">
+              <col style="width:10%">
+              <col style="width:20%">
+              <col style="width:40%">
+              <col style="width:10%">
+              <col style="width:10%">
+              <col style="width:10%">
+            <thead>
+              <tr>
+                <th style="text-align:center">번호</th>
+                <th style="text-align:center">고사장</th>
+                <th style="text-align:center">제목</th>
+                <th style="text-align:center">작성자</th>
+                <th style="text-align:center">조회수</th>
+                <th style="text-align:center">추천수</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @allarticle.reverse.each do |x|%>
+              <tr data-toggle="modal" data-target="#<%=x.id%>">
+                  <td style="text-align:center"><%=x.id%></td>
+                  <td style="text-align:center"><%=x.testcenter%></td>
+                  <td style="text-align:center"><%=x.title%></td>
+                  <td style="text-align:center">김새봄</td>
+                  <td style="text-align:center">100</td>
+                  <td style="text-align:center">12</td>
+              </tr>
+              <div class="modal fade" id="<%=x.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel"><%=x.title%></h4><a>평점,조회수,추천수,작성시간 등등 </a>
+                    </div>
+                    <div class="modal-body">
+                      <%=x.content%>
+                      <form action="" method="POST" class="form-inline">
+                        <input type="text" class="form-control" style="width:90%" placeholder="댓글달기">
+                      <input type="submit" value="댓글달기">
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <%end%>
-            
-          </tbody>
-        </table>
-      </div>
-      <form action="/home/labreview_write">
-          <button type="submit" class="btn btn-primary">후기 작성</button>
-      </form>
+              <%end%>
+              
+            </tbody>
+          </table>
+        </div>
+        <form action="/home/labreview_write">
+            <button type="submit" class="btn btn-primary">후기 작성</button>
+        </form>
+    </div>
+    
   </div>
-  
-</div>
 
 
 <!--각 학교별 페이지인경우-->
 <%else%>
-
-<div class="row" style="padding-top:20px;">
-  <div class="col-md-2 col-md-offset-2">
-    <ul class="nav nav-pills nav-stacked">
-      <li role="presentation"><a href="/home/labreview">전체보기</a></li>
-      <%@testcenter.each do |x|%>
-      <li role="presentation"><a href="/home/labreview/<%=x.id%>"><%=x.name%></a></li>
-      <%end%>
-      
-    </ul>    
-  </div>
   <div class="col-md-6">
     <p><%=@testcenter.find(params[:id]).name%>게시판입니다</p>
     
@@ -221,3 +279,4 @@
  
 </div>
 <%end%>
+
