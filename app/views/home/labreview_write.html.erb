@@ -1,12 +1,90 @@
+
+<br><br>
 <div class="row">
   <div class="col-md-2 col-md-offset-2">
-    <ul class="nav nav-pills nav-stacked">
-    <li role="presentation"><a href="/home/labreviewmain">전체보기</a></li>
-      <%@testcenter.each do |x|%>
-      <li role="presentation"><a href="/home/labreview/<%=x.id%>"><%=x.name%></a></li>
-      <%end%>
-      
-    </ul>    
+    <a href="#"><strong><i class="glyphicon glyphicon-home"></i>&nbsp;후기</strong></a><br>
+      <ul class="nav nav-stacked">
+          <li role="nav-header"><a href="/home/labreview">전체보기</a></li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">서울/경기 <i class="glyphicon glyphicon-chevron-right"></i></a>
+              <!--in은 페이지가 열렸을때 펼쳐졌는지 여부-->
+              <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"01").include? @testcenter.find(params[:id])) %>in<%end%>" id="userMenu">
+                <%@testcenter.where(:region_code=>"01").each do |x|%>
+                  <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
+                <%end%>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2">인천<i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"02").include? @testcenter.find(params[:id])) %>in<%end%>" id="menu2">
+                <%@testcenter.where(:region_code=>"02").each do |x|%>
+                  <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
+                <%end%>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu3">충청도<i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"03").include? @testcenter.find(params[:id])) %>in<%end%>" id="menu3">
+                <%@testcenter.where(:region_code=>"03").each do |x|%>
+                  <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
+                <%end%>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu4">경상도 <i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse" id="menu4">
+                  <li><a href="#">Information &amp; Stats</a>
+                  </li>
+                  <li><a href="#">Views</a>
+                  </li>
+                  <li><a href="#">Requests</a>
+                  </li>
+                  <li><a href="#">Timetable</a>
+                  </li>
+                  <li><a href="#">Alerts</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu5">전라도 <i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse" id="menu5">
+                  <li><a href="#">Information &amp; Stats</a>
+                  </li>
+                  <li><a href="#">Views</a>
+                  </li>
+                  <li><a href="#">Requests</a>
+                  </li>
+                  <li><a href="#">Timetable</a>
+                  </li>
+                  <li><a href="#">Alerts</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu6">강원도<i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse" id="menu6">
+                  <li><a href="#">Information &amp; Stats</a>
+                  </li>
+                  <li><a href="#">Views</a>
+                  </li>
+                  <li><a href="#">Requests</a>
+                  </li>
+                  <li><a href="#">Timetable</a>
+                  </li>
+                  <li><a href="#">Alerts</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu7">제주도<i class="glyphicon glyphicon-chevron-right"></i></a>
+              <ul class="nav nav-stacked collapse" id="menu7">
+                  <li><a href="#">Information &amp; Stats</a>
+                  </li>
+                  <li><a href="#">Views</a>
+                  </li>
+                  <li><a href="#">Requests</a>
+                  </li>
+                  <li><a href="#">Timetable</a>
+                  </li>
+                  <li><a href="#">Alerts</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+      <hr>       
   </div>
   
   <div class="col-md-6">
@@ -19,12 +97,56 @@
       </div> 
       <label class="col-sm-1 control-label">고사장</label>
       <div class="col-sm-11">
+        <%if params[:id].nil? %>
+            <select id="select_region">
+              <option value="none">지역</option>
+              <option value="01">서울/경기</option>
+              <option value="02">인천</option>
+              <option value="03">충청도</option>
+              <option value="04">경상도</option>
+              <option value="05">전라도</option>
+              <option value="06">강원도</option>
+              <option value="07">제주도</option>
+            </select>
+            <div id="that"></div>
+            <select id="after_select">
+              <option value="none">지역을 선택하세요</option>
+            </select>            
+            <p id="select_lab"></p>
+        <%else%>
         <p class="form-control-static"><%=@testcenter.find(params[:id]).name%></p>
+        <%end%>
       </div>      
       <textarea class="form-control" name="content" rows="10"></textarea>
-      <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>">
+      <%if params[:id].nil? %>
+        <input id="final_choice" type="text" name="test_center_id" value="">
+      <%else%>
+        <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>">
+      <%end%>
       <button type="submit" class="btn btn-primary">작성완료</button>
     </form>
   </div>
   
 </div>
+
+<script>
+  $(function() {
+    $("#select_region").change(function() {
+        var code = $(this).val();
+        if(code=="01"){
+        $("#after_select").html("<%@testcenter.where(:region_code => "01").each do |x|%><option><%=x.name%></option><%end%>");
+        }
+        if(code=="02"){
+        $("#after_select").html("<%@testcenter.where(:region_code => "02").each do |x|%><option><%=x.name%></option><%end%>");  
+        }
+        if(code=="03"){
+        $("#after_select").html("<%@testcenter.where(:region_code => "03").each do |x|%><option><%=x.name%></option><%end%>");  
+        }
+    });
+    $("#after_select").change(function() {
+        document.getElementById("final_choice").value= $(this).val()
+    });
+    alert("ready!");
+});
+  
+</script>

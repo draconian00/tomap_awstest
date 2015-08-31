@@ -1,4 +1,4 @@
-# 서울/경기(미완)
+# 서울/경기(서울 끝)
 
 a=TestCenter.new
 a.name="한미교육위원단"
@@ -153,6 +153,262 @@ a.review_point=1.2
 a.region_code="01"
 a.save
 
+a=TestCenter.new
+a.name="당산KH정보교육원"
+a.address="서울 마포구 노고산동 신촌역 7번 출구 하나은행 맞은편"
+a.position_lat="37.535170"
+a.position_lng="126.902508"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="신촌 한빛 교육센터"
+a.address="서울 마포구 노고산동 신촌역 7번 출구 하나은행 맞은편"
+a.position_lat="37.552432"
+a.position_lng="126.937824"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="세그루 패션디자인고등학교"
+a.address="서울 도봉구 쌍문동 23(시루봉길)"
+a.position_lat="37.655689"
+a.position_lng="127.026969"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="군장대학"
+a.address="서울시 강남구 역삼동 824-38 장원빌딩 지하 1층"
+a.position_lat="37.497974"
+a.position_lng="127.030755"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="이지스원"
+a.address="서울 동대문구 신설동 98-27 동양빌딩 1~5층"
+a.position_lat="37.576116"
+a.position_lng="127.025803"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="동국대학교"
+a.address="서울 중구 필동3가 26번지"
+a.position_lat="37.557549"
+a.position_lng="127.000754"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="조선닷컴교육센터"
+a.address="서울 중구 태평로 1가 62-4"
+a.position_lat="37.568724"
+a.position_lng="126.976123"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="아이스터디오션"
+a.address="서울 서초구 1305-5 JLS타워 7층, 8층"
+a.position_lat="37.501178"
+a.position_lng="127.025567"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="국제사이버대학교"
+a.address="서울 서초구 서초동 1540-3번지 카이스 시스템 빌딩 지하 1층"
+a.position_lat="37.489434"
+a.position_lng="127.008211"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="덕성여자대학교"
+a.address="서울 도봉구 근화교길 19 (쌍문동 419) 132-714"
+a.position_lat="37.651195"
+a.position_lng="127.016160"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="성동공업고등학교"
+a.address="서울 중구 홍인동 1-1"
+a.position_lat="37.568698"
+a.position_lng="127.016904"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="IT Star Academy"
+a.address="서울 광진구 화양동 7-3 한림타워 3층"
+a.position_lat="37.541038"
+a.position_lng="127.068794"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="디지털원"
+a.address="서울 금천구 가산동 426-5 월드메르디앙 2차 410호"
+a.position_lat="37.478687"
+a.position_lng="126.878627"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="서강전문학교"
+a.address="서울 금천구 독산 1동 335-7"
+a.position_lat="37.471026"
+a.position_lng="126.889802"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="덕성여자대학교 평생교육원"
+a.address="서울 종로구 운니동 114"
+a.position_lat="37.575314"
+a.position_lng="126.987375"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="현강 여자 정보고등학교 "
+a.address="서울 강동구 고덕동 295-1번지"
+a.position_lat="37.559257"
+a.position_lng="127.158042"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="국제영어대학원대학교"
+a.address="서울 강동구 성내 1동 448-2번지 IGSE Language Center"
+a.position_lat="37.522671"
+a.position_lng="127.132978"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="군장대학교 영등포센터"
+a.address="서울 영등포구 양평동 2가 37-1번지 동아 프레임 밸리 901호"
+a.position_lat="37.524195"
+a.position_lng="126.884254"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="서강전문학교 영등포캠퍼스"
+a.address="서울 영등포구 영등포동 3가 1-6번지"
+a.position_lat="37.518050"
+a.position_lng="126.910754"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="중앙 HTA"
+a.address="서울 종로구 율곡로 10길 105 디아망 401"
+a.position_lat="37.572890"
+a.position_lng="126.992215"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="연성직업전문학교"
+a.address="서울 양천구 신정동 902-15 4층, 5층"
+a.position_lat="37.525964"
+a.position_lng="126.862350"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="한국산업단지공단(G-valley)"
+a.address="서울 구로구 구로동 188-5번지 한국산업단지공단 5층 502호(부천대학 공동연구지원센터)"
+a.position_lat="37.484851"
+a.position_lng="126.896520"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="서울직업전문학교"
+a.address="서울 종로구 숭인동 72-184"
+a.position_lat="37.574454"
+a.position_lng="127.019150"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="일산공인시험센터"
+a.address="경기 고양시 일산동구 장항 1동 863번지 지평프라자 901호"
+a.position_lat="37.656676"
+a.position_lng="126.770600"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="현강 여자 정보고등학교 "
+a.address="서울 강동구 고덕동 295-1번지"
+a.position_lat="37.559257"
+a.position_lng="127.158042"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="한국외대 서울캠퍼스"
+a.address="서울 동대문구 이문로 107"
+a.position_lat="37.597306"
+a.position_lng="127.057811"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="서울현대전문학교"
+a.address="서울 영등포구 당산동 6가 343-1(본관)"
+a.position_lat="37.535896"
+a.position_lng="126.900643"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+a=TestCenter.new
+a.name="Gangnam Testing Center Maplenex"
+a.address="서울 강남구 테헤란로 223 큰길타워빌딩 지하 1층"
+a.position_lat="37.502358"
+a.position_lng="127.040699"
+a.review_point=1.2
+a.region_code="01"
+a.save
+
+
+
+
+
 
 #인천(완성)
 a=TestCenter.new
@@ -245,4 +501,3 @@ a.position_lng="36.390691"
 a.review_point=1.2
 a.region_code="03"
 a.save
-

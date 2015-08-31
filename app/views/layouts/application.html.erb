@@ -69,12 +69,21 @@
         region_center = new google.maps.LatLng(lat, lng);
         secondCall(region_center, 11);
     });
+    });
+  </script>
+  
+  <script>
+    $(function() {
+      $('#user_dropdown').click(function(){
+        $('#dropdown_menu').slideToggle();
+      });
+    });
   </script>
 </head>
 <body>
   <nav id="main_nav_top" style="top:0px; left:0px;
                                 width:100%; height:40px;
-                                position:absolute;
+                                position:fixed;
                                 background-color:white;
                                 z-index:10000000000;
                                 box-shadow: 0px 0px 10px #bdbdbd;">
@@ -92,8 +101,8 @@
         <div style="padding-top :10px; ">
           <% if user_signed_in? %>
             <div class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.email %> <span class="caret"></span></a>
-              <ul class="dropdown-menu" style="margin-left:20px">
+              <a href="#" id="user_dropdown" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.email %> <span class="caret"></span></a>
+              <ul id="dropdown_menu" class="dropdown-menu" style="margin-left:20px">
                 <li><center>
                   <%if current_user.image.url.nil? %>
                     <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-64.png" />
@@ -112,20 +121,19 @@
           <% else %>
             <a href="/users/sign_in" style="text-decoration:none; color:black;">로그인</a>
           <% end %>  
-            
         
         </div>
       </center>
     </div>
   </nav>
   <nav id="main_nav_left" style="left:0px;
-                            width:60px; height:100%; 
-                            position:absolute;
-                            background-color: #eaeaea;
-                            border-right: 0px solid black;
-                            border-left: 0px solid black;
-                            z-index:1000000000;
-                            box-shadow: inset 0px 0px 10px #bdbdbd;">
+                                 width:60px; height:100%; 
+                                position:fixed;
+                                background-color: #eaeaea;
+                                border-right: 0px solid black;
+                                border-left: 0px solid black;
+                                z-index:1000000000;
+                                box-shadow: inset 0px 0px 10px #bdbdbd;">
     <center style="padding-top:100px;">
       <div class="nav_icon" id="map_menu">
         <img src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/location-24-32.png">

@@ -22,6 +22,7 @@ class HomeController < ApplicationController
   def labreview_write
      @testcenter=TestCenter.all
      @articles=Article.all
+     @region_selected=@testcenter.where(:region_code => params[:region_code])
   end
   
   def do_write
