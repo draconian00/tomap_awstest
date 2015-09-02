@@ -41,11 +41,17 @@ before_filter :configure_account_update_params, only: [:update]
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.for(:sign_up) << :image
+    devise_parameter_sanitizer.for(:sign_up) << :nickname
+    devise_parameter_sanitizer.for(:sign_up) << :phone_number
+    devise_parameter_sanitizer.for(:sign_up) << :living_region
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     devise_parameter_sanitizer.for(:account_update) << :image
+    devise_parameter_sanitizer.for(:account_update) << :nickname
+    devise_parameter_sanitizer.for(:account_update) << :phone_number
+    devise_parameter_sanitizer.for(:account_update) << :living_region
   end
 
   # The path used after sign up.

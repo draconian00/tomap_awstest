@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20150824063522) do
     t.string   "title"
     t.string   "testcenter"
     t.string   "content"
+    t.integer  "point"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
@@ -35,6 +36,9 @@ ActiveRecord::Schema.define(version: 20150824063522) do
 
   create_table "users", force: :cascade do |t|
     t.string   "image"
+    t.string   "nickname"
+    t.string   "phone_number"
+    t.string   "living_region"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

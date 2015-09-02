@@ -33,7 +33,16 @@ class HomeController < ApplicationController
       a.title = params[:title]
       a.testcenter = @testcenter.find(params[:test_center_id]).name
       a.content= params[:content]
+      a.point=params[:rating]
       a.save
+      
+      sum_num=0
+      Article.where(:test_center_id => params[:test_center_id]).each do |x| sum_num+=x.point end
+      b=TestCenter.find(params[:test_center_id])
+      length=Article.where(:test_center_id => params[:test_center_id]).length
+      b.review_point=(sum_num / length).round(1)
+      b.save
+      
       redirect_to "/home/labreview/#{index}"
   end
   

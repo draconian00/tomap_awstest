@@ -4,6 +4,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       #내가 추가한거
       #프로필사진
       t.string :image
+      t.string :nickname
+      t.string :phone_number
+      t.string :living_region
       
       ## Database authenticatable
       t.string :email,              null: false, default: ""

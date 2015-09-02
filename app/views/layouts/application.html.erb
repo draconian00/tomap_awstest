@@ -31,49 +31,6 @@
   
   <script>
     $(function() {
-      $('#r_drawer').hide();
-    });
-  </script>
-  
-  <script>
-    $(function() {
-      $('#user_menu').click(function() {
-        $('#map_drawer').hide();
-        $('#user_drawer').toggle('slide',300);
-      });
-    });
-  </script>
-  
-  <script>
-    $(function() {
-      $('#map_menu').click(function() {
-        $('#user_drawer').hide();
-        $('#map_drawer').classList.toggle('open');
-      });
-    });
-  </script>
-    
-  <script>
-    var lat;
-    var lng;
-    var region_center;
-    var mode_index = 0;
-    $(function() {
-      $('#current').click(function() {
-        region_center = undefined;
-        secondCall(pos, 14);
-      });
-      $('#region_1').click(function() {
-        lat = $('#region_1_lat').val();
-        lng = $('#region_1_lng').val();
-        region_center = new google.maps.LatLng(lat, lng);
-        secondCall(region_center, 11);
-    });
-    });
-  </script>
-  
-  <script>
-    $(function() {
       $('#user_dropdown').click(function(){
         $('#dropdown_menu').slideToggle();
       });
@@ -101,7 +58,7 @@
         <div style="padding-top :10px; ">
           <% if user_signed_in? %>
             <div class="dropdown">
-              <a href="#" id="user_dropdown" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.email %> <span class="caret"></span></a>
+              <a href="#" id="user_dropdown" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.nickname %> <span class="caret"></span></a>
               <ul id="dropdown_menu" class="dropdown-menu" style="margin-left:20px">
                 <li><center>
                   <%if current_user.image.url.nil? %>
@@ -126,30 +83,41 @@
       </center>
     </div>
   </nav>
+  
+      
+
   <nav id="main_nav_left" style="left:0px;
                                  width:60px; height:100%; 
-                                position:fixed;
-                                background-color: #eaeaea;
-                                border-right: 0px solid black;
-                                border-left: 0px solid black;
-                                z-index:1000000000;
-                                box-shadow: inset 0px 0px 10px #bdbdbd;">
+                                 position:fixed;
+                                 background-color: #eaeaea;
+                                 border-right: 0px solid black;
+                                 border-left: 0px solid black;
+                                 z-index:1000000000;
+                                 box-shadow: inset 0px 0px 10px #bdbdbd;">
     <center style="padding-top:100px;">
-      <div class="nav_icon" id="map_menu">
-        <img src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/location-24-32.png">
-        <p style="padding-top: 5px;"><b>MAP</b></p>
+      <div class="convert" id="convert">
+        <a href="/" style="text-decoration:none; color:black;">
+          <div class="nav_icon_map" id="map_menu" style="height:60px;">
+            <img src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/location-24-32.png">
+            <p style="padding-top:5px;"><b>MAP</b></p>
+          </div>
+        </a>
       </div>
       
-      <div style="height : 30px">
+      <div style="height: 30px">
       </div>
-      
-      <a href="/home/labreview" style="text-decoration:none; color:black;">
-        <div class="nav_icon" id="review_menu">
-          <img src="https://cdn0.iconfinder.com/data/icons/layout-and-location/24/Untitled-2-21-24.png">
-          <p style="padding-top: 5px; font-size:12px;"><b>REVIEW</b></p>
+      <div id="over_convert">
+        <div class="convert2" id="convert2">
+          <a href="/home/labreview" style="text-decoration:none; color:black;">
+            <div class="nav_icon_review" id="review_menu">
+              <img src="https://cdn0.iconfinder.com/data/icons/layout-and-location/24/Untitled-2-21-24.png">
+              <p style="padding-top: 5px; font-size:12px;"><b>REVIEW</b></p>
+            </div>
+          </a>
         </div>
-      </a>
+      </div>
     </center>
+    
   </nav>
   
   <%= yield %>

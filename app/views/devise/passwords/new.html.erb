@@ -8,10 +8,10 @@
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, class: "form-control" %>
-  </div>
+  </div><br>
 
   <div class="actions">
-    <%= f.submit "비밀번호를 찾기위한 이메일 전송", class: "btn btn-lg btn-primary btn-block" %>
+    <%= f.submit "비밀번호를 찾기위한 이메일 전송", class: "btn btn-lg btn-block btn-default" %>
   </div>
   <div>
     <%= render "devise/shared/links" %>

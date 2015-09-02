@@ -179,7 +179,6 @@
 
 <script>
   google.maps.event.addDomListener(window, 'load', initMap);
-  console.log('direction mode index'+':'+mode_index);
 </script>
 
 <script>//lat1, lon1, lat2, lon2
@@ -212,11 +211,8 @@
 <script>
   $(function() {
     $('#near_by').click(function() {
-      $('#r_drawer').slideToggle(300);
       pos_lat = Number($('#pos_lat').val());
       pos_lng = Number($('#pos_lng').val());
-      console.log(pos_lat);
-      console.log(pos_lng);
       var d;
       for (i=0; i<lab_data.length; i++) {
         d = getDistance(pos_lat, pos_lng, lab_data[i][2].lat, lab_data[i][2].lng).toFixed(2);
@@ -229,17 +225,15 @@
       var ind;
       for (i=0; i<5; i++) {
         ind = distances[i].index;
-        sorted_lab.push('<h4>'
+        sorted_lab.push('<p style="font-size:13px">'
                         +lab_data[ind][0]
-                        +' <span style="font-size:15px;">'+distances[i].distance
-                        +'km</span></h4>'
-                        +'<p style="font-size:13px; margin-top:-5px;">'
-                        +lab_data[ind][1]+'</p>'
+                        +'<span style="font-size:11px;">('
+                        +distances[i].distance
+                        +'km)</span></p>'
                         +'<p style="margin-top:-5px; padding-bottom:15px;">평점 : '+lab_data[ind][4]+'점</p>'
                         +'<input id="loca_lat'+i+'" type=\"hidden\" value="'+lab_data[ind][2].lat+'">'
                         +'<input id="loca_lng'+i+'" type=\"hidden\" value="'+lab_data[ind][2].lng+'">');
       };
-      console.log(sorted_lab);
       for (i=0; i<5; i++) {
         document.getElementById('sorted_'+i).innerHTML = sorted_lab[i];
       };
@@ -253,61 +247,233 @@
     $('#sorted_0').click(function() {
       center = new google.maps.LatLng($('#loca_lat0').val(), $('#loca_lng0').val());
       console.log(center);
-      secondCall(center, 14);
+      secondCall(center, 15);
     });
     $('#sorted_1').click(function() {
       center = new google.maps.LatLng($('#loca_lat1').val(), $('#loca_lng1').val());
       console.log(center);
-      secondCall(center, 14);
+      secondCall(center, 15);
     });
     $('#sorted_2').click(function() {
       center = new google.maps.LatLng($('#loca_lat2').val(), $('#loca_lng2').val());
       console.log(center);
-      secondCall(center, 14);
+      secondCall(center, 15);
     });
     $('#sorted_3').click(function() {
       center = new google.maps.LatLng($('#loca_lat3').val(), $('#loca_lng3').val());
       console.log(center);
-      secondCall(center, 14);
+      secondCall(center, 15);
     });
     $('#sorted_4').click(function() {
       center = new google.maps.LatLng($('#loca_lat4').val(), $('#loca_lng4').val());
       console.log(center);
-      secondCall(center, 14);
+      secondCall(center, 15);
     });
   });
 </script>
 
 <script>
   $(function() {
-    $('#r_drawer_close').click(function() {
-      $('#r_drawer').slideToggle(300);
+    document.getElementById('convert').innerHTML='<div class="nav_icon" id="map_menu" style="cursor:pointer;"><img src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/location-24-32.png"><p style="padding-top:5px;"><b>MAP</b></p></div>'
+  });
+</script>
+
+<script>
+  $(function() {
+    $('#map_menu').click(function() {
+      $('.convert').toggleClass('active');
+      $('.map_drawer').toggle('slide', 200);
+    });
+  });
+</script>
+<script>
+  $(function() {
+    $('#near_by').click(function() {
+      $('#near_list').toggle('slide',200);
+      $('#lab_list').hide();
+    });
+  });
+</script>
+<script>
+  $(function() {
+    $('#lab_list_button').click(function() {
+      $('#lab_list').toggle('slide',200);
+      $('#near_list').hide();
     });
   });
 </script>
 
-<nav id="r_drawer" style="right:0px; width:200px; height:100%; padding-top:40px; 
-                          position:absolute; background-color:white; z-index:100000;">
-  <div id="r_drawer_close" style="width:24px; height:24px;
-                               position: absolute;
-                               cursor: pointer;
-                               background-image: url(/icon_menu_close24.png);">
+<script>
+  var lat = [];
+  var lng = [];
+  var region_center;
+  $(function() {
+    for (i=1; i<8; i++) {
+      lat.push(Number($('#region_0'+i+'_lat').val()));
+      lng.push(Number($('#region_0'+i+'_lng').val()));
+    };
+    $('#region_01').click(function() {
+      region_center = new google.maps.LatLng(lat[0], lng[0]);
+      secondCall(region_center, 11);
+    });
+    $('#region_02').click(function() {
+      region_center = new google.maps.LatLng(lat[1], lng[1]);
+      secondCall(region_center, 12);
+    });
+    $('#region_03').click(function() {
+      region_center = new google.maps.LatLng(lat[2], lng[2]);
+      secondCall(region_center, 9);
+    });
+    $('#region_04').click(function() {
+      region_center = new google.maps.LatLng(lat[3], lng[3]);
+      secondCall(region_center, 9);
+    });
+    $('#region_05').click(function() {
+      region_center = new google.maps.LatLng(lat[4], lng[4]);
+      secondCall(region_center, 9);
+    });
+    $('#region_06').click(function() {
+      region_center = new google.maps.LatLng(lat[5], lng[5]);
+      secondCall(region_center, 9);
+    });
+    $('#region_07').click(function() {
+      region_center = new google.maps.LatLng(lat[6], lng[6]);
+      secondCall(region_center, 11);
+    });
+  });
+</script>
+
+<div class="map_drawer" id="map_drawer">
+  <div style="padding-top:50px;">
+    <div style="padding-bottom:10px; border-bottom: 3px solid;">
+      <h5 style="color:#FF007F">시험장찾기</h5>
+    </div>
+    <div style="height: 5px; border-bottom: 2px dashed; margin-bottom: 10px;">
+    </div>
+    <table style="width:100%">
+      <tr>
+        <td class="td_bottom">
+          <div class="near_by" id="near_by">
+            <p style="font-size:15px; padding-bottom:10px;">가까운 시험장</p>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <table id="near_list" style="display:none; position:relative; width:100%;">
+      <tr>
+        <td>
+          <table style="width:100%;">
+            <tr>
+              <td>
+                <div id="sorted_0" style="cursor:pointer; padding-top:10px;">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="sorted_1" style="cursor:pointer; padding-top:10px;">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="sorted_2" style="cursor:pointer; padding-top:10px;">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="sorted_3" style="cursor:pointer; padding-top:10px;">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="td_bottom">
+                <div id="sorted_4" style="cursor:pointer; padding-top:10px;">
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table style="width:100%;">
+      <tr>
+        <td class="td_bottom">
+          <p class="lab_list_button" id="lab_list_button" style="font-size:15px;padding-top:10px;padding-bottom:10px;">지역별 시험장</p>
+        </td>
+      </tr>
+    </table>
+    <table id="lab_list" style="display:none; position:relative; width:100%">
+      <tr>
+        <td>
+          <table style="width:100%;">
+            <tr>
+              <td>
+                <p id="region_01">서울 / 경기</p>
+                <input type="hidden" id="region_01_lat" value="37.556595">
+                <input type="hidden" id="region_01_lng" value="127.020383">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p id="region_02">인천</p>
+                <input type="hidden" id="region_02_lat" value="37.469359">
+                <input type="hidden" id="region_02_lng" value="126.713395">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p id="region_03">충청도</p>
+                <input type="hidden" id="region_03_lat" value="36.723031">
+                <input type="hidden" id="region_03_lng" value="127.324632">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p id="region_04">경상도</p>
+                <input type="hidden" id="region_04_lat" value="35.899183">
+                <input type="hidden" id="region_04_lng" value="128.709929">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p id="region_05">전라도</p>
+                <input type="hidden" id="region_05_lat" value="35.534490">
+                <input type="hidden" id="region_05_lng" value="127.115866">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p id="region_06">강원도</p>
+                <input type="hidden" id="region_06_lat" value="37.509643">
+                <input type="hidden" id="region_06_lng" value="128.532281">
+              </td>
+            </tr>
+            <tr>
+              <td class="td_bottom">
+                <p id="region_07">제주도</p>
+                <input type="hidden" id="region_07_lat" value="33.381499">
+                <input type="hidden" id="region_07_lng" value="126.555735">
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table style="width:100%;">
+      <tr>
+        <td class="td_bottom">
+          <div>
+            <p style="font-size:15px;padding-top:10px;padding-bottom:10px;">길찾기</p>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
-  <div style="width:200px; padding-top:24px;">
-    <div id="sorted_0" style="cursor:pointer; padding-top:10px; padding-left:10px;">
-    </div>
-    <div id="sorted_1" style="cursor:pointer; padding-top:10px; padding-left:10px;">
-    </div>
-    <div id="sorted_2" style="cursor:pointer; padding-top:10px; padding-left:10px;">
-    </div>
-    <div id="sorted_3" style="cursor:pointer; padding-top:10px; padding-left:10px;">
-    </div>
-    <div id="sorted_4" style="cursor:pointer; padding-top:10px; padding-left:10px;">
-    </div>
-  </div>
-</nav>
+</div>
 
 <input type="hidden" id="pos_lat">
 <input type="hidden" id="pos_lng">
 <!-- 지도 div 입니다 id 말고 다 건드려도 됨-->
-  <div id="map" style="width:100%; height:100%; z-index:10; position:relative;"></div>
+  <div id="map" style="width:100%; height:100%;"></div>

@@ -2,7 +2,6 @@
 <br><br>
 <div class="row">
   <div class="col-md-2 col-md-offset-2">
-    <a href="#"><strong><i class="glyphicon glyphicon-home"></i>&nbsp;후기</strong></a><br>
       <ul class="nav nav-stacked">
           <li role="nav-header"><a href="/home/labreview">전체보기</a></li>
           <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">서울/경기 <i class="glyphicon glyphicon-chevron-right"></i></a>
@@ -90,13 +89,13 @@
   <div class="col-md-6">
     <form action="/home/do_write">
       <div class="form-group">
-          <label for="inputEmail3" class="col-sm-1 control-label">제목</label>
-          <div class="col-sm-11">
+          <label for="inputEmail3" class="col-sm-2 control-label">제목</label>
+          <div class="col-sm-10">
             <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="제목">
           </div>
       </div> 
-      <label class="col-sm-1 control-label">고사장</label>
-      <div class="col-sm-11">
+      <label class="col-sm-2 control-label">고사장</label>
+      <div class="col-sm-10">
         <%if params[:id].nil? %>
             <select id="select_region">
               <option value="none">지역</option>
@@ -119,12 +118,21 @@
       </div>      
       <textarea class="form-control" name="content" rows="10"></textarea>
       <%if params[:id].nil? %>
-        <input id="final_choice" type="text" name="test_center_id" value="">
+        <input id="final_choice" type="hidden" name="test_center_id" value="">
       <%else%>
         <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>">
       <%end%>
-      <button type="submit" class="btn btn-primary">작성완료</button>
+      <span class="star-rating">
+        <input type="radio" name="rating" value="1"><i></i>
+        <input type="radio" name="rating" value="2"><i></i>
+        <input type="radio" name="rating" value="3"><i></i>
+        <input type="radio" name="rating" value="4"><i></i>
+        <input type="radio" name="rating" value="5"><i></i>
+      </span>
+      <br><center><button type="submit" class="btn btn-default">작성완료</button></center>
+      
     </form>
+
   </div>
   
 </div>
@@ -134,17 +142,21 @@
     $("#select_region").change(function() {
         var code = $(this).val();
         if(code=="01"){
-        $("#after_select").html("<%@testcenter.where(:region_code => "01").each do |x|%><option><%=x.name%></option><%end%>");
+        $("#after_select").html("<%@testcenter.where(:region_code => "01").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");
         }
         if(code=="02"){
-        $("#after_select").html("<%@testcenter.where(:region_code => "02").each do |x|%><option><%=x.name%></option><%end%>");  
+        $("#after_select").html("<%@testcenter.where(:region_code => "02").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
         }
         if(code=="03"){
-        $("#after_select").html("<%@testcenter.where(:region_code => "03").each do |x|%><option><%=x.name%></option><%end%>");  
+        $("#after_select").html("<%@testcenter.where(:region_code => "03").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
         }
     });
     $("#after_select").change(function() {
-        document.getElementById("final_choice").value= $(this).val()
+        document.getElementById("final_choice").value= $(this).val();
+        
+    });
+    $( "#one" ).click(function() {
+      alert( "Handler for .click() called." );
     });
     alert("ready!");
 });

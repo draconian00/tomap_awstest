@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
     width: 100%;
+    background-color: #F6F6F6;
 }
 // 별점 디자인 가져오기
 // 참고 블로그 : http://rog.ie/blog/css-star-rater
@@ -80,22 +81,78 @@ html, body {
 }
 
 
-.mypage {
-    border: 1px solid white;
-    border-radius: 25px;
-    width: 60%;
-    height: 800px;
-    background-color: white;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .nav_icon {
   width: 50px;
   height: 60px;
 }
 
+.convert {
+  padding-top: 10px;
+}
 
-// 고사장 리뷰 nav-bar 레이아웃
+.convert.active {
+  box-shadow: inset 0px 0px 10px #8C8C8C;
+}
 
+.convert2 {
+  padding-top: 10px;
+}
+
+.convert2.active {
+  box-shadow: inset 0px 0px 10px #8C8C8C;
+}
+  
+// 고사장 리뷰 nav-bar 
+
+.map_drawer {
+  left: 60px;
+  width: 200px;
+  height: 100%;
+  background-color: #232323;
+  position: absolute;
+  z-index: 100;
+  display: none;
+  color: white;
+  opacity: 0.9;
+  text-align: center;
+  p {
+    cursor: pointer;
+    margin-bottom: 0px;
+  }
+}
+
+.review_drawer {
+  left: 60px;
+  width: 200px;
+  height: 100%;
+  background-color: #232323;
+  position: absolute;
+  z-index: 100;
+  display: none;
+  color: white;
+  opacity: 0.9;
+  text-align: center;
+  p {
+    cursor: pointer;
+  }
+}
+  
+
+.near_by.active {
+  color: yellow;
+}
+
+.lab_list_button.active {
+  color: yellow;
+}
+
+td {
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+.td_bottom {
+  border-bottom: 1px solid white;
+  border-collapse: collapse;
+  padding: 10px;
+}

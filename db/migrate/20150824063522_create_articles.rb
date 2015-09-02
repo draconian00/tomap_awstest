@@ -5,6 +5,7 @@ class CreateArticles < ActiveRecord::Migration
       t.string :title
       t.string :testcenter
       t.string :content
+      t.integer :point
       
       #조회수
       

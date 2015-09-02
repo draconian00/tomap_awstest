@@ -21,17 +21,34 @@
     <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
   </div>
   
+  <div class="field">
+    <%= f.label :nickname %><br />
+    <%= f.text_field :nickname, autocomplete: "off", class: "form-control",:required => true %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :phone_number %><br />
+    <%= f.text_field :phone_number, autocomplete: "off", class: "form-control" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :living_region %><br />
+      <%= f.select :living_region, options_for_select(["Select One", "서울/경기", "인천", "충청도", "경상도", "전라도", "강원도", "제주도"],:disabled => ["Select One"]), class: "form-control" %>
+  </div>
+  
+
+  
   <!--프로필사진-->
   <div class="field">
     <%= f.label :image %><br />
     <%= f.file_field :image %>
-  </div>
+  </div><br>
 
   <div class="actions">
-    <%= f.submit "Sign up", class: "btn btn-lg btn-primary btn-block"  %>
-  </div>
+    <%= f.submit "Sign up", class: "btn btn-lg btn-block btn-default"  %>
+  </div><br>
   <div>
-    <%= render "devise/shared/links" %>
+    <center><%= render "devise/shared/links" %></center>
   </div>
   <div style="border:1px solid black">
   더 받아야할 정보<br>
