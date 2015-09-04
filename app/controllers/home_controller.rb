@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     @lab_db = TestCenter.all
     @point_array = Array.new
     @lab_db.each do |x|
-      @point_array.push(x.review_point.round(0))
+      @point_array.push(x.avg_point.round(0))
     end
   end
   
@@ -33,14 +33,37 @@ class HomeController < ApplicationController
       a.title = params[:title]
       a.testcenter = @testcenter.find(params[:test_center_id]).name
       a.content= params[:content]
-      a.point=params[:rating]
+      a.location_point=params[:location_rating]
+      a.facility_point=params[:facility_rating]
+      a.computer_point=params[:computer_rating]
+      a.avg_point=((a.location_point+a.facility_point+a.computer_point)/3.0).round(2)
       a.save
       
-      sum_num=0
-      Article.where(:test_center_id => params[:test_center_id]).each do |x| sum_num+=x.point end
+      
+      #각 글의 리뷰점수를 각 고사장 리뷰점수에 반영시키는 과정
+      location_sum=0
+      facility_sum=0
+      computer_sum=0
+      avg_sum=0
+      Article.where(:test_center_id => params[:test_center_id]).each do |x| location_sum+=x.location_point end
       b=TestCenter.find(params[:test_center_id])
       length=Article.where(:test_center_id => params[:test_center_id]).length
-      b.review_point=(sum_num / length).round(1)
+      b.location_point=(location_sum / length).round(1)
+      b.save
+      Article.where(:test_center_id => params[:test_center_id]).each do |x| facility_sum+=x.facility_point end
+      b=TestCenter.find(params[:test_center_id])
+      length=Article.where(:test_center_id => params[:test_center_id]).length
+      b.facility_point=(facility_sum / length).round(1)
+      b.save
+      Article.where(:test_center_id => params[:test_center_id]).each do |x| computer_sum+=x.computer_point end
+      b=TestCenter.find(params[:test_center_id])
+      length=Article.where(:test_center_id => params[:test_center_id]).length
+      b.computer_point=(computer_sum / length).round(1)
+      b.save
+      Article.where(:test_center_id => params[:test_center_id]).each do |x| avg_sum+=x.avg_point end
+      b=TestCenter.find(params[:test_center_id])
+      length=Article.where(:test_center_id => params[:test_center_id]).length
+      b.avg_point=(avg_sum / length).round(1)
       b.save
       
       redirect_to "/home/labreview/#{index}"

@@ -10,7 +10,7 @@ $('[data-toggle=collapse]').click(function(){
 
 <script>
   $(function() {
-    document.getElementById('over_convert').innerHTML='<div class="convert2" id="convert2" style="box-shadow: inset 0px 0px 10px #8C8C8C;"><div class="nav_icon_review" id="review_menu" style="cursor:pointer;"><img src="https://cdn0.iconfinder.com/data/icons/layout-and-location/24/Untitled-2-21-24.png"><p style="padding-top: 5px; font-size:12px;"><b>REVIEW</b></p></div></div>'
+    document.getElementById('over_convert').innerHTML='<a href="/home/labreview" style="text-decoration:none; color:black;"><div class="convert2" id="convert2" style="box-shadow: inset 0px 0px 10px #8C8C8C;"><div class="nav_icon_review" id="review_menu" style="cursor:pointer;"><img src="https://cdn0.iconfinder.com/data/icons/layout-and-location/24/Untitled-2-21-24.png"><p style="padding-top: 5px; font-size:12px;"><b>REVIEW</b></p></div></div></a>'
   });
 </script>
 
@@ -22,9 +22,9 @@ $('[data-toggle=collapse]').click(function(){
 
 <br><br>
 <div class="row" style="padding-top:20px;">
-  <div class="col-md-2 col-md-offset-2">
-      <ul class="nav nav-stacked">
-          <li role="nav-header"><a href="/home/labreview">전체보기</a></li>
+  <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD;">
+      <ul class="nav nav-stacked" id="list_deco">
+          <li role="nav-header"><a href="/home/labreview"><b>시험장 전체보기</b></a></li>
           <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">서울/경기 <i class="glyphicon glyphicon-chevron-right"></i></a>
               <!--in은 페이지가 열렸을때 펼쳐졌는지 여부-->
               <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"01").include? @testcenter.find(params[:id])) %>in<%end%>" id="userMenu">
@@ -103,39 +103,39 @@ $('[data-toggle=collapse]').click(function(){
                   </li>
               </ul>
           </li>
+          <li style="height: 200px;">
+          </li>
       </ul>
-      <hr>   
+      <hr>  
   </div>
   <!--메인페이지인 경우-->
   <%if params[:id].nil?%>
-    <div class="col-md-6">
+    <div class="col-md-7">
       <p>전국 핫플레이스</p>
-      <div class="row">
-        <%@testcenter.sort{|x| x.review_point}.reverse.take(3).reverse.each do |y|%>
-        <div class="col-md-4">
+      <div class="row" style="border-bottom: 1px solid #BDBDBD">
+        <%@testcenter.sort_by{|x| x[:avg_point]}.reverse.take(3).each do |y|%>
+        <div class="col-md-4" style="margin-bottom:20px">
           <div class="thumbnail">
             <img src="..." alt="...">
             <div class="caption">
               <h4>1위</h4>
               <p><%=y.name%></p>
-              <p>평점:<%=y.review_point%></p>
+              <p>평점:<%=y.avg_point%></p>
             </div>
           </div>
         </div>
         <%end%>
-      </div>  
+      </div><br><br>
       
       <div class="row"> 
         <div class="col-md-12">
-          <div class="input-group">
+          <div class="input-group" style="width: 70%; margin:auto;">
             <div class="input-group-btn">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">지역 <span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li><a href="#">서울/경기</a></li>
+                <li><a href="#">인천</a></li>
+                <li><a href="#">충청도</a></li>
               </ul>
             </div>
             <!-- /btn-group -->
@@ -211,33 +211,89 @@ $('[data-toggle=collapse]').click(function(){
 
 <!--각 학교별 페이지인경우-->
 <%else%>
+<script>
+  var center = new google.maps.LatLng(<%=@testcenter.find(params[:id]).position_lat%>, <%=@testcenter.find(params[:id]).position_lng%>);
+  var mapProp;
+  var marker;
+  
+  function labMap() {
+    mapProp = {
+      center: center,
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map'), mapProp);
+    pinmarker();
+    addinfo(marker);
+  }
+  
+  function pinmarker() {
+    marker = new google.maps.Marker({
+      map: map,
+      position: center,
+      title: '<%=@testcenter.find(params[:id]).name%>',
+      address: '<%=@testcenter.find(params[:id]).address%>',
+      animation: google.maps.Animation.DROP
+    });
+  }
+  
+  function addinfo(marker) {
+    var info = new google.maps.InfoWindow({
+      content: '<h3><%= @testcenter.find(params[:id]).name %></h3>'
+              +'<p><%= @testcenter.find(params[:id]).address %></p>'
+              +'<p id="detail" style="cursor:pointer; color:#6799FF;" onclick="newWindow()">Google 지도 보기</p>'
+    });
+    marker.addListener('mouseover', function() {
+      info.open(marker.get('map'), marker);
+    });
+  }
+  
+  function newWindow() {
+    var win = window.open('https://www.google.co.kr/maps/place/'
+                          +'<%=@testcenter.find(params[:id]).address%>'
+                          +'/@'
+                          +'<%=@testcenter.find(params[:id]).position_lat%>'
+                          +','
+                          +'<%=@testcenter.find(params[:id]).position_lng%>'
+                          +',17z?hl=ko');
+    win.focus();
+  }
+  
+  google.maps.event.addDomListener(window, 'load', labMap);
+</script>
   <div class="col-md-6">
     <div class="row">
+      <div class="col-md-8">
+        <div id="map" style="width:400px; height:300px;"></div>
+      
+      </div>
       <%if params[:id] != nil && (@testcenter.where(:region_code=>"01").include? @testcenter.find(params[:id])) %>
-          <p>서울/경기 핫 플레이스</p>
-          <%@testcenter.where(:region_code => "01").sort{|x| x.review_point}.reverse.take(3).reverse.each do |y|%>
           <div class="col-md-4">
-            <div class="thumbnail">
-              <img src="..." alt="...">
-              <div class="caption">
-                <h4>1위</h4>
+            <p>서울/경기 핫 플레이스</p>
+            <%@ranking=1%>
+            <%@testcenter.where(:region_code => "01").sort_by{|x| x[:avg_point]}.reverse.take(3).each do |y|%>
+            <div style="border:1px solid black;height:120px">
+              <div>
+                <h4><%=@ranking%>위</h4>
                 <p><%=y.name%></p>
-                <p>평점:<%=y.review_point%></p>
-                <p><a href="#" class="btn btn-default" role="button">Button</a></p>
+                <p>평점:<%=y.avg_point%></p>
+                <p><a href="/home/labreview/<%=y.id%>">바로가기</a></p>
               </div>
             </div>
+            <%@ranking+=1%>
+            <%end%>
           </div>
-          <%end%>
+          
       <%elsif params[:id] != nil && (@testcenter.where(:region_code=>"02").include? @testcenter.find(params[:id])) %>
           <p>인천 핫 플레이스</p>
-          <%@testcenter.where(:region_code => "02").sort{|x| x.review_point}.reverse.take(3).reverse.each do |y|%>
+          <%@testcenter.where(:region_code => "02").sort{|x| x.avg_point}.reverse.take(3).reverse.each do |y|%>
           <div class="col-md-4">
             <div class="thumbnail">
               <img src="..." alt="...">
               <div class="caption">
                 <h4>1위</h4>
                 <p><%=y.name%></p>
-                <p>평점:<%=y.review_point%></p>
+                <p>평점:<%=y.avg_point%></p>
                 <p><a href="#" class="btn btn-default" role="button">Button</a></p>
               </div>
             </div>
@@ -245,21 +301,21 @@ $('[data-toggle=collapse]').click(function(){
           <%end%>
       <%elsif params[:id] != nil && (@testcenter.where(:region_code=>"03").include? @testcenter.find(params[:id])) %>
           <p>충청도 핫 플레이스</p>
-          <%@testcenter.where(:region_code => "03").sort{|x| x.review_point}.reverse.take(3).reverse.each do |y|%>
+          <%@testcenter.where(:region_code => "03").sort{|x| x.avg_point}.reverse.take(3).reverse.each do |y|%>
           <div class="col-md-4">
             <div class="thumbnail">
               <img src="..." alt="...">
               <div class="caption">
                 <h4>1위</h4>
                 <p><%=y.name%></p>
-                <p>평점:<%=y.review_point%></p>
+                <p>평점:<%=y.avg_point%></p>
                 <p><a href="#" class="btn btn-default" role="button">Button</a></p>
               </div>
             </div>
           </div>
           <%end%>
       <%end%>
-    </div> 
+    </div>
     
     <p><%=@testcenter.find(params[:id]).name%>게시판입니다</p>
     <div class="panel panel-default">
@@ -277,7 +333,7 @@ $('[data-toggle=collapse]').click(function(){
               <th style="text-align:center">고사장</th>
               <th style="text-align:center">제목</th>
               <th style="text-align:center">작성자</th>
-              <th style="text-align:center">조회수</th>
+              <th style="text-align:center">평점</th>
               <th style="text-align:center">추천수</th>
             </tr>
           </thead>
@@ -288,7 +344,7 @@ $('[data-toggle=collapse]').click(function(){
                 <td style="text-align:center;cursor:pointer"><%=x.testcenter%></td>
                 <td style="text-align:center"><%=x.title%></td>
                 <td style="text-align:center">김새봄</td>
-                <td style="text-align:center">100</td>
+                <td style="text-align:center"><%=x.avg_point%></td>
                 <td style="text-align:center">12</td>
             </tr>
             <div class="modal fade" id="<%=x.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

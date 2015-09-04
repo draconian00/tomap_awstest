@@ -122,12 +122,29 @@
       <%else%>
         <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>">
       <%end%>
+      <p>위치</p>
       <span class="star-rating">
-        <input type="radio" name="rating" value="1"><i></i>
-        <input type="radio" name="rating" value="2"><i></i>
-        <input type="radio" name="rating" value="3"><i></i>
-        <input type="radio" name="rating" value="4"><i></i>
-        <input type="radio" name="rating" value="5"><i></i>
+        <input type="radio" name="location_rating" value="1"><i></i>
+        <input type="radio" name="location_rating" value="2"><i></i>
+        <input type="radio" name="location_rating" value="3"><i></i>
+        <input type="radio" name="location_rating" value="4"><i></i>
+        <input type="radio" name="location_rating" value="5"><i></i>
+      </span>
+      <p>시설</p></p>
+      <span class="star-rating">
+        <input type="radio" name="facility_rating" value="1"><i></i>
+        <input type="radio" name="facility_rating" value="2"><i></i>
+        <input type="radio" name="facility_rating" value="3"><i></i>
+        <input type="radio" name="facility_rating" value="4"><i></i>
+        <input type="radio" name="facility_rating" value="5"><i></i>
+      </span>
+      <p>컴퓨터</p>
+      <span class="star-rating">
+        <input type="radio" name="computer_rating" value="1"><i></i>
+        <input type="radio" name="computer_rating" value="2"><i></i>
+        <input type="radio" name="computer_rating" value="3"><i></i>
+        <input type="radio" name="computer_rating" value="4"><i></i>
+        <input type="radio" name="computer_rating" value="5"><i></i>
       </span>
       <br><center><button type="submit" class="btn btn-default">작성완료</button></center>
       

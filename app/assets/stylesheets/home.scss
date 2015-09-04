@@ -156,3 +156,21 @@ td {
   border-collapse: collapse;
   padding: 10px;
 }
+
+#list_deco a{
+  color: #4C4C4C;
+}
+
+.help {
+  background-color: #B2CCFF;
+  width: auto;
+  height: 50px;
+  position: fixed;
+  display: none;
+  z-index: 10;
+  cursor: pointer;
+  opacity: 0.8;
+  p {
+    margin-top: auto;
+  }
+}

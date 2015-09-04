@@ -5,9 +5,12 @@ class CreateArticles < ActiveRecord::Migration
       t.string :title
       t.string :testcenter
       t.string :content
-      t.integer :point
       
-      #조회수
+      #평점
+      t.float :location_point
+      t.float :facility_point
+      t.float :computer_point
+      t.float :avg_point
       
       
       t.timestamps null: false

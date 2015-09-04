@@ -18,7 +18,10 @@ ActiveRecord::Schema.define(version: 20150824063522) do
     t.string   "title"
     t.string   "testcenter"
     t.string   "content"
-    t.integer  "point"
+    t.float    "location_point"
+    t.float    "facility_point"
+    t.float    "computer_point"
+    t.float    "avg_point"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
@@ -28,10 +31,13 @@ ActiveRecord::Schema.define(version: 20150824063522) do
     t.string   "address"
     t.string   "position_lat"
     t.string   "position_lng"
-    t.float    "review_point"
     t.string   "region_code"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.float    "location_point"
+    t.float    "facility_point"
+    t.float    "computer_point"
+    t.float    "avg_point"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "users", force: :cascade do |t|
