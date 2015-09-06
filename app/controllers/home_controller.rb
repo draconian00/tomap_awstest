@@ -8,6 +8,14 @@ class HomeController < ApplicationController
     end
   end
   
+  def index2
+    @lab_db = TestCenter.all
+    @point_array = Array.new
+    @lab_db.each do |x|
+      @point_array.push(x.avg_point.round(0))
+    end
+  end
+  
   def testreview
   end
   
