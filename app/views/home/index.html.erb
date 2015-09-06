@@ -424,6 +424,9 @@
   $(function() {
     $('#current_location').click(function() {
       secondCall(pos, 14);
+      $('#near_list').hide();
+      $('#lab_list').hide();
+      $('#direction_input').hide();
     });
   });
 </script>
