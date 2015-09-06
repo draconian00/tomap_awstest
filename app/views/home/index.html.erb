@@ -426,7 +426,17 @@
       secondCall(pos, 14);
       $('#near_list').hide();
       $('#lab_list').hide();
-      $('#direction_input').hide();
+    });
+  });
+</script>
+
+<script>
+  $(function() {
+    $('#route_find').click(function() {
+      $('#detail').show('blind', 600);
+    });
+    $('#route_delete').click(function() {
+      $('#detail').hide('blind', 600);
     });
   });
 </script>
@@ -577,9 +587,9 @@
             <label for="end">도착지</label>
             <input type="text" id="end" placeholder="마커 오른쪽 클릭" style="color:black;"><br><br>
             <input type="hidden" id="hidden_end" name="hidden_end">
-            <span onclick="calcRoute()" style="cursor:pointer;">길찾기!</span>&nbsp;&nbsp;&nbsp;
-            <span onclick="deleteRoute()" style="cursor:pointer;">지우기</span><br><br>
-            <p id="detail" style="cursor:pointer;">자세히 보기</p>
+            <span id="route_find" onclick="calcRoute()" style="cursor:pointer;">길찾기!</span>&nbsp;&nbsp;&nbsp;
+            <span id="route_delete" onclick="deleteRoute()" style="cursor:pointer;">지우기</span><br><br>
+            <p id="detail" style="cursor:pointer; display:none;">자세히 보기</p>
             <input type="hidden" id="pos_lat" name="pos_lat">
             <input type="hidden" id="pos_lng" name="pos_lng">
           </div>
@@ -646,7 +656,7 @@
   </script>
 <% end %>
 <center>
-  <div class="help" id="help1" style="top:110px; left:80px;">
+  <div class="help" id="help1" style="top:100px; left:80px;">
     <div class="help_table">
       <p class="help_table_cell">지도 메뉴를<br>볼 수 있습니다.</p>
     </div>

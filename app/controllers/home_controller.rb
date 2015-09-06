@@ -22,6 +22,7 @@ class HomeController < ApplicationController
   def labreview
      @testcenter=TestCenter.all
      @allarticle=Article.all
+     @posts = Article.paginate(:page => params[:page], :per_page => 5).order('id DESC')
     # @sort=@testcenter.sort{|x| x["name"]}
   end
   
