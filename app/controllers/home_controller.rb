@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  
+  before_action :authenticate_user!, only: [:do_write, :labreview_write]
   def index
     @lab_db = TestCenter.all
     @point_array = Array.new
@@ -42,12 +42,12 @@ class HomeController < ApplicationController
       a.title = params[:title]
       a.testcenter = @testcenter.find(params[:test_center_id]).name
       a.content= params[:content]
+      a.author=current_user.nickname
       a.location_point=params[:location_rating]
       a.facility_point=params[:facility_rating]
       a.computer_point=params[:computer_rating]
-      a.avg_point=((a.location_point+a.facility_point+a.computer_point)/3.0).round(2)
+      a.avg_point=((a.location_point+a.facility_point+a.computer_point)/3.0).round(1)
       a.save
-      
       
       #각 글의 리뷰점수를 각 고사장 리뷰점수에 반영시키는 과정
       location_sum=0

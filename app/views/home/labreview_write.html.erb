@@ -116,11 +116,11 @@
         <p class="form-control-static"><%=@testcenter.find(params[:id]).name%></p>
         <%end%>
       </div>      
-      <textarea class="form-control" name="content" rows="10"></textarea>
+      <textarea class="form-control" name="content" rows="10" required></textarea>
       <%if params[:id].nil? %>
         <input id="final_choice" type="hidden" name="test_center_id" value="">
       <%else%>
-        <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>">
+        <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>" required>
       <%end%>
       <p>위치</p>
       <span class="star-rating">

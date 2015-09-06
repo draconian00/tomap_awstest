@@ -5,6 +5,7 @@ class CreateArticles < ActiveRecord::Migration
       t.string :title
       t.string :testcenter
       t.string :content
+      t.string :author
       
       #평점
       t.float :location_point
