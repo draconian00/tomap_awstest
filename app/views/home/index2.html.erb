@@ -32,8 +32,6 @@
                    '<%= x.region_code %>']);
   <% end %>
 </script>
-<script>
-</script>
 
 <script>//별점 데이터 변수 만들기
   var point_array = <%= @point_array %>;
@@ -192,7 +190,6 @@
   } //markerclick
 </script>
 
-
 <script>
   function addinfoinout(marker, text) {
     var info = new google.maps.InfoWindow({
@@ -204,7 +201,7 @@
     marker.addListener('mouseout', function() {
         setTimeout(function() {
           info.close();
-        }, 1600);
+        }, 2000);
     });
   }
 </script>

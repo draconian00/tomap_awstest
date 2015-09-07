@@ -994,3 +994,8 @@ a.position_lng="126.561607"
 a.avg_point=0
 a.region_code="07"
 a.save
+
+count_num = Test.new
+count_num.plus_count = 0
+count_num.minus_count = 0
+count_num.save

@@ -32,8 +32,6 @@
                    '<%= x.region_code %>']);
   <% end %>
 </script>
-<script>
-</script>
 
 <script>//별점 데이터 변수 만들기
   var point_array = <%= @point_array %>;
@@ -192,7 +190,6 @@
   } //markerclick
 </script>
 
-
 <script>
   function addinfoinout(marker, text) {
     var info = new google.maps.InfoWindow({
@@ -204,7 +201,7 @@
     marker.addListener('mouseout', function() {
         setTimeout(function() {
           info.close();
-        }, 1600);
+        }, 2000);
     });
   }
 </script>
@@ -605,8 +602,20 @@
 
 <% if user_signed_in? %>
   <div class="login_alert" id="login_alert">
-    <div>
-      <p>안녕하세요!<br><%= current_user.nickname %> 님!</p>
+    <div class="table_div">
+      <tr>
+        <td style="width:50%;">
+          <div class="table_cell" style="padding-left:20px;">
+            <p style="margin:0px;">안녕하세요,
+            <br><%= current_user.nickname %> 님!</p>
+          </div>
+        </td>
+        <td style="width:50%;">
+          <div class="table_cell">
+            <img src="<%=current_user.image.thumb.url%>" class="img-circle">
+          </div>
+        </td>
+      </tr>
     </div>
   </div>
   <script>

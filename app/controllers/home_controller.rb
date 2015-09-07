@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, only: [:do_write, :labreview_write]
+  before_action :authenticate_user!, only: [:do_write, :labreview_write, :do_write_reply]
   def index
     @lab_db = TestCenter.all
     @point_array = Array.new
@@ -34,6 +34,16 @@ class HomeController < ApplicationController
      @region_selected=@testcenter.where(:region_code => params[:region_code])
   end
   
+  def do_write_reply
+      my_reply=Reply.new
+      my_reply.article_id=params[:article_id]
+      my_reply.content=params[:reply_content]
+      my_reply.author=current_user.nickname
+      my_reply.save
+      
+      redirect_to :back
+  end
+  
   def do_write
       @testcenter=TestCenter.all
       a=Article.new
@@ -43,9 +53,16 @@ class HomeController < ApplicationController
       a.testcenter = @testcenter.find(params[:test_center_id]).name
       a.content= params[:content]
       a.author=current_user.nickname
+      
       a.location_point=params[:location_rating]
+      a.location_content=params[:location_content]
+      
       a.facility_point=params[:facility_rating]
+      a.facility_content=params[:facility_content]
+      
       a.computer_point=params[:computer_rating]
+      a.computer_content=params[:computer_content]
+      
       a.avg_point=((a.location_point+a.facility_point+a.computer_point)/3.0).round(1)
       a.save
       
@@ -78,14 +95,14 @@ class HomeController < ApplicationController
       redirect_to "/home/labreview/#{index}"
   end
   
-  def directiontest
-    unless params[:origin].nil? || params[:destination].nil?
-      @origin = params[:origin].gsub(/\s/, '+')
-      @destination = params[:destination].gsub(/\s/, '+')
-    end    
-  end
-  
   def mypage
   end
 
+  def testreview
+    @db = Test.find(1)
+    @total = @db.plus_count + @db.minus_count
+    
+    @cal = (@db.plus_count.to_f / @total.to_f) * 100
+  end
+  
 end

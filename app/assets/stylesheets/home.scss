@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
     width: 100%;
-    background-color: #F6F6F6;
+    background-color: white;
 }
 // 별점 디자인 가져오기
 // 참고 블로그 : http://rog.ie/blog/css-star-rater
@@ -109,7 +109,7 @@ html, body {
   width: 200px;
   height: 100%;
   background-color: #232323;
-  position: absolute;
+  position: fixed;
   z-index: 100;
   display: none;
   color: white;
@@ -175,54 +175,6 @@ td {
   vertical-align: middle;
 }
 
-.bubble 
-{
-  position: fixed;
-  width: 200px;
-  height: 60px;
-  padding: 0px;
-  background: #B2CCFF;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  border: #7F7F7F solid 1px;
-  display: none;
-  cursor: pointer;
-  p {
-    margin: auto;
-  }
-}
-
-.bubble:after 
-{
-content: '';
-  position: absolute;
-  border-style: solid;
-  border-width: 7px 15px 7px 0;
-  border-color: transparent #B2CCFF;
-  display: block;
-  width: 0;
-  z-index: 1;
-  margin-top: -7px;
-  left: -15px;
-  top: 50%;
-}
-
-.bubble:before 
-{
-  content: '';
-  position: absolute;
-  border-style: solid;
-  border-width: 7px 15px 7px 0;
-  border-color: transparent #7F7F7F;
-  display: block;
-  width: 0;
-  z-index: 0;
-  margin-top: -7px;
-  left: -16px;
-  top: 50%;
-}
-
 .login_alert {
   position: fixed;
   background-color: black;
@@ -234,14 +186,13 @@ content: '';
   right: 10px;
   z-index: 100;
   display: none;
-  div {
+  .table_div {
     display: table;
-    width: 100%;
     height: 100%;
-    p {
-      display: table-cell;
-      vertical-align: middle;
-      padding-left: 20px;
-    }
+    width: 100%;
+  }
+  .table_cell {
+    display: table-cell;
+    vertical-align: middle;
   }
 }

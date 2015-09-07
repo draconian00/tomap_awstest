@@ -1,89 +1,21 @@
-
+<%region={"01"=>"서울/경기","02"=>"인천","03"=>"충청도","04"=>"경상도","05"=>"전라도","06"=>"강원도","07"=>"제주도"}%>
 <br><br>
 <div class="row">
-  <div class="col-md-2 col-md-offset-2">
-      <ul class="nav nav-stacked">
-          <li role="nav-header"><a href="/home/labreview">전체보기</a></li>
-          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu">서울/경기 <i class="glyphicon glyphicon-chevron-right"></i></a>
-              <!--in은 페이지가 열렸을때 펼쳐졌는지 여부-->
-              <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"01").include? @testcenter.find(params[:id])) %>in<%end%>" id="userMenu">
-                <%@testcenter.where(:region_code=>"01").each do |x|%>
-                  <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
-                <%end%>
-              </ul>
-          </li>
-          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2">인천<i class="glyphicon glyphicon-chevron-right"></i></a>
-              <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"02").include? @testcenter.find(params[:id])) %>in<%end%>" id="menu2">
-                <%@testcenter.where(:region_code=>"02").each do |x|%>
-                  <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
-                <%end%>
-              </ul>
-          </li>
-          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu3">충청도<i class="glyphicon glyphicon-chevron-right"></i></a>
-              <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>"03").include? @testcenter.find(params[:id])) %>in<%end%>" id="menu3">
-                <%@testcenter.where(:region_code=>"03").each do |x|%>
-                  <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
-                <%end%>
-              </ul>
-          </li>
-          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu4">경상도 <i class="glyphicon glyphicon-chevron-right"></i></a>
-              <ul class="nav nav-stacked collapse" id="menu4">
-                  <li><a href="#">Information &amp; Stats</a>
-                  </li>
-                  <li><a href="#">Views</a>
-                  </li>
-                  <li><a href="#">Requests</a>
-                  </li>
-                  <li><a href="#">Timetable</a>
-                  </li>
-                  <li><a href="#">Alerts</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu5">전라도 <i class="glyphicon glyphicon-chevron-right"></i></a>
-              <ul class="nav nav-stacked collapse" id="menu5">
-                  <li><a href="#">Information &amp; Stats</a>
-                  </li>
-                  <li><a href="#">Views</a>
-                  </li>
-                  <li><a href="#">Requests</a>
-                  </li>
-                  <li><a href="#">Timetable</a>
-                  </li>
-                  <li><a href="#">Alerts</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu6">강원도<i class="glyphicon glyphicon-chevron-right"></i></a>
-              <ul class="nav nav-stacked collapse" id="menu6">
-                  <li><a href="#">Information &amp; Stats</a>
-                  </li>
-                  <li><a href="#">Views</a>
-                  </li>
-                  <li><a href="#">Requests</a>
-                  </li>
-                  <li><a href="#">Timetable</a>
-                  </li>
-                  <li><a href="#">Alerts</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu7">제주도<i class="glyphicon glyphicon-chevron-right"></i></a>
-              <ul class="nav nav-stacked collapse" id="menu7">
-                  <li><a href="#">Information &amp; Stats</a>
-                  </li>
-                  <li><a href="#">Views</a>
-                  </li>
-                  <li><a href="#">Requests</a>
-                  </li>
-                  <li><a href="#">Timetable</a>
-                  </li>
-                  <li><a href="#">Alerts</a>
-                  </li>
-              </ul>
-          </li>
+  <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD;">
+      <ul class="nav nav-stacked" id="list_deco">
+          <li role="nav-header"><a href="/home/labreview"><b>시험장 전체보기</b></a></li>
+          <%region.each do |region_code,region_name|%>
+            <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#<%=region_code%>"><%=region_name%> <i class="glyphicon glyphicon-chevron-right"></i></a>
+                <!--in은 페이지가 열렸을때 펼쳐졌는지 여부-->
+                <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>region_code).include? @testcenter.find(params[:id])) %>in<%end%>" id="<%=region_code%>">
+                  <%@testcenter.where(:region_code=>region_code).each do |x|%>
+                    <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
+                  <%end%>
+                </ul>
+            </li>
+          <%end%>
       </ul>
-      <hr>       
+      <hr>  
   </div>
   
   <div class="col-md-6">
@@ -116,12 +48,7 @@
         <p class="form-control-static"><%=@testcenter.find(params[:id]).name%></p>
         <%end%>
       </div>      
-      <textarea class="form-control" name="content" rows="10" required></textarea>
-      <%if params[:id].nil? %>
-        <input id="final_choice" type="hidden" name="test_center_id" value="">
-      <%else%>
-        <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>" required>
-      <%end%>
+      
       <p>위치</p>
       <span class="star-rating">
         <input type="radio" name="location_rating" value="1"><i></i>
@@ -130,6 +57,8 @@
         <input type="radio" name="location_rating" value="4"><i></i>
         <input type="radio" name="location_rating" value="5"><i></i>
       </span>
+      <textarea class="form-control" name="location_content" rows="3" placeholder="위치에 대한 평가" required></textarea>
+      
       <p>시설</p></p>
       <span class="star-rating">
         <input type="radio" name="facility_rating" value="1"><i></i>
@@ -138,6 +67,8 @@
         <input type="radio" name="facility_rating" value="4"><i></i>
         <input type="radio" name="facility_rating" value="5"><i></i>
       </span>
+      <textarea class="form-control" name="facility_content" placeholder="시설에 대한 평가" rows="3" required></textarea>
+      
       <p>컴퓨터</p>
       <span class="star-rating">
         <input type="radio" name="computer_rating" value="1"><i></i>
@@ -146,6 +77,14 @@
         <input type="radio" name="computer_rating" value="4"><i></i>
         <input type="radio" name="computer_rating" value="5"><i></i>
       </span>
+      <textarea class="form-control" name="computer_content" placeholder="컴퓨터에 대한 평가"  rows="3" required></textarea>
+      
+      <textarea class="form-control" name="content" rows="10" placeholder="총평을 적어주세요" required></textarea>
+      <%if params[:id].nil? %>
+        <input id="final_choice" type="hidden" name="test_center_id" value="">
+      <%else%>
+        <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>" required>
+      <%end%>
       <br><center><button type="submit" class="btn btn-default">작성완료</button></center>
       
     </form>

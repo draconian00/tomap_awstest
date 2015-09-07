@@ -7,10 +7,13 @@ class CreateArticles < ActiveRecord::Migration
       t.string :content
       t.string :author
       
-      #평점
+      #평점&코멘트
       t.float :location_point
+      t.string :location_content
       t.float :facility_point
+      t.string :facility_content
       t.float :computer_point
+      t.string :computer_content
       t.float :avg_point
       
       

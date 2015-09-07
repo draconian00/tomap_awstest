@@ -12,10 +12,23 @@ $('[data-toggle=collapse]').click(function(){
 <script>
   $(function() {
     document.getElementById('over_convert').innerHTML='<a href="/home/labreview" style="text-decoration:none; color:black;"><div class="convert2" id="convert2" style="box-shadow: inset 0px 0px 10px #8C8C8C;"><div class="nav_icon_review" id="review_menu" style="cursor:pointer;"><img src="https://cdn0.iconfinder.com/data/icons/layout-and-location/24/Untitled-2-21-24.png"><p style="padding-top: 5px; font-size:12px;"><b>REVIEW</b></p></div></div></a>'
+    
+    // 댓글달아도 모달 유지
+  // $( "form" ).submit(function( event ) {
+  //     event.preventDefault();
+  //   });
+  // $('.modal').on('hidden.bs.modal', function() {
+  //     return false;
+  //   });
+  // $('#mymodal').on('hidden.bs.modal', function() {
+  //     this.modal('show');
+  //   });
   });
+  
 </script>
 
 <div class="review_drawer" id="review_drawer">
+
 </div>
 
 <script>
@@ -80,18 +93,18 @@ $('[data-toggle=collapse]').click(function(){
               <th style="text-align:center">제목</th>
               <th style="text-align:center">작성자</th>
               <th style="text-align:center">평점</th>
-              <th style="text-align:center">추천수</th>
+              <th style="text-align:center">작성날짜</th>
             </tr>
           </thead>
           <tbody>
             <% @posts.reverse.each do |x|%>
-            <tr data-toggle="modal" data-target="#<%=x.id%>">
-                <td style="text-align:center;cursor:pointer"><%=x.id%></td>
-                <td style="text-align:center;cursor:pointer"><%=x.testcenter%></td>
+            <tr style="cursor:pointer" data-toggle="modal" data-target="#<%=x.id%>">
+                <td style="text-align:center"><%=x.id%></td>
+                <td style="text-align:center"><%=x.testcenter%></td>
                 <td style="text-align:center"><%=x.title%></td>
                 <td style="text-align:center"><%=x.author%></td>
                 <td style="text-align:center"><%=x.avg_point%></td>
-                <td style="text-align:center">12</td>
+                <td style="text-align:center"><%=x.created_at.in_time_zone("Seoul") %></td>
             </tr>
             
             <div class="modal fade" id="<%=x.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -103,9 +116,35 @@ $('[data-toggle=collapse]').click(function(){
                     <h4 class="modal-title" id="myModalLabel"><%=x.title%></h4><a>평점,조회수,추천수,작성시간 등등 </a>
                   </div>
                   <div class="modal-body">
-                    <%=x.content%>
-                    <form action="" method="POST" class="form-inline">
-                      <input type="text" class="form-control" style="width:90%" placeholder="댓글달기">
+                    <div>
+                      <p>위치평가</p>
+                      <p><%=x.location_content%></p>
+                      <p><%=x.location_point%></p>
+                    </div>
+                    <div>
+                      <p>시설평가</p>
+                      <p><%=x.facility_content%></p>
+                      <p><%=x.facility_point%></p>
+                    </div>
+                    <div>
+                      <p>컴퓨터 평가</p>
+                      <p><%=x.computer_content%></p>
+                      <p><%=x.computer_point%></p>
+                    </div>
+                    <div>
+                      <p>총평</p>
+                      <p><%=x.content%></p>
+                      
+                    </div>
+                    <div>
+                      <p>댓글부분</p>
+                      <%x.replies.each do |y|%>
+                        <%=y.content%>
+                      <%end%>
+                    </div>
+                    <form action="/home/do_write_reply" method="POST" class="form-inline">
+                      <input type="text" name="article_id" value="<%=x.id%>">
+                      <input type="text" name="reply_content" class="form-control" style="width:90%" placeholder="댓글달기">
                     <input type="submit" value="댓글달기">
                     </form>
                   </div>
@@ -171,6 +210,9 @@ $('[data-toggle=collapse]').click(function(){
       content: '<h3><%= @testcenter.find(params[:id]).name %></h3>'
               +'<p><%= @testcenter.find(params[:id]).address %></p>'
               +'<p id="detail" style="cursor:pointer; color:#6799FF;" onclick="newWindow()">Google 지도 보기</p>'
+    });
+    map.addListener('idle', function() {
+      info.open(marker.get('map'), marker);
     });
     marker.addListener('mouseover', function() {
       info.open(marker.get('map'), marker);
@@ -239,9 +281,9 @@ $('[data-toggle=collapse]').click(function(){
           </thead>
           <tbody>
             <% @testcenter.find(params[:id]).articles.reverse.each do |x|%>
-            <tr data-toggle="modal" data-target="#<%=x.id%>">
-                <td style="text-align:center;cursor:pointer"><%=x.id%></td>
-                <td style="text-align:center;cursor:pointer"><%=x.testcenter%></td>
+            <tr style="cursor:pointer" data-toggle="modal" data-target="#<%=x.id%>">
+                <td style="text-align:center;"><%=x.id%></td>
+                <td style="text-align:center;"><%=x.testcenter%></td>
                 <td style="text-align:center"><%=x.title%></td>
                 <td style="text-align:center"><%=x.author%></td>
                 <td style="text-align:center"><%=x.avg_point%></td>
@@ -257,6 +299,12 @@ $('[data-toggle=collapse]').click(function(){
                   </div>
                   <div class="modal-body">
                     <%=x.content%>
+                    <div>
+                      <p>댓글부분</p>
+                      <%x.replies.each do |y|%>
+                        <p><%=y.content%>
+                      <%end%>
+                    </div>
                     <form action="" method="POST" class="form-inline">
                       <input type="text" class="form-control" style="width:90%" placeholder="댓글달기">
                     <input type="submit" value="댓글달기">
