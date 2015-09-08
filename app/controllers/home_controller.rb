@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, only: [:do_write, :labreview_write, :do_write_reply]
+  before_action :authenticate_user!, only: [:do_write, :labreview_write, :do_write_reply, :labreview]
   def index
     @lab_db = TestCenter.all
     @point_array = Array.new
@@ -40,6 +40,15 @@ class HomeController < ApplicationController
       my_reply.content=params[:reply_content]
       my_reply.author=current_user.nickname
       my_reply.save
+      
+      redirect_to :back
+  end
+  
+  def do_like
+      my_like=Like.new
+      my_like.article_id=params[:article_id]
+      my_like.click_like_person=current_user.email
+      my_like.save
       
       redirect_to :back
   end
@@ -98,11 +107,4 @@ class HomeController < ApplicationController
   def mypage
   end
 
-  def testreview
-    @db = Test.find(1)
-    @total = @db.plus_count + @db.minus_count
-    
-    @cal = (@db.plus_count.to_f / @total.to_f) * 100
-  end
-  
 end
