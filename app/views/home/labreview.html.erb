@@ -217,7 +217,7 @@ $('[data-toggle=collapse]').click(function(){
   
   function addinfo(marker) {
     var info = new google.maps.InfoWindow({
-      content: '<h3><%= @testcenter.find(params[:id]).name %></h3>'
+      content: '<h4><%= @testcenter.find(params[:id]).name %></h4>'
               +'<p><%= @testcenter.find(params[:id]).address %></p>'
               +'<p id="detail" style="cursor:pointer; color:#6799FF;" onclick="newWindow()">Google 지도 보기</p>'
     });
