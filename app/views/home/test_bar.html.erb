@@ -1,0 +1,53 @@
+<script>
+  $(function() {
+    document.getElementById('over_convert2').innerHTML='<a href="/home/test_bar" style="text-decoration:none;color:black;">'
+                                                      +'<div class="convert3" id="convert3"'
+                                                      +'style="box-shadow: inset 0px 0px 10px #8C8C8C;">'
+                                                      +'<div class="nav_icon_review" id="review_menu"'
+                                                      +'style="cursor:pointer;">'
+                                                      +'<img src="https://cdn0.iconfinder.com/data/icons/layout-and-location/24/Untitled-2-21-24.png">'
+                                                      +'<p style="padding-top: 5px; font-size:12px;"><b>COMMUNITY</b></p></div></div></a>'
+  });
+</script>
+
+<div class="container">
+  <div class="percent_bar" style="width:100%; padding-top:60px;">
+    <div style="display:table; width:100%; height:100%;">
+      <tr>
+        <div style="display:table-cell; width:<%=@green_ratio%>%; height:100%; background-color:green; vertical-align:middle;
+                    color:white;">
+          <center>
+            <p style="display:table-cell; vertical-align:middle; height:30px;"><%=@green_ratio.round(2)%> %</p>
+          </center>
+        </div>
+        <div style="display:table-cell; width:<%=@red_ratio%>%; height:100%; background-color:red; vertical-align:middle;
+                    color:white;">
+          <center>
+            <p style="display:table-cell; vertical-align:middle; height:30px;"><%=@red_ratio.round(2)%> %</p>
+          </center>
+        </div>
+      </tr>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <a href="/home/plus_cal" style="text-decoration:none; color:black;">
+        <center>
+          <p>쉬웠어요 ㅎㅎ</p>
+          <p><%=@plus%></p>
+        </center>
+      </a>
+    </div>
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-2">
+      <a href="/home/minus_cal" style="text-decoration:none; color:black;">
+        <center style="cursor:pointer;">
+          <p>어려웠어요 ㅠㅠ</p>
+          <p><%=@minus%></p>
+        </center>
+      </a>
+    </div>
+  </div>
+</div>

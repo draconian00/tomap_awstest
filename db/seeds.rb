@@ -994,3 +994,8 @@ a.position_lng="126.561607"
 a.avg_point=0
 a.region_code="07"
 a.save
+
+a = Counter.new
+a.plus = 1
+a.minus = 1
+a.save

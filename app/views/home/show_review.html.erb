@@ -1,0 +1,106 @@
+<%region={"01"=>"서울/경기","02"=>"인천","03"=>"충청도","04"=>"경상도","05"=>"전라도","06"=>"강원도","07"=>"제주도"}%>
+<br><br>
+<div class="row" style="padding-top:20px;">
+  <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD;">
+      <ul class="nav nav-stacked" id="list_deco">
+          <li role="nav-header"><a href="/home/labreview"><b>시험장 전체보기</b></a></li>
+          <%region.each do |region_code,region_name|%>
+            <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#<%=region_code%>"><%=region_name%> <i class="glyphicon glyphicon-chevron-right"></i></a>
+                <!--in은 페이지가 열렸을때 펼쳐졌는지 여부-->
+                <ul class="nav nav-stacked collapse" id="<%=region_code%>">
+                  <%@testcenter.where(:region_code=>region_code).sort_by{|x| x[:name]}.each do |x|%>
+                    <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
+                  <%end%>
+                </ul>
+            </li>
+          <%end%>
+      </ul>
+      <hr>  
+  </div>
+  <div class="col-md-6" style="border:1px solid black">
+    <div>
+      <p>위치평가</p>
+      <p><%=@article.location_content%></p>
+      <p><%=@article.location_point%></p>
+    </div>
+    <div>
+      <p>시설평가</p>
+      <p><%=@article.facility_content%></p>
+      <p><%=@article.facility_point%></p>
+    </div>
+    <div>
+      <p>컴퓨터 평가</p>
+      <p><%=@article.computer_content%></p>
+      <p><%=@article.computer_point%></p>
+    </div>
+    <div>
+      <p>총평</p>
+      <p><%=@article.content%></p>
+      <p><%=@article.computer_point%></p>
+    </div>
+    <div>
+      <p>댓글부분</p>
+      <%@article.replies.each do |y|%>
+        <p><%=y.content%></p>
+      <%end%>
+    </div>
+    <form action="/home/do_write_reply" method="POST" class="form-inline">
+      <input type="hidden" name="article_id" value="<%=@article.id%>">
+      <input type="text" name="reply_content" class="form-control" style="width:90%" placeholder="댓글달기">
+    <input type="submit" value="댓글달기">
+    </form>
+    <%if @article.likes.exists?(:click_like_person => current_user.email) %>
+        <p>이미 추천하셨습니다</p>
+    <%else%>
+        <form action="/home/do_like" method="POST">
+            <input type="hidden" name="article_id" value="<%=@article.id%>">
+            <input type="submit" value="좋아요!">
+        </form>
+    <%end%>
+  </div>
+</div>
+
+<br><br><br><br><br>
+<div class="row">
+    <div class="col-md-6 col-md-offset-2" style="border:1px solid black">
+    <div>
+      <p>위치평가</p>
+      <p><%=@article.location_content%></p>
+      <p><%=@article.location_point%></p>
+    </div>
+    <div>
+      <p>시설평가</p>
+      <p><%=@article.facility_content%></p>
+      <p><%=@article.facility_point%></p>
+    </div>
+    <div>
+      <p>컴퓨터 평가</p>
+      <p><%=@article.computer_content%></p>
+      <p><%=@article.computer_point%></p>
+    </div>
+    <div>
+      <p>총평</p>
+      <p><%=@article.content%></p>
+      <p><%=@article.computer_point%></p>
+    </div>
+    <div>
+      <p>댓글부분</p>
+      <%@article.replies.each do |y|%>
+        <p><%=y.content%></p>
+      <%end%>
+    </div>
+    <form action="/home/do_write_reply" method="POST" class="form-inline">
+      <input type="hidden" name="article_id" value="<%=@article.id%>">
+      <input type="text" name="reply_content" class="form-control" style="width:90%" placeholder="댓글달기">
+    <input type="submit" value="댓글달기">
+    </form>
+    <%if @article.likes.exists?(:click_like_person => current_user.email) %>
+        <p>이미 추천하셨습니다</p>
+    <%else%>
+        <form action="/home/do_like" method="POST">
+            <input type="hidden" name="article_id" value="<%=@article.id%>">
+            <input type="submit" value="좋아요!">
+        </form>
+    <%end%>
+  </div>
+</div>

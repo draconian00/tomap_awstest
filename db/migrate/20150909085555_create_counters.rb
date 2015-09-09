@@ -1,0 +1,11 @@
+class CreateCounters < ActiveRecord::Migration
+  def change
+    create_table :counters do |t|
+      
+      t.integer :plus
+      t.integer :minus
+
+      t.timestamps null: false
+    end
+  end
+end

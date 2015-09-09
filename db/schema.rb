@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908071034) do
+ActiveRecord::Schema.define(version: 20150909085555) do
 
   create_table "articles", force: :cascade do |t|
     t.integer  "test_center_id"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20150908071034) do
     t.float    "avg_point"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+  end
+
+  create_table "counters", force: :cascade do |t|
+    t.integer  "plus"
+    t.integer  "minus"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "likes", force: :cascade do |t|

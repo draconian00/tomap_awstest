@@ -101,6 +101,14 @@ html, body {
 .convert2.active {
   box-shadow: inset 0px 0px 10px #8C8C8C;
 }
+
+.convert3 {
+  padding-top: 10px;
+}
+
+.conver3.active {
+  box-shadow: inset 0px 0px 10px #8C8C8C;
+}
   
 // 고사장 리뷰 nav-bar 
 
@@ -126,7 +134,7 @@ html, body {
   width: 200px;
   height: 100%;
   background-color: #232323;
-  position: absolute;
+  position: fixed;
   z-index: 100;
   display: none;
   color: white;
@@ -134,6 +142,7 @@ html, body {
   text-align: center;
   p {
     cursor: pointer;
+    margin-bottom: 0px;
   }
 }
   
