@@ -1,0 +1,41 @@
+<br><br>
+<%region={"01"=>"서울/경기","02"=>"인천","03"=>"충청도","04"=>"경상도","05"=>"전라도","06"=>"강원도","07"=>"제주도"}%>
+
+<div class="row" style="padding-top:20px;">
+    <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD;">
+          <ul class="nav nav-stacked" id="list_deco">
+              <li role="nav-header"><a href="/home/labreview"><b>시험장 전체보기</b></a></li>
+              <%region.each do |region_code,region_name|%>
+                <li class="nav-header"> <a href="/home/region_main/<%=region_code%>"><%=region_name%> <i class="glyphicon glyphicon-chevron-right"></i></a>
+                </li>
+              <%end%>
+          </ul>
+          <hr>  
+    </div>
+    <div class="col-md-8">
+        <h1><%=region[params[:id]]%></h1>
+        <!--추천고사장-->
+        <div class="row">
+            <h1>추천 고사장</h1>
+            <%@testcenter.where(:region_code=>params[:id]).sort_by{|x| x[:avg_point]}.reverse.take(3).each do |x|%>
+                <div class="col-md-4" style="border:1px solid black">
+                <p>이름: <%=x.name%></p>
+                <p>평점: <%=x.avg_point%></p>
+                <a href="/home/labreview/<%=x.id%>">바로가기</a>
+                </div>
+            <%end%>
+        </div>
+        
+        <div class="row">
+            <h1>고사장 리스트</h1>
+            <%@testcenter.where(:region_code=>params[:id]).sort_by{|x| x[:name]}.each do |x|%>
+                <div class="col-md-2" style="border:1px solid black">
+                <p>이름: <%=x.name%></p>
+                <p>평점: <%=x.avg_point%></p>
+                <a href="/home/labreview/<%=x.id%>">바로가기</a>
+                </div>
+            <%end%>
+        </div>
+    </div>
+    
+</div>

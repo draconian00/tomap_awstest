@@ -111,6 +111,8 @@ class HomeController < ApplicationController
   def mypage
   end
 
-  
+  def region_main
+      @testcenter=TestCenter.all
+  end
   
 end
