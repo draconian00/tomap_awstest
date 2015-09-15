@@ -17,7 +17,28 @@
       </ul>
       <hr>  
   </div>
-  <div class="col-md-6" style="border:1px solid black">
+  <div class="col-md-6">
+    <div><p><strong>제목</strong> : <%=@article.title%></p></div>
+    <div><p><strong>작성자</strong> : <%=@article.author%></p></div>
+    <div><p><strong>고사장</strong> : <%=@article.testcenter%></p></div>
+    <div style="row">
+        <div class="col-md-4">
+          <p>위치</p>
+          <span class="star-rating smaller">
+            <% for x in (1..5) do %>
+              <% if (x ==@article.location_point.round(0)) %>
+                <i class="on"></i>
+              <% else %>
+                <i></i>
+              <% end %>
+            <% end %>
+          </span>
+          <p>(<%=@article.location_point%>)</p>
+        </div>
+        <div class="col-md-8">
+          <p><%=@article.location_content%></p>
+        </div>
+    </div>
     <div>
       <p>위치평가</p>
       <p><%=@article.location_content%></p>
@@ -41,6 +62,7 @@
     <div>
       <p>댓글부분</p>
       <%@article.replies.each do |y|%>
+        
         <p><%=y.content%></p>
       <%end%>
     </div>
@@ -61,46 +83,3 @@
 </div>
 
 <br><br><br><br><br>
-<div class="row">
-    <div class="col-md-6 col-md-offset-2" style="border:1px solid black">
-    <div>
-      <p>위치평가</p>
-      <p><%=@article.location_content%></p>
-      <p><%=@article.location_point%></p>
-    </div>
-    <div>
-      <p>시설평가</p>
-      <p><%=@article.facility_content%></p>
-      <p><%=@article.facility_point%></p>
-    </div>
-    <div>
-      <p>컴퓨터 평가</p>
-      <p><%=@article.computer_content%></p>
-      <p><%=@article.computer_point%></p>
-    </div>
-    <div>
-      <p>총평</p>
-      <p><%=@article.content%></p>
-      <p><%=@article.computer_point%></p>
-    </div>
-    <div>
-      <p>댓글부분</p>
-      <%@article.replies.each do |y|%>
-        <p><%=y.content%></p>
-      <%end%>
-    </div>
-    <form action="/home/do_write_reply" method="POST" class="form-inline">
-      <input type="hidden" name="article_id" value="<%=@article.id%>">
-      <input type="text" name="reply_content" class="form-control" style="width:90%" placeholder="댓글달기">
-    <input type="submit" value="댓글달기">
-    </form>
-    <%if @article.likes.exists?(:click_like_person => current_user.email) %>
-        <p>이미 추천하셨습니다</p>
-    <%else%>
-        <form action="/home/do_like" method="POST">
-            <input type="hidden" name="article_id" value="<%=@article.id%>">
-            <input type="submit" value="좋아요!">
-        </form>
-    <%end%>
-  </div>
-</div>

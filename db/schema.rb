@@ -66,13 +66,6 @@ ActiveRecord::Schema.define(version: 20150909085555) do
     t.datetime "updated_at",     null: false
   end
 
-  create_table "tests", force: :cascade do |t|
-    t.integer  "plus_count"
-    t.integer  "minus_count"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "image"
     t.string   "nickname"

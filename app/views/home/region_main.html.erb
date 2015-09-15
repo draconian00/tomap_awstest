@@ -1,41 +1,96 @@
 <br><br>
 <%region={"01"=>"서울/경기","02"=>"인천","03"=>"충청도","04"=>"경상도","05"=>"전라도","06"=>"강원도","07"=>"제주도"}%>
 
-<div class="row" style="padding-top:20px;">
-    <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD;">
-          <ul class="nav nav-stacked" id="list_deco">
-              <li role="nav-header"><a href="/home/labreview"><b>시험장 전체보기</b></a></li>
-              <%region.each do |region_code,region_name|%>
-                <li class="nav-header"> <a href="/home/region_main/<%=region_code%>"><%=region_name%> <i class="glyphicon glyphicon-chevron-right"></i></a>
-                </li>
-              <%end%>
-          </ul>
-          <hr>  
-    </div>
-    <div class="col-md-8">
-        <h1><%=region[params[:id]]%></h1>
+<div class="row" style="padding-top:40px;">
+    <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD; height:1000px">
+      <ul class="nav nav-stacked" id="list_deco">
+          <li role="nav-header"><a href="/home/labreview"><b style="font-size:20px">시험장 전체보기</b></a></li>
+          <br><br>
+          <%region.each do |region_code,region_name|%>
+            <li class="nav-header"> <a href="/home/region_main/<%=region_code%>" style="font-size:15px"><%=region_name%> <i class="glyphicon glyphicon-chevron-right"></i></a>
+            </li>
+             <hr>
+          <%end%>
+      </ul>
+      <hr>
+  </div>
+    <div class="col-md-8" style="margin-left: 20px;">
+
+
         <!--추천고사장-->
         <div class="row">
-            <h1>추천 고사장</h1>
+            <h4 style="margin-left:20px; padding-bottom: 10px;"><%=region[params[:id]]%> 추천 고사장</h4><br>
             <%@testcenter.where(:region_code=>params[:id]).sort_by{|x| x[:avg_point]}.reverse.take(3).each do |x|%>
-                <div class="col-md-4" style="border:1px solid black">
-                <p>이름: <%=x.name%></p>
-                <p>평점: <%=x.avg_point%></p>
-                <a href="/home/labreview/<%=x.id%>">바로가기</a>
+              <div class="col-md-4">
+              <a href="/home/labreview/<%=x.id%>" style="color:black; text-decoration:none;">
+                <div class="thumbnail"  style="height: 250px">    
+                  <center><br>
+                    <iframe width="90%" height="150" frameborder="0" style="border:0;"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDxbMZWBxFjGnTiZOMAeSIm6TFR4BvhFUM&q=<%=x.position_lat%>,<%=x.position_lng%>"
+                            >
+                    </iframe><br>
+                    <b><p style="font-size: 15px;"><%=x.name%></p></b>
+                    <p><span class="star-rating small">
+                    <% for i in(1..5) do %>
+                      <% if (i == x.avg_point.round(0)) %>
+                        <i class="on"></i>
+                      <% else %>
+                        <i></i>
+                      <% end %>
+                    <% end %>
+                    </span> (<%=x.avg_point%>)</p>
+                  </center>
+                    
                 </div>
+              </a>
+              </div>    
             <%end%>
-        </div>
+        </div><br><br>
+        <script>
+          $(function() {
+            $(".thumbnail").mouseover(function() {
+              $(this).css("background-color","#f5f4ea");
+            });
+            $(".thumbnail").mouseout(function() {
+              $(this).css("background-color","white");
+            });
+          });
+        </script>
         
         <div class="row">
-            <h1>고사장 리스트</h1>
+          <h4 style="margin-left:20px; padding-bottom: 10px; border-bottom: 1px solid #BDBDBD;">고사장 리스트</h4><br>
             <%@testcenter.where(:region_code=>params[:id]).sort_by{|x| x[:name]}.each do |x|%>
-                <div class="col-md-2" style="border:1px solid black">
-                <p>이름: <%=x.name%></p>
-                <p>평점: <%=x.avg_point%></p>
-                <a href="/home/labreview/<%=x.id%>">바로가기</a>
+               <a href="/home/labreview/<%=x.id%>" style="text-decoration:none; color:black;                                          ">
+                <div class="col-md-2 link" style="height: 90px;
+                                             display:table;">
+                  <p style="display:table-cell; vertical-align:middle; font-size: 9px; text-align:center;"><%=x.name%>
+                  <br><br>
+                  <span class="star-rating smallest">
+                    <% for i in (1..5) do %>
+                      <% if (i == x.avg_point.round(0)) %>
+                        <i class="on"></i>
+                      <% else %>
+                        <i></i>
+                      <% end %>
+                    <% end %>
+                  </span> (<%=x.avg_point%>)</p>
                 </div>
+              </a>
             <%end%>
         </div>
+        <script>
+          $(function() {
+            $(".link").mouseover(function() {
+              $(this).css("background-color","#f5f4ea");
+            });
+            $(".link").mouseout(function() {
+              $(this).css("background-color","white");
+            });
+          });
+        </script>
+    
+   
+    
     </div>
     
 </div>

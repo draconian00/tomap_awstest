@@ -1,33 +1,35 @@
 <%region={"01"=>"서울/경기","02"=>"인천","03"=>"충청도","04"=>"경상도","05"=>"전라도","06"=>"강원도","07"=>"제주도"}%>
 <br><br>
 <div class="row">
-  <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD;">
+  <div class="row" style="padding-top:40px;">
+    <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD; height:1000px">
       <ul class="nav nav-stacked" id="list_deco">
-          <li role="nav-header"><a href="/home/labreview"><b>시험장 전체보기</b></a></li>
+          <li role="nav-header"><a href="/home/labreview"><b style="font-size:20px">시험장 전체보기</b></a></li>
+          <br><br>
           <%region.each do |region_code,region_name|%>
-            <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#<%=region_code%>"><%=region_name%> <i class="glyphicon glyphicon-chevron-right"></i></a>
-                <!--in은 페이지가 열렸을때 펼쳐졌는지 여부-->
-                <ul class="nav nav-stacked collapse <%if params[:id] != nil && (@testcenter.where(:region_code=>region_code).include? @testcenter.find(params[:id])) %>in<%end%>" id="<%=region_code%>">
-                  <%@testcenter.where(:region_code=>region_code).each do |x|%>
-                    <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
-                  <%end%>
-                </ul>
+            <li class="nav-header"> <a href="/home/region_main/<%=region_code%>" style="font-size:15px"><%=region_name%> <i class="glyphicon glyphicon-chevron-right"></i></a>
             </li>
+             <hr>
           <%end%>
       </ul>
       <hr>  
   </div>
   
-  <div class="col-md-6">
+  <div class="col-md-7" style="margin-left: 20px;">
     <form action="/home/do_write">
       <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">제목</label>
-          <div class="col-sm-10">
+          <h1>리뷰 작성하기</h1>
+          <p class="help-block">리뷰를 작성해주세요</p>
+          <label for="inputEmail3" class="col-md-2 control-label" style="text-align:center;">제목</label>
+          <div class="col-md-10">
             <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="제목">
           </div>
-      </div> 
-      <label class="col-sm-2 control-label">고사장</label>
-      <div class="col-sm-10">
+          <br><br>
+          <label class="col-md-2 control-label" style="text-align:center;">작성자</label>
+          <div class="col-md-10"><%=current_user.nickname%></div>
+      </div><br>
+      <label class="col-md-2 control-label" style="text-align:center;">고사장</label>
+      <div class="col-md-10" >
         <%if params[:id].nil? %>
             <select id="select_region">
               <option value="none">지역</option>
@@ -47,45 +49,52 @@
         <%else%>
         <p class="form-control-static"><%=@testcenter.find(params[:id]).name%></p>
         <%end%>
-      </div>      
-      
-      <p>위치</p>
-      <span class="star-rating">
-        <input type="radio" name="location_rating" value="1"><i></i>
-        <input type="radio" name="location_rating" value="2"><i></i>
-        <input type="radio" name="location_rating" value="3"><i></i>
-        <input type="radio" name="location_rating" value="4"><i></i>
-        <input type="radio" name="location_rating" value="5"><i></i>
-      </span>
-      <textarea class="form-control" name="location_content" rows="3" placeholder="위치에 대한 평가" required></textarea>
-      
+      </div>
+      <br><br><br><br><br>
+      <div style="border-top:1px solid #BDBDBD;">
+        <br><br>
+        <p>위치</p>
+        <textarea class="form-control" name="location_content" rows="3" placeholder="위치에 대한 평가" required></textarea>
+        <span class="star-rating" style="float:right">
+          <input type="radio" name="location_rating" value="1"><i></i>
+          <input type="radio" name="location_rating" value="2"><i></i>
+          <input type="radio" name="location_rating" value="3"><i></i>
+          <input type="radio" name="location_rating" value="4"><i></i>
+          <input type="radio" name="location_rating" value="5"><i></i>
+        </span>
+      </div>
+      <br><br><br>
       <p>시설</p></p>
-      <span class="star-rating">
+      <textarea class="form-control" name="facility_content" placeholder="시설에 대한 평가" rows="3" required></textarea>
+      <span class="star-rating" style="float:right">
         <input type="radio" name="facility_rating" value="1"><i></i>
         <input type="radio" name="facility_rating" value="2"><i></i>
         <input type="radio" name="facility_rating" value="3"><i></i>
         <input type="radio" name="facility_rating" value="4"><i></i>
         <input type="radio" name="facility_rating" value="5"><i></i>
       </span>
-      <textarea class="form-control" name="facility_content" placeholder="시설에 대한 평가" rows="3" required></textarea>
-      
+      <br><br><br>
       <p>컴퓨터</p>
-      <span class="star-rating">
+      <textarea class="form-control" name="computer_content" placeholder="컴퓨터에 대한 평가"  rows="3" required></textarea>
+      <span class="star-rating" style="float:right">
         <input type="radio" name="computer_rating" value="1"><i></i>
         <input type="radio" name="computer_rating" value="2"><i></i>
         <input type="radio" name="computer_rating" value="3"><i></i>
         <input type="radio" name="computer_rating" value="4"><i></i>
         <input type="radio" name="computer_rating" value="5"><i></i>
       </span>
-      <textarea class="form-control" name="computer_content" placeholder="컴퓨터에 대한 평가"  rows="3" required></textarea>
-      
+      <br><br><br>
+      <p>총평</p>
       <textarea class="form-control" name="content" rows="10" placeholder="총평을 적어주세요" required></textarea>
       <%if params[:id].nil? %>
         <input id="final_choice" type="hidden" name="test_center_id" value="">
       <%else%>
         <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>" required>
       <%end%>
-      <br><center><button type="submit" class="btn btn-default">작성완료</button></center>
+      <br>
+      <center style="margin-bottom:20px;">
+        <button type="submit" class="btn btn-default">작성완료</button>
+      </center>
       
     </form>
 
@@ -98,23 +107,29 @@
     $("#select_region").change(function() {
         var code = $(this).val();
         if(code=="01"){
-        $("#after_select").html("<%@testcenter.where(:region_code => "01").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");
+        $("#after_select").html("<option value='not_selected'>고사장을 선택해주세요</option><%@testcenter.where(:region_code => "01").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");
         }
         if(code=="02"){
-        $("#after_select").html("<%@testcenter.where(:region_code => "02").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
+        $("#after_select").html("<option value='not_selected'>고사장을 선택해주세요</option><%@testcenter.where(:region_code => "02").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
         }
         if(code=="03"){
-        $("#after_select").html("<%@testcenter.where(:region_code => "03").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
+        $("#after_select").html("<option value='not_selected'>고사장을 선택해주세요</option><%@testcenter.where(:region_code => "03").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
+        }
+        if(code=="04"){
+        $("#after_select").html("<option value='not_selected'>고사장을 선택해주세요</option><%@testcenter.where(:region_code => "04").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
+        }
+        if(code=="05"){
+        $("#after_select").html("<option value='not_selected'>고사장을 선택해주세요</option><%@testcenter.where(:region_code => "05").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
+        }
+        if(code=="06"){
+        $("#after_select").html("<option value='not_selected'>고사장을 선택해주세요</option><%@testcenter.where(:region_code => "06").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
+        }
+        if(code=="07"){
+        $("#after_select").html("<option value='not_selected'>고사장을 선택해주세요</option><%@testcenter.where(:region_code => "07").each do |x|%><option value='<%=x.id%>'><%=x.name%></option><%end%>");  
         }
     });
     $("#after_select").change(function() {
-        document.getElementById("final_choice").value= $(this).val();
-        
+        document.getElementById("final_choice").value= $(this).val();   
     });
-    $( "#one" ).click(function() {
-      alert( "Handler for .click() called." );
-    });
-    alert("ready!");
-});
-  
+  });
 </script>
