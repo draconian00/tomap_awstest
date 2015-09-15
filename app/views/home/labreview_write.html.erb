@@ -19,7 +19,7 @@
     <form action="/home/do_write">
       <div class="form-group">
           <h1>리뷰 작성하기</h1>
-          <p class="help-block">리뷰를 작성해주세요</p>
+          <p class="help-block">리뷰를 작성해주세요</p><br>
           <label for="inputEmail3" class="col-md-2 control-label" style="text-align:center;">제목</label>
           <div class="col-md-10">
             <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="제목">
@@ -53,36 +53,36 @@
       <br><br><br><br><br>
       <div style="border-top:1px solid #BDBDBD;">
         <br><br>
-        <p>위치</p>
-        <textarea class="form-control" name="location_content" rows="3" placeholder="위치에 대한 평가" required></textarea>
+        <p>위치
         <span class="star-rating" style="float:right">
           <input type="radio" name="location_rating" value="1"><i></i>
           <input type="radio" name="location_rating" value="2"><i></i>
           <input type="radio" name="location_rating" value="3"><i></i>
           <input type="radio" name="location_rating" value="4"><i></i>
           <input type="radio" name="location_rating" value="5"><i></i>
-        </span>
+        </span></p>
+        <textarea class="form-control" name="location_content" rows="3" placeholder="위치에 대한 평가" required></textarea>
       </div>
       <br><br><br>
-      <p>시설</p></p>
-      <textarea class="form-control" name="facility_content" placeholder="시설에 대한 평가" rows="3" required></textarea>
+      <p>시설
       <span class="star-rating" style="float:right">
         <input type="radio" name="facility_rating" value="1"><i></i>
         <input type="radio" name="facility_rating" value="2"><i></i>
         <input type="radio" name="facility_rating" value="3"><i></i>
         <input type="radio" name="facility_rating" value="4"><i></i>
         <input type="radio" name="facility_rating" value="5"><i></i>
-      </span>
+      </span></p>
+      <textarea class="form-control" name="facility_content" placeholder="시설에 대한 평가" rows="3" required></textarea>
       <br><br><br>
-      <p>컴퓨터</p>
+      <p>컴퓨터
+        <span class="star-rating" style="float:right">
+          <input type="radio" name="computer_rating" value="1"><i></i>
+          <input type="radio" name="computer_rating" value="2"><i></i>
+          <input type="radio" name="computer_rating" value="3"><i></i>
+          <input type="radio" name="computer_rating" value="4"><i></i>
+          <input type="radio" name="computer_rating" value="5"><i></i>
+        </span></p>
       <textarea class="form-control" name="computer_content" placeholder="컴퓨터에 대한 평가"  rows="3" required></textarea>
-      <span class="star-rating" style="float:right">
-        <input type="radio" name="computer_rating" value="1"><i></i>
-        <input type="radio" name="computer_rating" value="2"><i></i>
-        <input type="radio" name="computer_rating" value="3"><i></i>
-        <input type="radio" name="computer_rating" value="4"><i></i>
-        <input type="radio" name="computer_rating" value="5"><i></i>
-      </span>
       <br><br><br>
       <p>총평</p>
       <textarea class="form-control" name="content" rows="10" placeholder="총평을 적어주세요" required></textarea>

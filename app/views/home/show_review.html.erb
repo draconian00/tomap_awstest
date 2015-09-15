@@ -1,18 +1,14 @@
 <%region={"01"=>"서울/경기","02"=>"인천","03"=>"충청도","04"=>"경상도","05"=>"전라도","06"=>"강원도","07"=>"제주도"}%>
 <br><br>
 <div class="row" style="padding-top:20px;">
-  <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD;">
+  <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD; height:1000px">
       <ul class="nav nav-stacked" id="list_deco">
-          <li role="nav-header"><a href="/home/labreview"><b>시험장 전체보기</b></a></li>
+          <li role="nav-header"><a href="/home/labreview"><b style="font-size:20px">시험장 전체보기</b></a></li>
+          <br><br>
           <%region.each do |region_code,region_name|%>
-            <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#<%=region_code%>"><%=region_name%> <i class="glyphicon glyphicon-chevron-right"></i></a>
-                <!--in은 페이지가 열렸을때 펼쳐졌는지 여부-->
-                <ul class="nav nav-stacked collapse" id="<%=region_code%>">
-                  <%@testcenter.where(:region_code=>region_code).sort_by{|x| x[:name]}.each do |x|%>
-                    <li role="presentation"><a href="/home/labreview/<%=x.id%>" style="padding-left:40px"><%=x.name%></a></li>
-                  <%end%>
-                </ul>
+            <li class="nav-header"> <a href="/home/region_main/<%=region_code%>" style="font-size:15px"><%=region_name%> <i class="glyphicon glyphicon-chevron-right"></i></a>
             </li>
+             <hr>
           <%end%>
       </ul>
       <hr>  
@@ -21,8 +17,8 @@
     <div><p><strong>제목</strong> : <%=@article.title%></p></div>
     <div><p><strong>작성자</strong> : <%=@article.author%></p></div>
     <div><p><strong>고사장</strong> : <%=@article.testcenter%></p></div>
-    <div style="row">
-        <div class="col-md-4">
+    <div class="row" style="border-bottom: 1px solid #BDBDBD">
+        <div class="col-md-3" style="text-align:center ; border-right: 1px solid #BDBDBD;">
           <p>위치</p>
           <span class="star-rating smaller">
             <% for x in (1..5) do %>
@@ -33,37 +29,59 @@
               <% end %>
             <% end %>
           </span>
-          <p>(<%=@article.location_point%>)</p>
+          <p><%=@article.location_point%>점</p>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
           <p><%=@article.location_content%></p>
         </div>
+      </div>
+        <div class="row" style="border-bottom: 1px solid #BDBDBD">
+          <div class="col-md-3" style="text-align:center ; border-right: 1px solid #BDBDBD;">
+            <p>시설</p>
+            <span class="star-rating smaller">
+              <% for x in (1..5) do %>
+                <% if (x ==@article.facility_point.round(0)) %>
+                  <i class="on"></i>
+                <% else %>
+                  <i></i>
+                <% end %>
+              <% end %>
+            </span>
+            <p>(<%=@article.facility_point%>)</p>
+          </div>
+        <div class="col-md-9">
+          <p><%=@article.facility_content%></p>
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3" style="text-align:center; border-right: 1px solid #BDBDBD;">
+            <p>컴퓨터</p>
+            <span class="star-rating smaller">
+              <% for x in (1..5) do %>
+                <% if (x ==@article.computer_point.round(0)) %>
+                  <i class="on"></i>
+                <% else %>
+                  <i></i>
+                <% end %>
+              <% end %>
+            </span>
+            <p>(<%=@article.computer_point%>)</p>
+          </div>
+        <div class="col-md-9">
+          <p><%=@article.computer_content%></p>
+        </div>
+      </div>
+    <div style="min-height:500px; border:1px solid black">
+      <%=@article.content%>
     </div>
+    
+    
+    
     <div>
-      <p>위치평가</p>
-      <p><%=@article.location_content%></p>
-      <p><%=@article.location_point%></p>
-    </div>
-    <div>
-      <p>시설평가</p>
-      <p><%=@article.facility_content%></p>
-      <p><%=@article.facility_point%></p>
-    </div>
-    <div>
-      <p>컴퓨터 평가</p>
-      <p><%=@article.computer_content%></p>
-      <p><%=@article.computer_point%></p>
-    </div>
-    <div>
-      <p>총평</p>
-      <p><%=@article.content%></p>
-      <p><%=@article.computer_point%></p>
-    </div>
-    <div>
-      <p>댓글부분</p>
+      <p>댓글</p>
       <%@article.replies.each do |y|%>
+        <p> <%=y.author%>  |  <%=y.content%></p>
         
-        <p><%=y.content%></p>
       <%end%>
     </div>
     <form action="/home/do_write_reply" method="POST" class="form-inline">
@@ -81,5 +99,5 @@
     <%end%>
   </div>
 </div>
-
+</div>
 <br><br><br><br><br>

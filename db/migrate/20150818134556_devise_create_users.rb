@@ -2,6 +2,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
   def change
     create_table(:users) do |t|
       #내가 추가한거
+      
       #프로필사진
       t.string :image
       t.string :nickname
