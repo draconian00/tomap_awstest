@@ -16,13 +16,13 @@
   </div>
   
   <div class="col-md-7 col-md-offset-1">
-    <form name="cf" onsubmit="return replaceBR();" action="/home/do_write">
+    <form name="cf" onsubmit="return replaceBR();" action="/home/do_modify/<%=params[:id]%>">
       <div class="form-group">
           <center><h3><b>리뷰 작성하기</b></h3>
           <p class="help-block">고사장 후기를 작성해주세요</p></center><br>
           <label for="inputEmail3" class="col-md-2 control-label" style="text-align:left;">제목</label>
           <div class="col-md-10" style="margin-left: -10px">
-            <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="제목" required>
+            <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="제목" value="<%=@articles.find(params[:id]).title%>" required>
           </div>
           <br><br><br>
           <label class="col-md-2 control-label" style="text-align:left;">작성자</label>
@@ -66,7 +66,7 @@
           <input type="radio" name="location_rating" value="4"><i></i>
           <input type="radio" name="location_rating" value="5"><i></i>
         </span></p>
-        <textarea class="form-control" name="location_content" rows="3" placeholder="위치에 대한 평가" required></textarea>
+        <textarea class="form-control" name="location_content" rows="3" placeholder="위치에 대한 평가" required><%=@articles.find(params[:id]).location_content%></textarea>
       </div>
       <br><br>
       <p style="display:table;"><span style="display:table-cell;vertical-align:middle;font-size:20px;">시설</span>&nbsp;&nbsp;
@@ -77,7 +77,7 @@
         <input type="radio" name="facility_rating" value="4"><i></i>
         <input type="radio" name="facility_rating" value="5"><i></i>
       </span></p>
-      <textarea class="form-control" name="facility_content" placeholder="시설에 대한 평가" rows="3" required></textarea>
+      <textarea class="form-control" name="facility_content" placeholder="시설에 대한 평가" rows="3" required><%=@articles.find(params[:id]).facility_content%></textarea>
       <br><br>
       <p style="display:table;"><span style="display:table-cell;vertical-align:middle;font-size:20px;">컴퓨터</span>&nbsp;&nbsp;
         <span class="star-rating small" style="float:right">
@@ -87,15 +87,11 @@
           <input type="radio" name="computer_rating" value="4"><i></i>
           <input type="radio" name="computer_rating" value="5"><i></i>
         </span></p>
-      <textarea class="form-control" name="computer_content" placeholder="컴퓨터에 대한 평가"  rows="3" required></textarea>
+      <textarea class="form-control" name="computer_content" placeholder="컴퓨터에 대한 평가"  rows="3" required><%=@articles.find(params[:id]).computer_content%></textarea>
       <br><br>
       <p style="font-size:20px;">총평</p>
-      <textarea id="c" class="form-control" name="content" rows="10" placeholder="총평을 적어주세요" required></textarea>
-      <%if params[:id].nil? %>
-        <input id="final_choice" type="hidden" name="test_center_id" value="">
-      <%else%>
-        <input type="hidden" name="test_center_id" value="<%=@testcenter.find(params[:id]).id%>" required>
-      <%end%>
+      <textarea id="c" class="form-control" name="content" rows="10" placeholder="총평을 적어주세요" required><%=@articles.find(params[:id]).content%></textarea>
+      <input type="hidden" name="test_center_id" value="<%=@articles.find(params[:id]).test_center_id%>" required>
       <br>
       <center style="margin-bottom:20px;">
         <button type="submit" class="btn btn-default">작성완료</button>

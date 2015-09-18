@@ -4,7 +4,7 @@ class CreateArticles < ActiveRecord::Migration
       t.integer :test_center_id
       t.string :title
       t.string :testcenter
-      t.string :content
+      t.text :content
       t.string :author
       
       #평점&코멘트

@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20150909085555) do
     t.integer  "test_center_id"
     t.string   "title"
     t.string   "testcenter"
-    t.string   "content"
+    t.text     "content"
     t.string   "author"
     t.float    "location_point"
     t.string   "location_content"

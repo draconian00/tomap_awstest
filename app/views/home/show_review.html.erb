@@ -1,6 +1,61 @@
 <%region={"01"=>"서울/경기","02"=>"인천","03"=>"충청도","04"=>"경상도","05"=>"전라도","06"=>"강원도","07"=>"제주도"}%>
+<script>
+  var center = new google.maps.LatLng(<%=@testcenter.find(@article.test_center_id).position_lat%>, <%=@testcenter.find(@article.test_center_id).position_lng%>);
+  var mapProp;
+  var marker;
+  
+  function labMap() {
+    mapProp = {
+      center: center,
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map'), mapProp);
+    pinmarker();
+    addinfo(marker);
+  }
+  
+  function pinmarker() {
+    marker = new google.maps.Marker({
+      map: map,
+      position: center,
+      title: '<%=@testcenter.find(@article.test_center_id).name%>',
+      address: '<%=@testcenter.find(@article.test_center_id).address%>',
+      animation: google.maps.Animation.DROP
+    });
+  }
+  
+  function addinfo(marker) {
+    var info = new google.maps.InfoWindow({
+      content: '<h4><%= @testcenter.find(@article.test_center_id).name %></h4>'
+              +'<p><%= @testcenter.find(@article.test_center_id).address %></p>'
+              +'<p id="detail" style="cursor:pointer; color:#6799FF;" onclick="newWindow()">Google 지도 보기</p>',
+      maxWidth: 200
+      });
+    map.addListener('idle', function() {
+      info.open(marker.get('map'), marker);
+    });
+    marker.addListener('mouseover', function() {
+      info.open(marker.get('map'), marker);
+    });
+  }
+  
+  function newWindow() {
+    var win = window.open('https://www.google.co.kr/maps/place/'
+                          +'<%=@testcenter.find(@article.test_center_id).address%>'
+                          +'/@'
+                          +'<%=@testcenter.find(@article.test_center_id).position_lat%>'
+                          +','
+                          +'<%=@testcenter.find(@article.test_center_id).position_lng%>'
+                          +',17z?hl=ko');
+    win.focus();
+  }
+  
+  google.maps.event.addDomListener(window, 'load', labMap);
+</script>
 <br><br>
-<div class="row" style="padding-top:20px;">
+
+<div class="row" style="padding-top:40px;">
   <div class="col-md-2 col-md-offset-1" style="border-right: 1px solid #BDBDBD; height:1000px">
       <ul class="nav nav-stacked" id="list_deco">
           <li role="nav-header"><a href="/home/labreview"><b style="font-size:20px">시험장 전체보기</b></a></li>
@@ -13,31 +68,106 @@
       </ul>
       <hr>  
   </div>
-  <div class="col-md-6">
-    <div><p><strong>제목</strong> : <%=@article.title%></p></div>
-    <div><p><strong>작성자</strong> : <%=@article.author%></p></div>
-    <div><p><strong>고사장</strong> : <%=@article.testcenter%></p></div>
-    <div class="row" style="border-bottom: 1px solid #BDBDBD">
-        <div class="col-md-3" style="text-align:center ; border-right: 1px solid #BDBDBD;">
-          <p>위치</p>
-          <span class="star-rating smaller">
-            <% for x in (1..5) do %>
-              <% if (x ==@article.location_point.round(0)) %>
-                <i class="on"></i>
-              <% else %>
-                <i></i>
-              <% end %>
-            <% end %>
-          </span>
-          <p><%=@article.location_point%>점</p>
+  
+  <div class="col-md-7 col-md-offset-1">
+    <div class="row" style=" border-bottom:1px solid #BDBDBD;">
+      <div class="col-md-7">
+        <%index=@testcenter.find(@article.test_center_id).region_code%>
+        <div>
+          <p style="font-size: 15px;"><b><a href="/home/region_main/<%=@testcenter.find(@article.test_center_id).region_code%>"><%=region[@testcenter.find(@article.test_center_id).region_code]%></a> &nbsp;<i class="glyphicon glyphicon-chevron-right"></i>&nbsp; <span><%=@testcenter.find(@article.test_center_id).name%></span></b></p><br>
         </div>
-        <div class="col-md-9">
-          <p><%=@article.location_content%></p>
-        </div>
+        <div id="map" style="height:300px;"></div>
+      
+      </div><br>
+      <div class="col-md-1" style="margin-top: 30px; height: 320px; border-left:1px solid #BDBDBD;">
+      
       </div>
-        <div class="row" style="border-bottom: 1px solid #BDBDBD">
-          <div class="col-md-3" style="text-align:center ; border-right: 1px solid #BDBDBD;">
-            <p>시설</p>
+      <div class="col-md-4" style="margin-top: 20px; margin-left:-50px; height:280px;">
+        <h3><b><%=@testcenter.find(@article.test_center_id).name%></b></h3><br>
+        <b><p>전체 평점</p></b>
+        <span class="star-rating small">
+          <% for x in (1..5) do %>
+            <% if (x == @testcenter.find(@article.test_center_id).avg_point.round(0)) %>
+              <i class="on"></i>
+            <% else %>
+              <i></i>
+            <% end %>
+          <% end %>
+        </span>&nbsp;<%=@testcenter.find(@article.test_center_id).avg_point%><br><br><br>
+        
+        <p>위치&nbsp;
+        <span class="star-rating smaller">
+          <% for x in (1..5) do %>
+            <% if (x == @testcenter.find(@article.test_center_id).location_point.round(0)) %>
+              <i class="on"></i>
+            <% else %>
+              <i></i>
+            <% end %>
+          <% end %>
+        </span>&nbsp;<%=@testcenter.find(@article.test_center_id).location_point%></p>
+        <p>시설&nbsp;
+        <span class="star-rating smaller">
+          <% for x in (1..5) do %>
+            <% if (x == @testcenter.find(@article.test_center_id).facility_point.round(0)) %>
+              <i class="on"></i>
+            <% else %>
+              <i></i>
+            <% end %>
+          <% end %>
+        </span>&nbsp;<%=@testcenter.find(@article.test_center_id).facility_point%></p>
+        <p>컴퓨터&nbsp;
+        <span class="star-rating smaller">
+          <% for x in (1..5) do %>
+            <% if (x == @testcenter.find(@article.test_center_id).computer_point.round(0)) %>
+              <i class="on"></i>
+            <% else %>
+              <i></i>
+            <% end %>
+          <% end %>
+        </span>&nbsp;<%=@testcenter.find(@article.test_center_id).computer_point%></p><br>
+      </div>
+
+    </div>
+    <br><br>
+    <div class="review_board"><center><p style="margin-top: 7px;"><b><%=@article.title%></b></p></center></div><br>
+    <div class="row">
+      <div class="col-md-3">
+        <p><strong>작성자</strong> : <%=@article.author%></p>
+      </div>
+      
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-3">
+        <p style="text-align: right;"><b>작성날짜 | </b><%=@article.created_at.in_time_zone("Seoul").strftime("%Y-%m-%d")%> </p>
+      </div>
+      <div class="col-md-2">
+        <p style="text-align: right; margin-right: 10px;"><b>추천수 | </b><%=@article.likes.count%></p>
+      </div>
+    </div><br><br>
+    <div style="border:1px solid #bdbdbd; border-radius:25px;">
+    <table id="review_detail" style="width:95%; margin-right:auto; margin-left:auto;
+                                     padding:15px;">
+      <tr style="vertical-align:middle; border-bottom:1px solid #bdbdbd;">
+        <td style="width:33%; text-align:center; border-right:1px solid #bdbdbd;">
+          <p style="margin:0px;">위치&nbsp;&nbsp;
+            <span class="star-rating smaller">
+              <% for x in (1..5) do %>
+                <% if (x ==@article.location_point.round(0)) %>
+                  <i class="on"></i>
+                <% else %>
+                  <i></i>
+                <% end %>
+              <% end %>
+            </span>
+          <span>(<%=@article.location_point%>점)</span></p>
+        </td>
+        <td style="width:66%;">
+          <p style="margin:0px;"><%=@article.location_content%></p>
+        </td>
+      </tr>
+      <tr style="vertical-align:middle; border-bottom:1px solid #bdbdbd;">
+        <td style="width:33%; text-align:center; border-right:1px solid #bdbdbd;">
+          <p style="margin:0px;">시설&nbsp;&nbsp;
             <span class="star-rating smaller">
               <% for x in (1..5) do %>
                 <% if (x ==@article.facility_point.round(0)) %>
@@ -47,15 +177,15 @@
                 <% end %>
               <% end %>
             </span>
-            <p>(<%=@article.facility_point%>)</p>
-          </div>
-        <div class="col-md-9">
-          <p><%=@article.facility_content%></p>
-        </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3" style="text-align:center; border-right: 1px solid #BDBDBD;">
-            <p>컴퓨터</p>
+          <span>(<%=@article.facility_point%>점)</span></p>
+        </td>
+        <td style="width:66%;">
+          <p style="margin:0px;"><%=@article.facility_content%></p>
+        </td>
+      </tr>
+      <tr style="vertical-align:middle;">
+        <td style="width:33%; text-align:center; border-right:1px solid #bdbdbd;">
+          <p style="margin:0px;">컴퓨터&nbsp;&nbsp;
             <span class="star-rating smaller">
               <% for x in (1..5) do %>
                 <% if (x ==@article.computer_point.round(0)) %>
@@ -65,38 +195,120 @@
                 <% end %>
               <% end %>
             </span>
-            <p>(<%=@article.computer_point%>)</p>
+          <span>(<%=@article.computer_point%>점)</span></p>
+        </td>
+        <td style="width:66%;">
+          <p style="margin:0px;"><%=@article.computer_content%></p>
+        </td>
+      </tr>
+    </table>
+    </div>
+    
+    <!--<div style="width: 95%; margin-right:auto; margin-left:auto; 
+                border: 1px solid #BDBDBD; padding: 15px; border-radius: 25px;
+                ">  
+      <div class="row" style="border-bottom: 1px solid #BDBDBD;">
+          <div class="col-md-4" style="text-align:center; border-right: 1px solid #BDBDBD;
+                                      ">
+            <p>위치&nbsp;&nbsp;
+            <span class="star-rating smaller">
+              <% for x in (1..5) do %>
+                <% if (x ==@article.location_point.round(0)) %>
+                  <i class="on"></i>
+                <% else %>
+                  <i></i>
+                <% end %>
+              <% end %>
+            </span>
+            <span>(<%=@article.location_point%>점)</span></p>
           </div>
-        <div class="col-md-9">
-          <p><%=@article.computer_content%></p>
+          <div class="col-md-8" style="">
+            <p><%=@article.location_content%></p>
+          </div>
         </div>
+          <div class="row" style="border-bottom: 1px solid #BDBDBD; height: 35px;">
+            <div class="col-md-4" style="text-align:center ; border-right: 1px solid #BDBDBD;">
+              <p>시설&nbsp;&nbsp;
+              <span class="star-rating smaller">
+                <% for x in (1..5) do %>
+                  <% if (x ==@article.facility_point.round(0)) %>
+                    <i class="on"></i>
+                  <% else %>
+                    <i></i>
+                  <% end %>
+                <% end %>
+              </span>
+              <span>(<%=@article.facility_point%>점)</span></p>
+            </div>
+          <div class="col-md-8">
+            <p><%=@article.facility_content%></p>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4" style="text-align:center; border-right: 1px solid #BDBDBD;">
+              <p>컴퓨터&nbsp;&nbsp;
+              <span class="star-rating smaller">
+                <% for x in (1..5) do %>
+                  <% if (x ==@article.computer_point.round(0)) %>
+                    <i class="on"></i>
+                  <% else %>
+                    <i></i>
+                  <% end %>
+                <% end %>
+              </span>
+              <span>(<%=@article.computer_point%>점)</span></p>
+            </div>
+            <div class="col-md-8">
+              <p><%=@article.computer_content%></p>
+            </div>
+          </div>
+        </div>-->
+        <br><br> 
+    
+      <div style="width: 95%; margin-left: auto; margin-right: auto;">    
+        <label>&nbsp;&nbsp;총평</label><br>
+        <div style="min-height:150px; border-top: 1px solid #D2D2D2; border-bottom: 1px solid #D2D2D2;">
+          <br><br><%=@article.content%>
+        </div>
+       </div><br>
+    
+    <div class="row" style="width: 95%; margin-left: auto; margin-right: auto;">
+      <div class="col-md-4 col-md-offset-4">
+        <center>
+        <%if @article.likes.exists?(:click_like_person => current_user.email) %>
+            <p style="font-size: 9px; color:red;"><b>( 이미 추천하셨습니다 )</b></p>
+        <%else%>
+            <form action="/home/do_like" method="POST">
+                <input type="hidden" name="article_id" value="<%=@article.id%>">
+                <button type="submit" class="btn btn-default">좋아요!</button>
+            </form>
+        <%end%>
+        </center><br><br>
       </div>
-    <div style="min-height:500px; border:1px solid black">
-      <%=@article.content%>
-    </div>
+      <div class="col-md-4" style="text-align: right;">
+        <a href="/home/modify_review/<%=@article.id%>" style="font-size: 13px;">수정</a>&nbsp;&nbsp;&nbsp;<a>삭제</a>&nbsp;&nbsp;&nbsp;<a>목록</a>
+      </div>
+    </div><br>  
     
     
-    
-    <div>
-      <p>댓글</p>
+    <!--댓글-->
+    <div class="row" style="width: 90%; margin-left: auto; margin-right: auto; display: table">    
       <%@article.replies.each do |y|%>
-        <p> <%=y.author%>  |  <%=y.content%></p>
-        
+      <div class="col-md-12" style="margin-top: 30px;">
+        <p><b><img src="https://cdn2.iconfinder.com/data/icons/arrow-5/512/arrow_outline_1-24.png">&nbsp;&nbsp;<%=y.author%> </b> &nbsp;&nbsp;<span style="font-size: 12px; color: #ABABAB;">(<%=y.created_at.in_time_zone("Seoul").strftime("%Y-%m-%d")%>)</span></p>
+      </div>
+      <div class="col-md-12" style="border-top: 1px solid #D2D2D2; border-bottom: 1px solid #D2D2D2; display: table-cell; vertical-align: middle;">
+        <p style="margin-top: 5px; margin-bottom: 5px; ">&nbsp;&nbsp;&nbsp;&nbsp;<%=y.content%></p>
+      </div>
       <%end%>
+    </div><br>
+    <div style="width: 90%; margin-left: auto; margin-right: auto;">  
+      <form action="/home/do_write_reply" method="POST" class="form-inline">
+        <input type="hidden" name="article_id" value="<%=@article.id%>">
+        <input type="text" name="reply_content" class="form-control" style="width:90%" placeholder="댓글달기">
+        <button type="submit" class="btn btn-default">입력</button>
+      </form>
     </div>
-    <form action="/home/do_write_reply" method="POST" class="form-inline">
-      <input type="hidden" name="article_id" value="<%=@article.id%>">
-      <input type="text" name="reply_content" class="form-control" style="width:90%" placeholder="댓글달기">
-    <input type="submit" value="댓글달기">
-    </form>
-    <%if @article.likes.exists?(:click_like_person => current_user.email) %>
-        <p>이미 추천하셨습니다</p>
-    <%else%>
-        <form action="/home/do_like" method="POST">
-            <input type="hidden" name="article_id" value="<%=@article.id%>">
-            <input type="submit" value="좋아요!">
-        </form>
-    <%end%>
   </div>
 </div>
 </div>

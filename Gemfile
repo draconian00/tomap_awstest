@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'pagedown-rails'
+gem 'nokogiri'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
 gem 'will_paginate', '~> 3.0.6'
 gem 'mini_magick'
