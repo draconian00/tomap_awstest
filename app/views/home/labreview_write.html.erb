@@ -66,6 +66,7 @@
         <br><br>
         <p style="display:table;"><span style="display:table-cell;vertical-align:middle;font-size:20px;">위치</span>&nbsp;&nbsp;
         <span class="star-rating small" style="float:right">
+          <input type="hidden" name="location_rating" value="1">
           <input class="location_selected" type="radio" name="location_rating" value="1"><i></i>
           <input class="location_selected" type="radio" name="location_rating" value="2"><i></i>
           <input class="location_selected" type="radio" name="location_rating" value="3"><i></i>
@@ -77,6 +78,7 @@
       <br><br>
       <p style="display:table;"><span style="display:table-cell;vertical-align:middle;font-size:20px;">시설</span>&nbsp;&nbsp;
         <span class="star-rating small" style="float:right">
+        <input type="hidden" name="facility_rating" value="1">
         <input class="facility_selected" type="radio" name="facility_rating" value="1"><i></i>
         <input class="facility_selected" type="radio" name="facility_rating" value="2"><i></i>
         <input class="facility_selected" type="radio" name="facility_rating" value="3"><i></i>
@@ -87,6 +89,7 @@
       <br><br>
       <p style="display:table;"><span style="display:table-cell;vertical-align:middle;font-size:20px;">컴퓨터</span>&nbsp;&nbsp;
         <span class="star-rating small" style="float:right">
+          <input type="hidden" name="computer_rating" value="1">
           <input class="computer_selected" type="radio" name="computer_rating" value="1"><i></i>
           <input class="computer_selected" type="radio" name="computer_rating" value="2"><i></i>
           <input class="computer_selected" type="radio" name="computer_rating" value="3"><i></i>
@@ -115,17 +118,6 @@
 
 <script>
   $(function() {
-    var location_value = $(".location_selected").val();
-    var facility_value = $(".facility_selected").val();
-    var computer_value = $(".computer_selected").val();
-    
-    if (location_value == 1 && facility_value == 1 && computer_value == 1){
-      alert("별점 선택좀");
-    }
-    else{
-      
-      alert("선택하셨군요!!");
-    }
     
     $("#select_region").change(function() {
         var code = $(this).val();
