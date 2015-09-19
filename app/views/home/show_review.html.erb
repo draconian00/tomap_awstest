@@ -66,7 +66,6 @@
              <hr>
           <%end%>
       </ul>
-      <hr>  
   </div>
   
   <div class="col-md-7 col-md-offset-1">
@@ -162,7 +161,7 @@
           <span>(<%=@article.location_point%>점)</span></p>
         </td>
         <td style="width:66%;">
-          <p style="margin:0px;"><%=@article.location_content%></p>
+          <p style="margin:0px;"><%=simple_format(@article.location_content)%></p>
         </td>
       </tr>
       <tr style="vertical-align:middle; border-bottom:1px solid #bdbdbd;">
@@ -180,7 +179,7 @@
           <span>(<%=@article.facility_point%>점)</span></p>
         </td>
         <td style="width:66%;">
-          <p style="margin:0px;"><%=@article.facility_content%></p>
+          <p style="margin:0px;"><%=simple_format(@article.facility_content)%></p>
         </td>
       </tr>
       <tr style="vertical-align:middle;">
@@ -198,7 +197,7 @@
           <span>(<%=@article.computer_point%>점)</span></p>
         </td>
         <td style="width:66%;">
-          <p style="margin:0px;"><%=@article.computer_content%></p>
+          <p style="margin:0px;"><%=simple_format(@article.computer_content)%></p>
         </td>
       </tr>
     </table>
@@ -268,7 +267,7 @@
       <div style="width: 95%; margin-left: auto; margin-right: auto;">    
         <label>&nbsp;&nbsp;총평</label><br>
         <div style="min-height:150px; border-top: 1px solid #D2D2D2; border-bottom: 1px solid #D2D2D2;">
-          <br><br><%=@article.content%>
+          <br><br><%=simple_format(@article.content) %>
         </div>
        </div><br>
     
