@@ -66,11 +66,11 @@
         <br><br>
         <p style="display:table;"><span style="display:table-cell;vertical-align:middle;font-size:20px;">위치</span>&nbsp;&nbsp;
         <span class="star-rating small" style="float:right">
-          <input clase="location_selected" type="radio" name="location_rating" value="1"><i></i>
-          <input clase="location_selected" type="radio" name="location_rating" value="2"><i></i>
-          <input clase="location_selected" type="radio" name="location_rating" value="3"><i></i>
-          <input clase="location_selected" type="radio" name="location_rating" value="4"><i></i>
-          <input clase="location_selected" type="radio" name="location_rating" value="5"><i></i>
+          <input class="location_selected" type="radio" name="location_rating" value="1"><i></i>
+          <input class="location_selected" type="radio" name="location_rating" value="2"><i></i>
+          <input class="location_selected" type="radio" name="location_rating" value="3"><i></i>
+          <input class="location_selected" type="radio" name="location_rating" value="4"><i></i>
+          <input class="location_selected" type="radio" name="location_rating" value="5"><i></i>
         </span></p>
         <textarea class="form-control" name="location_content" rows="3" placeholder="위치에 대한 평가" required></textarea>
       </div>
@@ -142,11 +142,11 @@
     $("#after_select").change(function() {
         document.getElementById("final_choice").value= $(this).val();   
     });
+    $(".location_selected").change(function() {
+        alert("1입니다");  
+    });
     
     
-    if (document.getElementsByClassName("location_selected") == 1){
-      alert("1입니다");
-    }
     
     
     
