@@ -1,3 +1,9 @@
+<script>
+  $(function() {
+    document.getElementById('over_convert').innerHTML='<a href="/home/labreview" style="text-decoration:none; color:black;"><div class="convert2" id="convert2" style="box-shadow: inset 0px 0px 10px #8C8C8C;"><div class="nav_icon_review" id="review_menu" style="cursor:pointer;"><img src="https://cdn0.iconfinder.com/data/icons/layout-and-location/24/Untitled-2-21-24.png"><p style="padding-top: 5px; font-size:12px;"><b>REVIEW</b></p></div></div></a>'
+  });  
+</script>
+
 <%region={"01"=>"서울/경기","02"=>"인천","03"=>"충청도","04"=>"경상도","05"=>"전라도","06"=>"강원도","07"=>"제주도"}%>
 <script>
   var center = new google.maps.LatLng(<%=@testcenter.find(@article.test_center_id).position_lat%>, <%=@testcenter.find(@article.test_center_id).position_lng%>);
@@ -285,7 +291,7 @@
         </center><br><br>
       </div>
       <div class="col-md-4" style="text-align: right;">
-        <a href="/home/modify_review/<%=@article.id%>" style="font-size: 13px;">수정</a>&nbsp;&nbsp;&nbsp;<a href="/home/do_delete/<%=@article.id%>">삭제</a>&nbsp;&nbsp;&nbsp;<a>목록</a>
+        <a href="/home/modify_review/<%=@article.id%>" style="font-size: 13px;">수정</a>&nbsp;&nbsp;&nbsp;<a href="/home/do_delete/<%=@article.id%>">삭제</a>&nbsp;&nbsp;&nbsp;<a href="/home/labreview/<%=@article.test_center_id%>">목록</a>
       </div>
     </div><br>  
     

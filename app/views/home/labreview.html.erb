@@ -12,10 +12,7 @@ $('[data-toggle=collapse]').click(function(){
 <script>
   $(function() {
     document.getElementById('over_convert').innerHTML='<a href="/home/labreview" style="text-decoration:none; color:black;"><div class="convert2" id="convert2" style="box-shadow: inset 0px 0px 10px #8C8C8C;"><div class="nav_icon_review" id="review_menu" style="cursor:pointer;"><img src="https://cdn0.iconfinder.com/data/icons/layout-and-location/24/Untitled-2-21-24.png"><p style="padding-top: 5px; font-size:12px;"><b>REVIEW</b></p></div></div></a>'
-    
- 
   });
-  
 </script>
 
 <div class="review_drawer" id="review_drawer">
@@ -57,8 +54,10 @@ $('[data-toggle=collapse]').click(function(){
           <div id="link" class="thumbnail" style="height:200px;">
             <div class="row">
               <div class="col-md-7">
-                <div style="border-right:1px solid #BDBDBD; text-align:center">
-                  <p><strong><%=@rank%>위  <%=y.name%></strong></p>
+                <div style="border-right:1px solid #BDBDBD; text-align:center;">
+                  <div style="width:200px; text-overflow:ellipsis; overflow:hidden; margin-left: auto; margin-right: auto; margin-top: 8px;  margin-bottom: 8px;">
+                    <nobr><strong><%=@rank%>위  <%=y.name%></strong></nobr>
+                  </div>
                   <!--<p><%=y.address%></p>-->
                   <iframe width="98%" height="100%" frameborder="0" style="border:0"
                           src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDxbMZWBxFjGnTiZOMAeSIm6TFR4BvhFUM&q=<%=y.position_lat%>,<%=y.position_lng%>"
