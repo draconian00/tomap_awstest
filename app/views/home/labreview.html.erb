@@ -58,12 +58,10 @@ $('[data-toggle=collapse]').click(function(){
                     <nobr><strong><%=@rank%>위  <%=y.name%></strong></nobr>
                   </div>
                   <!--<p><%=y.address%></p>-->
-                  <a href="/home/labreview/<%=y.id%>" style="color:black; text-decoration:none;">
-                  <iframe width="98%" height="100%" frameborder="0" style="border:0; z-index:-10;"
+                  <iframe width="98%" height="100%" frameborder="0" style="border:0;"
                           src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDxbMZWBxFjGnTiZOMAeSIm6TFR4BvhFUM&q=<%=y.position_lat%>,<%=y.position_lng%>"
                           >
                   </iframe>
-                  </a>
                 </div>
               </div>
               <div class="col-md-5" style="margin-left: -20px;">
@@ -292,7 +290,7 @@ $('[data-toggle=collapse]').click(function(){
             <% @testcenter.find(params[:id]).articles.reverse.each do |x|%>
             <tr style="cursor:pointer" class='clickable-row' data-href='/home/show_review/<%=x.id%>'>
                 <td style="text-align:center;"><%=x.id%></td>
-                <td style="text-align:center;"><%if x.testcenter.length > 10 %><%=x.testcenter[0..10] + "..."%><%end%></td>
+                <td style="text-align:center;"><%if x.testcenter.length > 10 %><%=x.testcenter[0..10] + "..."%><%else%><%=x.testcenter%><%end%></td>
                 <td style="text-align:center"><%=x.title%></td>
                 <td style="text-align:center"><%=x.author%></td>
                 <td style="text-align:center"><%=x.avg_point%></td>
