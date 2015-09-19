@@ -291,7 +291,11 @@
         </center><br><br>
       </div>
       <div class="col-md-4" style="text-align: right;">
-        <a href="/home/modify_review/<%=@article.id%>" style="font-size: 13px;">수정</a>&nbsp;&nbsp;&nbsp;<a href="/home/do_delete/<%=@article.id%>">삭제</a>&nbsp;&nbsp;&nbsp;<a href="/home/labreview/<%=@article.test_center_id%>">목록</a>
+        <%if @article.author == current_user.nickname %>
+          <a href="/home/modify_review/<%=@article.id%>" style="font-size: 13px;">수정</a>&nbsp;&nbsp;&nbsp;<a href="/home/do_delete/<%=@article.id%>">삭제</a>&nbsp;&nbsp;&nbsp;<a href="/home/labreview/<%=@article.test_center_id%>">목록</a>
+        <%else%>
+        <%end%>
+        
       </div>
     </div><br>  
     
