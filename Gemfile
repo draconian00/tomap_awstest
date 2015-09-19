@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'figaro'
 gem 'pagedown-rails'
 gem 'nokogiri'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
