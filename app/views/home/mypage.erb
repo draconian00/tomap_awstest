@@ -50,34 +50,26 @@
           <table class="table" style="border:1px solid #D5D5D5; border-radius: 25px;">
           <thead>
             <tr>
-              <th>#</th>
-              <th style="width:0px;">시험일자</th>
-              <th>시험장</th>
-              <th>점수</th>
-              <th><b>+</b></th>
+              <th style="text-align:center;">#</th>
+              <th style="width:0px;text-align:center;">시험일자</th>
+              <th style="text-align:center;">시험장</th>
+              <th style="text-align:center;">점수</th>
+              <th id="plus" style="text-align:center;cursor:pointer"><b>+</b></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
           </tbody>
           </table>
+          <script>
+            $(function() {
+              $("#plus").mouseover(function() {
+                $(this).css("background-color","#D5D5D5");
+              });
+              $("#plus").mouseout(function() {
+                $(this).css("background-color","white");
+              });
+            });
+          </script>
     
     <center><a href="/users/edit"><button class="btn  btn-default">개인정보 수정하기</button></a></center>
     </div>
