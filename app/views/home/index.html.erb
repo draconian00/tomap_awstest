@@ -170,8 +170,8 @@
     marker.addListener('click', function() {
       var title = marker.title;
       var ex = marker.position;
-      ori_G = ex.G;
-      ori_K = ex.K;
+      ori_G = ex.H;
+      ori_K = ex.L;
       $(function() {
         $('#start').val(title);
         $('#hidden_start').val(ex);
@@ -180,8 +180,8 @@
     marker.addListener('rightclick', function() {
       var title = marker.title;
       var ex = marker.position;
-      des_G = ex.G;
-      des_K = ex.K;
+      des_G = ex.H;
+      des_K = ex.L;
       $(function() {
         $('#end').val(title);
         $('#hidden_end').val(ex);

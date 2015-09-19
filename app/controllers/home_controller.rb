@@ -115,6 +115,7 @@ class HomeController < ApplicationController
   end
   
   def do_modify
+      
       @testcenter=TestCenter.all
       a=Article.find(params[:id])
       a.test_center_id = params[:test_center_id]
@@ -165,6 +166,12 @@ class HomeController < ApplicationController
       redirect_to "/home/show_review/#{index}"
   end
   
+  def do_delete
+      something = Article.find(params[:id])
+      index = something.test_center_id
+      something.destroy
+      redirect_to "/home/labreview/#{index}"
+  end
   def mypage
   end
 
