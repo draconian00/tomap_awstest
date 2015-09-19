@@ -143,9 +143,12 @@
         document.getElementById("final_choice").value= $(this).val();   
     });
     
-    $(".location_selected").change(function() {
-        document.getElementById("final_choice").value= $(this).val();   
-    });
+    
+    if (document.getElementsByClassName("location_selected") == 1){
+      alert("1입니다");
+    }
+    
+    
     
     
   });
@@ -156,6 +159,6 @@
   
  
 
-}
+
 
 </script>
